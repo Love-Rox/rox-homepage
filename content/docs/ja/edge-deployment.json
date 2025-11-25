@@ -1,0 +1,6 @@
+{
+  "slug": "edge-deployment",
+  "title": "エッジデプロイ",
+  "content": "TODO: エッジデプロイガイドを追加。\n\nこのページでは以下を説明します：\n- Cloudflare Workersセットアップ\n- D1データベース設定\n- R2ストレージ連携\n- パフォーマンス最適化",
+  "lastUpdated": "2025-01-01"
+}

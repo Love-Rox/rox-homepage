@@ -1,0 +1,6 @@
+{
+  "slug": "docker-setup",
+  "title": "Docker Setup",
+  "content": "TODO: Add Docker setup guide.\n\nThis page will cover:\n- Docker Compose configuration\n- Container orchestration\n- Volume management\n- Networking",
+  "lastUpdated": "2025-01-01"
+}

@@ -1,0 +1,52 @@
+{
+  "title": "Development Roadmap",
+  "phases": [
+    {
+      "phase": "Phase 0",
+      "title": "Foundation",
+      "status": "complete",
+      "items": [
+        "Database abstraction (Repository Pattern)",
+        "Storage abstraction (Adapter Pattern)",
+        "Dependency Injection setup"
+      ]
+    },
+    {
+      "phase": "Phase 1",
+      "title": "Misskey-Compatible API",
+      "status": "complete",
+      "items": [
+        "User authentication & management",
+        "Note creation & timeline",
+        "Reactions & interactions",
+        "File uploads"
+      ]
+    },
+    {
+      "phase": "Phase 2",
+      "title": "Frontend (Waku Client)",
+      "status": "in-progress",
+      "items": [
+        "Waku + Jotai setup ✅",
+        "Tailwind CSS v4 with OKLCH colors ✅",
+        "React Aria Components ✅",
+        "Lingui i18n (English/Japanese) ✅",
+        "Authentication (Passkey + Password) ✅",
+        "Timeline & Note Composer ✅",
+        "File uploads 🚧",
+        "User profiles 🚧"
+      ]
+    },
+    {
+      "phase": "Phase 3",
+      "title": "ActivityPub Federation",
+      "status": "planned",
+      "items": [
+        "ActivityPub protocol implementation",
+        "Federation with other servers",
+        "WebFinger support",
+        "Remote user interactions"
+      ]
+    }
+  ]
+}

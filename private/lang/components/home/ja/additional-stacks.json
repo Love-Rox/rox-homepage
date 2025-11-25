@@ -1,0 +1,47 @@
+{
+  "title": "その他の技術スタック",
+  "tech": [
+    {
+      "name": "Bun",
+      "src": "/images/stacks/bun-logo.svg",
+      "href": "https://bun.sh/",
+      "description": "Bunは、バンドラー、テストランナー、パッケージマネージャーを内蔵した超高速JavaScriptランタイムです。速度と開発者体験を重視して設計されています。"
+    },
+    {
+      "name": "Drizzle ORM",
+      "src": "/images/stacks/drizzle-logo.svg",
+      "href": "https://orm.drizzle.team/",
+      "description": "DrizzleはTypeScript ORMで、優れた型安全性とパフォーマンスを提供します。PostgreSQL、MySQL、SQLiteをサポートし、シンプルで直感的なAPIを備えています。"
+    },
+    {
+      "name": "React Aria Components",
+      "src": "/images/stacks/react-aria-logo.svg",
+      "href": "https://react-spectrum.adobe.com/react-aria/",
+      "description": "React Aria Componentsは、アクセシブルで国際化されたUIコンポーネントを提供し、組み込みの動作とインタラクションにより、デザインに集中できます。"
+    },
+    {
+      "name": "Lingui",
+      "src": "/images/stacks/lingui-logo.svg",
+      "href": "https://lingui.dev/",
+      "description": "Linguiは、JavaScriptとReact向けのモダンなi18nライブラリです。優れたTypeScriptサポートを備えた、シンプルな国際化APIを提供します。"
+    },
+    {
+      "name": "Tailwind CSS v4",
+      "src": "/images/stacks/tailwind-logo.svg",
+      "href": "https://tailwindcss.com/",
+      "description": "Tailwind CSS v4は、パフォーマンスが向上し、OKLCH色空間サポートなどの新機能を備えたユーティリティファーストのCSSフレームワークです。"
+    },
+    {
+      "name": "Docker",
+      "src": "/images/stacks/docker-logo.svg",
+      "href": "https://www.docker.com/",
+      "description": "Dockerはコンテナ化技術により、一貫した開発・デプロイ環境を実現します。アプリケーションのパッケージ化を簡素化し、異なるプラットフォーム間での移植性を保証します。"
+    },
+    {
+      "name": "Dragonfly",
+      "src": "/images/stacks/dragonfly-logo.svg",
+      "href": "https://www.dragonflydb.io/",
+      "description": "Dragonflyは、RedisとMemcached APIと完全互換性のある、高性能で効率的なモダンインメモリデータストアです。"
+    }
+  ]
+}

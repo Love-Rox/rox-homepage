@@ -1,0 +1,35 @@
+{
+  "title": "主要機能",
+  "features": [
+    {
+      "icon": "⚡",
+      "title": "軽量・高性能",
+      "description": "Bunランタイムとモダンなウェブ標準により、卓越した速度と効率を実現。"
+    },
+    {
+      "icon": "🌍",
+      "title": "インフラ非依存",
+      "description": "DockerでVPSに、またはCloudflare Workers/D1などのエッジ環境で実行可能。"
+    },
+    {
+      "icon": "🔄",
+      "title": "Misskey API互換",
+      "description": "完全なAPI互換性により、既存のMisskeyユーザーがシームレスに移行可能。"
+    },
+    {
+      "icon": "💾",
+      "title": "マルチデータベース対応",
+      "description": "PostgreSQL、MySQL、SQLite/D1から、ニーズに応じて選択可能。"
+    },
+    {
+      "icon": "📦",
+      "title": "柔軟なストレージ",
+      "description": "ローカルファイルシステムまたはS3互換ストレージ（AWS S3、Cloudflare R2、MinIO）。"
+    },
+    {
+      "icon": "🎨",
+      "title": "モダンUI",
+      "description": "Waku、React Aria Components、Tailwind CSS v4で構築された美しくアクセシブルなインターフェース。"
+    }
+  ]
+}

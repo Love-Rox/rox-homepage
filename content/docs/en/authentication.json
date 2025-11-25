@@ -1,0 +1,6 @@
+{
+  "slug": "authentication",
+  "title": "Authentication",
+  "content": "TODO: Add authentication guide.\n\nThis page will cover:\n- Passkey authentication\n- Password authentication\n- OAuth integration\n- Token management",
+  "lastUpdated": "2025-01-01"
+}

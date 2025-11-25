@@ -1,0 +1,6 @@
+{
+  "slug": "api-overview",
+  "title": "API概要",
+  "content": "TODO: API概要を追加。\n\nこのページでは以下を説明します：\n- APIアーキテクチャ\n- リクエスト/レスポンス形式\n- レート制限\n- エラーハンドリング",
+  "lastUpdated": "2025-01-01"
+}

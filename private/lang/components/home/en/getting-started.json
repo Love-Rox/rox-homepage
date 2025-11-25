@@ -1,0 +1,37 @@
+{
+  "title": "Getting Started",
+  "subtitle": "Get up and running with Rox in minutes",
+  "steps": [
+    {
+      "number": "1",
+      "title": "Clone the repository",
+      "code": "git clone https://github.com/sasagar/rox.git\ncd rox"
+    },
+    {
+      "number": "2",
+      "title": "Install dependencies",
+      "code": "bun install"
+    },
+    {
+      "number": "3",
+      "title": "Setup environment variables",
+      "code": "cp .env.example .env\n# Edit .env with your configuration"
+    },
+    {
+      "number": "4",
+      "title": "Start development services",
+      "code": "docker-compose up -d"
+    },
+    {
+      "number": "5",
+      "title": "Run database migrations",
+      "code": "bun run migrate"
+    },
+    {
+      "number": "6",
+      "title": "Start development servers",
+      "code": "bun dev"
+    }
+  ],
+  "note": "For detailed documentation, visit our GitHub repository."
+}

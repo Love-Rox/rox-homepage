@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"oxc.enable": true,
+		"files.associations": {
+			"*.css": "tailwindcss"
+		},
+		"editor.tabSize": 2
+	}
+}

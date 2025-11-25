@@ -1,0 +1,35 @@
+{
+  "title": "Key Features",
+  "features": [
+    {
+      "icon": "⚡",
+      "title": "Lightweight & High Performance",
+      "description": "Built with Bun runtime and modern web standards for exceptional speed and efficiency."
+    },
+    {
+      "icon": "🌍",
+      "title": "Infrastructure Agnostic",
+      "description": "Run on traditional VPS with Docker or edge environments like Cloudflare Workers/D1."
+    },
+    {
+      "icon": "🔄",
+      "title": "Misskey API Compatible",
+      "description": "Seamless migration for existing Misskey users with full API compatibility."
+    },
+    {
+      "icon": "💾",
+      "title": "Multi-Database Support",
+      "description": "Choose from PostgreSQL, MySQL, or SQLite/D1 based on your needs."
+    },
+    {
+      "icon": "📦",
+      "title": "Flexible Storage",
+      "description": "Local filesystem or S3-compatible storage (AWS S3, Cloudflare R2, MinIO)."
+    },
+    {
+      "icon": "🎨",
+      "title": "Modern UI",
+      "description": "Built with Waku, React Aria Components, and Tailwind CSS v4 for a beautiful, accessible interface."
+    }
+  ]
+}

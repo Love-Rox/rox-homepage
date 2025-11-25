@@ -1,0 +1,23 @@
+{
+  "title": "\u65e5\u672c\u767a\u306e\u6280\u8853\u30b9\u30bf\u30c3\u30af\u3067\u69cb\u7bc9 \ud83c\uddef\ud83c\uddf5",
+  "tech": [
+    {
+      "name": "Hono",
+      "src": "/images/stacks/hono-logo.svg",
+      "href": "https://hono.dev/",
+      "description": "Hono は、超高速で軽量なWeb標準APIベースのフレームワークです。エッジ環境での動作に最適化されており、ハイパフォーマンスなAPIやWebアプリを迅速に構築できます。"
+    },
+    {
+      "name": "Waku",
+      "src": "/images/stacks/waku-logo.png",
+      "href": "https://waku.gg/",
+      "description": "Waku は、Reactの Server Components (RSC) を簡単に導入するためのフレームワークです。レンダリングとデータ取得をサーバー側で行うことで、初期ロード速度とサイトのパフォーマンスを劇的に向上させます。"
+    },
+    {
+      "name": "Jotai",
+      "src": "/images/stacks/jotai-logo.png",
+      "href": "https://jotai.org/",
+      "description": "Jotai は、シンプルでアトムベースのReactステート管理ライブラリです。ボイラープレート（定型コード）を極限まで減らし、必要なコンポーネントだけに必要な状態を効率的に渡す、柔軟で軽量な仕組みを提供します。"
+    }
+  ]
+}

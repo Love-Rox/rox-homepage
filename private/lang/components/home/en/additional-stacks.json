@@ -1,0 +1,47 @@
+{
+  "title": "Additional Technologies",
+  "tech": [
+    {
+      "name": "Bun",
+      "src": "/images/stacks/bun-logo.svg",
+      "href": "https://bun.sh/",
+      "description": "Bun is an ultra-fast JavaScript runtime with a built-in bundler, test runner, and package manager. It's designed for speed and developer experience."
+    },
+    {
+      "name": "Drizzle ORM",
+      "src": "/images/stacks/drizzle-logo.svg",
+      "href": "https://orm.drizzle.team/",
+      "description": "Drizzle is a TypeScript ORM that provides excellent type safety and performance. It supports PostgreSQL, MySQL, and SQLite with a simple, intuitive API."
+    },
+    {
+      "name": "React Aria Components",
+      "src": "/images/stacks/react-aria-logo.svg",
+      "href": "https://react-spectrum.adobe.com/react-aria/",
+      "description": "React Aria Components provides accessible, internationalized UI components with built-in behavior and interactions, allowing you to focus on design."
+    },
+    {
+      "name": "Lingui",
+      "src": "/images/stacks/lingui-logo.svg",
+      "href": "https://lingui.dev/",
+      "description": "Lingui is a modern i18n library for JavaScript and React. It provides a simple API for internationalization with excellent TypeScript support."
+    },
+    {
+      "name": "Tailwind CSS v4",
+      "src": "/images/stacks/tailwind-logo.svg",
+      "href": "https://tailwindcss.com/",
+      "description": "Tailwind CSS v4 is a utility-first CSS framework with enhanced performance and new features like OKLCH color support for modern, accessible designs."
+    },
+    {
+      "name": "Docker",
+      "src": "/images/stacks/docker-logo.svg",
+      "href": "https://www.docker.com/",
+      "description": "Docker enables containerization for consistent development and deployment environments. It simplifies application packaging and ensures portability across different platforms."
+    },
+    {
+      "name": "Dragonfly",
+      "src": "/images/stacks/dragonfly-logo.svg",
+      "href": "https://www.dragonflydb.io/",
+      "description": "Dragonfly is a modern in-memory datastore, fully compatible with Redis and Memcached APIs, designed for high performance and efficiency."
+    }
+  ]
+}

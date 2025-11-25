@@ -1,0 +1,23 @@
+{
+  "title": "Made with Japanese stack \ud83c\uddef\ud83c\uddf5",
+  "tech": [
+    {
+      "name": "Hono",
+      "src": "/images/stacks/hono-logo.svg",
+      "href": "https://hono.dev/",
+      "description": "Hono is an ultra-fast, lightweight framework based on web standards APIs. Optimized for edge environments, it enables rapid development of high-performance APIs and web applications."
+    },
+    {
+      "name": "Waku",
+      "src": "/images/stacks/waku-logo.png",
+      "href": "https://waku.gg/",
+      "description": "Waku is a framework that simplifies the adoption of React Server Components (RSC). By performing rendering and data fetching on the server side, it dramatically improves initial load speed and overall site performance."
+    },
+    {
+      "name": "Jotai",
+      "src": "/images/stacks/jotai-logo.png",
+      "href": "https://jotai.org/",
+      "description": "Jotai is a simple and atomic React state management library. It minimizes boilerplate code and provides a flexible, lightweight mechanism to efficiently pass only the necessary state to the components that need it."
+    }
+  ]
+}

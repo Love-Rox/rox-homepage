@@ -1,0 +1,6 @@
+{
+  "slug": "database-setup",
+  "title": "Database Setup",
+  "content": "TODO: Add database setup guide.\n\nThis page will cover:\n- PostgreSQL configuration\n- MySQL configuration\n- SQLite/D1 configuration\n- Migration guide",
+  "lastUpdated": "2025-01-01"
+}

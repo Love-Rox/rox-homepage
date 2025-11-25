@@ -1,0 +1,34 @@
+{
+  "title": "コミュニティに参加",
+  "subtitle": "Roxに貢献して、ActivityPubの未来を一緒に作りましょう",
+  "links": [
+    {
+      "icon": "🐙",
+      "title": "GitHub",
+      "description": "ソースコードの閲覧、Issue報告、コントリビュート",
+      "url": "https://github.com/sasagar/rox",
+      "label": "リポジトリを見る"
+    },
+    {
+      "icon": "📖",
+      "title": "ドキュメント",
+      "description": "実装ガイドとAPIドキュメントを読む",
+      "url": "https://github.com/sasagar/rox/blob/main/docs/implementation/README.md",
+      "label": "ドキュメントを読む"
+    },
+    {
+      "icon": "🤝",
+      "title": "コントリビューティング",
+      "description": "プロジェクトへの貢献方法を学ぶ",
+      "url": "https://github.com/sasagar/rox/blob/main/CONTRIBUTING.md",
+      "label": "貢献ガイド"
+    },
+    {
+      "icon": "📋",
+      "title": "プロジェクト仕様",
+      "description": "詳細なプロジェクト仕様を確認",
+      "url": "https://github.com/sasagar/rox/blob/main/docs/project/v1.md",
+      "label": "仕様を見る"
+    }
+  ]
+}

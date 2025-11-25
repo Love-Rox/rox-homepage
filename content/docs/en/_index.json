@@ -1,0 +1,18 @@
+{
+  "title": "Documentation",
+  "description": "Learn how to install, configure, and use Rox.",
+  "categories": [
+    {
+      "category": "Getting Started",
+      "items": ["introduction", "installation", "configuration"]
+    },
+    {
+      "category": "Guides",
+      "items": ["docker-setup", "edge-deployment", "database-setup"]
+    },
+    {
+      "category": "API Reference",
+      "items": ["api-overview", "authentication", "endpoints"]
+    }
+  ]
+}
