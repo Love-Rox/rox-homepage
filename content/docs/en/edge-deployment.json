@@ -1,6 +1,0 @@
-{
-  "slug": "edge-deployment",
-  "title": "Edge Deployment",
-  "content": "TODO: Add edge deployment guide.\n\nThis page will cover:\n- Cloudflare Workers setup\n- D1 database configuration\n- R2 storage integration\n- Performance optimization",
-  "lastUpdated": "2025-01-01"
-}

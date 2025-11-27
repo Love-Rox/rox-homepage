@@ -25,27 +25,82 @@
     {
       "phase": "Phase 2",
       "title": "Frontend (Waku Client)",
-      "status": "in-progress",
+      "status": "complete",
       "items": [
-        "Waku + Jotai setup ✅",
-        "Tailwind CSS v4 with OKLCH colors ✅",
-        "React Aria Components ✅",
-        "Lingui i18n (English/Japanese) ✅",
-        "Authentication (Passkey + Password) ✅",
-        "Timeline & Note Composer ✅",
-        "File uploads 🚧",
-        "User profiles 🚧"
+        "Waku + Jotai setup",
+        "Tailwind CSS v4 with OKLCH colors",
+        "React Aria Components",
+        "Lingui i18n (English/Japanese - 87 messages)",
+        "Authentication (Passkey + Password)",
+        "Timeline (display, infinite scroll pagination)",
+        "Note Composer (text, images, CW, visibility, reply, renote)",
+        "User interactions (reply, reaction, follow/unfollow)",
+        "File uploads (multiple images, drag & drop, preview)",
+        "User profile pages (bio, stats, posts, follow button)",
+        "Image modal (zoom, pan, gallery navigation)",
+        "Accessibility (keyboard navigation, focus management, ARIA labels)"
       ]
     },
     {
       "phase": "Phase 3",
       "title": "ActivityPub Federation",
+      "status": "complete",
+      "items": [
+        "WebFinger (RFC 7033 compliant)",
+        "Actor documents (Person, JSON-LD)",
+        "HTTP Signatures (RSA-SHA256, hs2019)",
+        "Inbox (11 activity types: Follow, Create, Like, Announce, Delete, etc.)",
+        "Outbox & Collections (followers/following)",
+        "Activity delivery queue (BullMQ + Dragonfly)",
+        "Shared inbox support (50-90% delivery reduction)",
+        "Per-server rate limiting",
+        "Activity deduplication",
+        "Delivery metrics & monitoring",
+        "Federation tested with Mastodon, Misskey, GoToSocial"
+      ]
+    },
+    {
+      "phase": "Phase 4",
+      "title": "Refactoring & Optimization",
+      "status": "complete",
+      "items": [
+        "Code refactoring (inbox handlers split into 11 dedicated handlers)",
+        "Redis caching (user profiles via CacheService)",
+        "Image optimization (WebP conversion via ImageProcessor)",
+        "Test coverage improvement (180+ unit tests)"
+      ]
+    },
+    {
+      "phase": "Phase 5",
+      "title": "Administration & Security",
+      "status": "complete",
+      "items": [
+        "Admin role and permissions (requireAdmin middleware)",
+        "Instance block management (API + federation enforcement)",
+        "User suspension/moderation (API + auth enforcement)",
+        "Rate limiting (middleware implemented)"
+      ]
+    },
+    {
+      "phase": "Phase 6",
+      "title": "Production Readiness",
+      "status": "complete",
+      "items": [
+        "Input validation (Zod schemas)",
+        "Health checks and metrics endpoints",
+        "Deployment documentation (Docker & Bare Metal)",
+        "CI/CD workflow (GitHub Actions)",
+        "180+ unit tests"
+      ]
+    },
+    {
+      "phase": "Phase 7",
+      "title": "Plugin System",
       "status": "planned",
       "items": [
-        "ActivityPub protocol implementation",
-        "Federation with other servers",
-        "WebFinger support",
-        "Remote user interactions"
+        "Plugin architecture design",
+        "Extension points",
+        "Plugin marketplace"
       ]
     }
   ]

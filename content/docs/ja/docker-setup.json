@@ -1,6 +1,0 @@
-{
-  "slug": "docker-setup",
-  "title": "Dockerセットアップ",
-  "content": "TODO: Dockerセットアップガイドを追加。\n\nこのページでは以下を説明します：\n- Docker Compose設定\n- コンテナオーケストレーション\n- ボリューム管理\n- ネットワーキング",
-  "lastUpdated": "2025-01-01"
-}

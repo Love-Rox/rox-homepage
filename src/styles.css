@@ -1,6 +1,7 @@
 @import 'https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap';
 @import 'tailwindcss';
 @plugin 'tailwindcss-react-aria-components';
+@plugin '@tailwindcss/typography';
 
 @theme {
     /* Primary color palette based on #ff5b11 in OKLCH color space */

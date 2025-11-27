@@ -1,0 +1,151 @@
+.asset-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid oklch(0.9 0 0);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.asset-card:hover {
+  border-color: oklch(0.8 0 0);
+  box-shadow: 0 4px 12px oklch(0 0 0 / 0.1);
+}
+
+:global(.dark) .asset-card {
+  background: oklch(0.2 0 0);
+  border-color: oklch(0.3 0 0);
+}
+
+:global(.dark) .asset-card:hover {
+  border-color: oklch(0.4 0 0);
+}
+
+.asset-card-header {
+  margin-bottom: 1rem;
+}
+
+.asset-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: oklch(0.2 0 0);
+  margin: 0;
+}
+
+:global(.dark) .asset-card-title {
+  color: oklch(0.95 0 0);
+}
+
+.asset-card-preview-container {
+  margin-bottom: 1.5rem;
+}
+
+.asset-card-preview {
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  margin-bottom: 0.75rem;
+  transition: background-color 0.3s ease;
+}
+
+.asset-card-preview-light {
+  background: oklch(0.98 0 0);
+  border: 1px solid oklch(0.9 0 0);
+}
+
+.asset-card-preview-dark {
+  background: oklch(0.15 0 0);
+  border: 1px solid oklch(0.25 0 0);
+}
+
+.asset-card-image {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+}
+
+.asset-card-bg-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.asset-card-bg-label {
+  color: oklch(0.5 0 0);
+  font-weight: 500;
+}
+
+:global(.dark) .asset-card-bg-label {
+  color: oklch(0.6 0 0);
+}
+
+.asset-card-bg-btn {
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid oklch(0.85 0 0);
+  background: white;
+  color: oklch(0.4 0 0);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.asset-card-bg-btn:hover {
+  border-color: oklch(0.7 0 0);
+  background: oklch(0.98 0 0);
+}
+
+.asset-card-bg-btn.active {
+  background: oklch(0.45 0.15 25);
+  color: white;
+  border-color: oklch(0.45 0.15 25);
+}
+
+:global(.dark) .asset-card-bg-btn {
+  background: oklch(0.25 0 0);
+  border-color: oklch(0.35 0 0);
+  color: oklch(0.7 0 0);
+}
+
+:global(.dark) .asset-card-bg-btn:hover {
+  background: oklch(0.3 0 0);
+  border-color: oklch(0.45 0 0);
+}
+
+:global(.dark) .asset-card-bg-btn.active {
+  background: oklch(0.45 0.15 25);
+  color: white;
+  border-color: oklch(0.45 0.15 25);
+}
+
+.asset-card-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.asset-card-download-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: oklch(0.45 0.15 25);
+  color: white;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.asset-card-download-btn:hover {
+  background: oklch(0.4 0.15 25);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px oklch(0.45 0.15 25 / 0.3);
+}
+
+.asset-card-download-btn:active {
+  transform: translateY(0);
+}

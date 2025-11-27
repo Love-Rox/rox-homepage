@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "react-aria-components";
+import { Link } from "waku";
 
 interface DocLink {
   slug: string;
@@ -35,12 +35,11 @@ export const DocsSidebar = ({
               {category.items.map((item) => (
                 <li key={item.slug}>
                   <Link
-                    href={`/${lang}/docs/${item.slug}`}
-                    className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${
-                      currentSlug === item.slug
+                    to={`/${lang}/docs/${item.slug}` as `/${string}`}
+                    className={`block px-3 py-1.5 rounded-md text-sm transition-colors ${currentSlug === item.slug
                         ? "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium"
                         : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    }`}
+                      }`}
                   >
                     {item.title}
                   </Link>

@@ -1,6 +1,0 @@
-{
-  "slug": "api-overview",
-  "title": "API Overview",
-  "content": "TODO: Add API overview.\n\nThis page will cover:\n- API architecture\n- Request/Response format\n- Rate limiting\n- Error handling",
-  "lastUpdated": "2025-01-01"
-}

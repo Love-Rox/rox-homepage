@@ -1,6 +1,20 @@
 {
   "items": [
-    { "name": "Docs", "href": "/en/docs" },
-    { "name": "Blog", "href": "/en/blog" }
+    {
+      "name": "Docs",
+      "href": "/en/docs"
+    },
+    {
+      "name": "Blog",
+      "href": "/en/blog"
+    },
+    {
+      "name": "Assets",
+      "href": "/en/assets"
+    },
+    {
+      "name": "Contact",
+      "href": "/en/contact"
+    }
   ]
 }

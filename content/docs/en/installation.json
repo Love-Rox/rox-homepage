@@ -1,6 +1,0 @@
-{
-  "slug": "installation",
-  "title": "Installation",
-  "content": "TODO: Add installation instructions.\n\nThis page will cover:\n- System requirements\n- Installing via Docker\n- Installing from source\n- Verifying your installation",
-  "lastUpdated": "2025-01-01"
-}

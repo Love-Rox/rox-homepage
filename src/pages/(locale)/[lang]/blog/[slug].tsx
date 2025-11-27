@@ -1,42 +1,16 @@
 import { PageProps } from "waku/router";
+import { loadMarkdownBySlug } from "@/lib/markdown-loader";
 import { BlogPost } from "@/components/blog/blog-post";
 
-import blogIndex_en from "@content/blog/en/_index.json";
-import blogIndex_ja from "@content/blog/ja/_index.json";
-
-// Import all blog posts
-import welcomeToRox_en from "@content/blog/en/welcome-to-rox.json";
-import techStackOverview_en from "@content/blog/en/tech-stack-overview.json";
-import roadmap2025_en from "@content/blog/en/roadmap-2025.json";
-
-import welcomeToRox_ja from "@content/blog/ja/welcome-to-rox.json";
-import techStackOverview_ja from "@content/blog/ja/tech-stack-overview.json";
-import roadmap2025_ja from "@content/blog/ja/roadmap-2025.json";
-
+// Blog index data
 const blogIndexData = {
-  en: blogIndex_en,
-  ja: blogIndex_ja,
-};
-
-type BlogPostData = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  author: string;
-};
-
-const blogPosts: Record<string, Record<string, BlogPostData>> = {
   en: {
-    "welcome-to-rox": welcomeToRox_en,
-    "tech-stack-overview": techStackOverview_en,
-    "roadmap-2025": roadmap2025_en,
+    title: "Blog",
+    backToList: "← Back to all posts",
   },
   ja: {
-    "welcome-to-rox": welcomeToRox_ja,
-    "tech-stack-overview": techStackOverview_ja,
-    "roadmap-2025": roadmap2025_ja,
+    title: "ブログ",
+    backToList: "← すべての投稿に戻る",
   },
 };
 
@@ -44,14 +18,13 @@ export default async function BlogPostPage({
   lang,
   slug,
 }: PageProps<"/[lang]/blog/[slug]">) {
-  const locale = (lang as keyof typeof blogIndexData) || "en";
+  const locale = (lang as 'en' | 'ja') || 'en';
   const indexData = blogIndexData[locale];
-  const posts = blogPosts[locale] ?? blogPosts.en;
-  const post = posts?.[slug];
+  const content = await loadMarkdownBySlug('blog', slug, locale);
 
-  if (!posts || !post) {
+  if (!content) {
     return (
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
         <title>Not Found - Rox</title>
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
           Post Not Found
@@ -64,16 +37,19 @@ export default async function BlogPostPage({
   }
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <title>{`${post.title} - ${indexData.title} - Rox`}</title>
-      <meta name="description" content={post.excerpt} />
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+      <title>{`${content.metadata.title} - ${indexData.title} - Rox`}</title>
+      <meta name="description" content={content.metadata.excerpt || content.metadata.description} />
 
       <BlogPost
-        title={post.title}
-        content={post.content}
-        date={post.date}
-        author={post.author}
-        lang={lang}
+        content={content.html}
+        date={content.metadata.date ? new Date(content.metadata.date).toLocaleDateString(locale, {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }) : ''}
+        author={content.metadata.author || 'Rox Team'}
+        lang={locale}
         backLabel={indexData.backToList}
       />
     </div>

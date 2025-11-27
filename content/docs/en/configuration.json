@@ -1,6 +1,0 @@
-{
-  "slug": "configuration",
-  "title": "Configuration",
-  "content": "TODO: Add configuration guide.\n\nThis page will cover:\n- Environment variables\n- Database configuration\n- Storage configuration\n- Security settings",
-  "lastUpdated": "2025-01-01"
-}

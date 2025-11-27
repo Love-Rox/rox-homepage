@@ -1,24 +1,24 @@
-import { Hero } from '@/components/home/hero';
-import hero_en from '@private/lang/components/home/en/hero.json';
+'use client';
 
-const heroLangData = {
-  en: hero_en,
-};
+import { useEffect } from 'react';
 
-export default async function HomePage() {
-  const locale = 'en' as keyof typeof heroLangData;
+export default function HomePage() {
+  useEffect(() => {
+    // Detect user's preferred language from browser
+    const userLang = navigator.language || navigator.languages?.[0] || 'en';
+    const isJapanese = userLang.startsWith('ja');
+
+    // Redirect to appropriate language homepage
+    window.location.href = isJapanese ? '/ja' : '/en';
+  }, []);
 
   return (
-    <div>
-      <title>{heroLangData[locale].title}</title>
-      <meta name="description" content={heroLangData[locale].description} />
-      <Hero {...heroLangData[locale]} />
+    <div style={{ padding: '2rem', textAlign: 'center' }}>
+      <title>Rox - Redirecting...</title>
+      <p>Redirecting...</p>
+      <p>
+        <a href="/en">English</a> | <a href="/ja">日本語</a>
+      </p>
     </div>
   );
 }
-
-export const getConfig = async () => {
-  return {
-    render: 'static',
-  } as const;
-};

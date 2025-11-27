@@ -21,7 +21,7 @@ export default defineConfig({
       alias: {
         "@": path.resolve(__dirname, "src"),
         "@private": path.resolve(__dirname, "private"),
-        "@content": path.resolve(__dirname, "content"),
+        "@content": path.resolve(__dirname, "private/contents"),
       },
     },
   },

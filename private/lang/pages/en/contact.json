@@ -1,0 +1,33 @@
+{
+  "title": "Contact Us - Rox",
+  "heading": "Contact Us",
+  "subtitle": "Have questions? We'd love to hear from you.",
+  "form": {
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "What is this about?",
+    "message": "Message",
+    "messagePlaceholder": "Your message...",
+    "submit": "Send Message",
+    "sending": "Sending..."
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email address",
+    "subjectRequired": "Subject is required",
+    "messageRequired": "Message is required"
+  },
+  "success": {
+    "title": "Message Sent!",
+    "message": "Thank you for contacting us. We'll get back to you soon. A confirmation email has been sent to your address."
+  },
+  "error": {
+    "title": "Error",
+    "message": "Failed to send message. Please try again later.",
+    "turnstile": "Please complete the security verification"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "branding": {
+    "tagline": "愛がロックする。Rox。",
+    "description": "Misskey API互換の軽量ActivityPubサーバー"
+  },
+  "sections": {
+    "quickLinks": "クイックリンク",
+    "community": "コミュニティ",
+    "project": "プロジェクト"
+  },
+  "links": {
+    "docs": "ドキュメント",
+    "blog": "ブログ",
+    "assets": "ブランドアセット",
+    "contact": "お問い合わせ",
+    "github": "GitHub",
+    "twitter": "X (Twitter)"
+  },
+  "copyright": "© 2025 Rox Developers. All rights reserved.",
+  "madeWith": "Built with ❤️ for 🇯🇵 by the Rox Developers"
+}

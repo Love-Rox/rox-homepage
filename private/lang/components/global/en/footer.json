@@ -1,0 +1,21 @@
+{
+  "branding": {
+    "tagline": "The Love Rocks. Rox.",
+    "description": "A lightweight ActivityPub server with Misskey API compatibility"
+  },
+  "sections": {
+    "quickLinks": "Quick Links",
+    "community": "Community",
+    "project": "Project"
+  },
+  "links": {
+    "docs": "Documentation",
+    "blog": "Blog",
+    "assets": "Brand Assets",
+    "contact": "Contact",
+    "github": "GitHub",
+    "twitter": "X (Twitter)"
+  },
+  "copyright": "© 2025 Rox Developers. All rights reserved.",
+  "madeWith": "Built with ❤️ for 🇯🇵 by the Rox Developers"
+}

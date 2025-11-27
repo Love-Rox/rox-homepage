@@ -14,9 +14,15 @@
     "exactOptionalPropertyTypes": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"],
-      "@private/*": ["./private/*"],
-      "@content/*": ["./content/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@private/*": [
+        "./private/*"
+      ],
+      "@content/*": [
+        "./private/contents/*"
+      ]
     }
   }
 }

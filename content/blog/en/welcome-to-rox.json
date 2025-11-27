@@ -1,8 +1,0 @@
-{
-  "slug": "welcome-to-rox",
-  "title": "Welcome to Rox",
-  "excerpt": "We're excited to announce the launch of Rox, a lightweight ActivityPub server focused on performance and usability.",
-  "content": "TODO: Add full blog post content.\n\nWe're excited to announce the launch of Rox!\n\nRox is a lightweight ActivityPub server focused on performance and usability. It is designed to be compatible with Misskey clients and services.\n\nIn this post, we'll cover:\n- Why we built Rox\n- Our design philosophy\n- What's coming next",
-  "date": "2025-01-15",
-  "author": "Rox Team"
-}

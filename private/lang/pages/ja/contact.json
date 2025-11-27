@@ -1,0 +1,33 @@
+{
+  "title": "お問い合わせ - Rox",
+  "heading": "お問い合わせ",
+  "subtitle": "ご質問やご意見をお聞かせください。",
+  "form": {
+    "name": "お名前",
+    "namePlaceholder": "お名前を入力してください",
+    "email": "メールアドレス",
+    "emailPlaceholder": "your.email@example.com",
+    "subject": "件名",
+    "subjectPlaceholder": "お問い合わせ内容",
+    "message": "メッセージ",
+    "messagePlaceholder": "メッセージを入力してください...",
+    "submit": "送信する",
+    "sending": "送信中..."
+  },
+  "validation": {
+    "nameRequired": "お名前を入力してください",
+    "emailRequired": "メールアドレスを入力してください",
+    "emailInvalid": "有効なメールアドレスを入力してください",
+    "subjectRequired": "件名を入力してください",
+    "messageRequired": "メッセージを入力してください"
+  },
+  "success": {
+    "title": "送信完了",
+    "message": "お問い合わせありがとうございます。確認メールをお送りしました。できるだけ早くご返信いたします。"
+  },
+  "error": {
+    "title": "エラー",
+    "message": "送信に失敗しました。しばらくしてから再度お試しください。",
+    "turnstile": "セキュリティ認証を完了してください"
+  }
+}

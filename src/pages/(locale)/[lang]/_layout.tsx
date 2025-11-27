@@ -48,10 +48,10 @@ export default async function RootLayout(props: LayoutProps) {
         />
       </head>
       <body>
-        <div className="font-m-plus-rounded-1c bg-primary-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 min-h-screen">
+        <div className="font-m-plus-rounded-1c bg-primary-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 min-h-screen flex flex-col">
           <Header lang={currentLang} navItems={navItems} />
-          <main className="*:min-h-64 lg:min-h-svh pb-32">{children}</main>
-          <Footer />
+          <main className="*:min-h-64 lg:min-h-svh flex-1">{children}</main>
+          <Footer lang={currentLang} />
         </div>
       </body>
     </html>

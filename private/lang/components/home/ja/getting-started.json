@@ -1,11 +1,11 @@
 {
-  "title": "はじめ方",
+  "title": "はじめに",
   "subtitle": "数分でRoxを起動できます",
   "steps": [
     {
       "number": "1",
       "title": "リポジトリをクローン",
-      "code": "git clone https://github.com/sasagar/rox.git\ncd rox"
+      "code": "git clone https://github.com/Love-rox/rox.git\ncd rox"
     },
     {
       "number": "2",
@@ -15,23 +15,23 @@
     {
       "number": "3",
       "title": "環境変数を設定",
-      "code": "cp .env.example .env\n# .envファイルを編集して設定"
+      "code": "cp .env.example .env\n# .envファイルを編集して設定を行う"
     },
     {
       "number": "4",
       "title": "開発サービスを起動",
-      "code": "docker-compose up -d"
+      "code": "docker compose up -d"
     },
     {
       "number": "5",
-      "title": "データベースマイグレーション実行",
-      "code": "bun run migrate"
+      "title": "データベースマイグレーションを実行",
+      "code": "bun run db:generate\nbun run db:migrate"
     },
     {
       "number": "6",
       "title": "開発サーバーを起動",
-      "code": "bun dev"
+      "code": "bun run dev\n# バックエンド: http://localhost:3000\n# フロントエンド: http://localhost:3001"
     }
   ],
-  "note": "詳細なドキュメントは、GitHubリポジトリをご覧ください。"
+  "note": "詳細なドキュメントについては、GitHubリポジトリをご覧ください。"
 }

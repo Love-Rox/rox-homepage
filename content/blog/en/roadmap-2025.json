@@ -1,8 +1,0 @@
-{
-  "slug": "roadmap-2025",
-  "title": "Rox Roadmap for 2025",
-  "excerpt": "A look at our plans for Rox in 2025, including ActivityPub federation and new features.",
-  "content": "TODO: Add full blog post content.\n\nAs we enter 2025, we're excited to share our roadmap for Rox.\n\nPlanned milestones:\n- Q1: Complete frontend implementation\n- Q2: ActivityPub federation\n- Q3: Performance optimization\n- Q4: Stable release",
-  "date": "2025-01-05",
-  "author": "Rox Team"
-}

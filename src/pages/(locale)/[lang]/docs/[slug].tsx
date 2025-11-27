@@ -1,92 +1,78 @@
 import { PageProps } from "waku/router";
 import { DocsSidebar } from "@/components/docs/sidebar";
-import { DocContent } from "@/components/docs/doc-content";
+import { loadMarkdownBySlug } from "@/lib/markdown-loader";
 
-import docsIndex_en from "@content/docs/en/_index.json";
-import docsIndex_ja from "@content/docs/ja/_index.json";
-
-// Import all doc files
-import introduction_en from "@content/docs/en/introduction.json";
-import installation_en from "@content/docs/en/installation.json";
-import configuration_en from "@content/docs/en/configuration.json";
-import dockerSetup_en from "@content/docs/en/docker-setup.json";
-import edgeDeployment_en from "@content/docs/en/edge-deployment.json";
-import databaseSetup_en from "@content/docs/en/database-setup.json";
-import apiOverview_en from "@content/docs/en/api-overview.json";
-import authentication_en from "@content/docs/en/authentication.json";
-import endpoints_en from "@content/docs/en/endpoints.json";
-
-import introduction_ja from "@content/docs/ja/introduction.json";
-import installation_ja from "@content/docs/ja/installation.json";
-import configuration_ja from "@content/docs/ja/configuration.json";
-import dockerSetup_ja from "@content/docs/ja/docker-setup.json";
-import edgeDeployment_ja from "@content/docs/ja/edge-deployment.json";
-import databaseSetup_ja from "@content/docs/ja/database-setup.json";
-import apiOverview_ja from "@content/docs/ja/api-overview.json";
-import authentication_ja from "@content/docs/ja/authentication.json";
-import endpoints_ja from "@content/docs/ja/endpoints.json";
-
-const docsIndexData = {
-  en: docsIndex_en,
-  ja: docsIndex_ja,
-};
-
-type DocPage = {
-  slug: string;
-  title: string;
-  content: string;
-  lastUpdated?: string;
-};
-
-const docPages: Record<string, Record<string, DocPage>> = {
+// Docs categories and structure
+const docsStructure = {
   en: {
-    introduction: introduction_en,
-    installation: installation_en,
-    configuration: configuration_en,
-    "docker-setup": dockerSetup_en,
-    "edge-deployment": edgeDeployment_en,
-    "database-setup": databaseSetup_en,
-    "api-overview": apiOverview_en,
-    authentication: authentication_en,
-    endpoints: endpoints_en,
+    title: "Documentation",
+    categories: [
+      {
+        category: "Getting Started",
+        items: [
+          { slug: "introduction", title: "Introduction" },
+          { slug: "getting-started", title: "Getting Started" },
+        ],
+      },
+      {
+        category: "Guides",
+        items: [
+          { slug: "architecture", title: "Architecture" },
+          { slug: "deployment", title: "Deployment" },
+          { slug: "configuration", title: "Configuration" },
+          { slug: "authentication", title: "Authentication" },
+          { slug: "federation", title: "Federation" },
+          { slug: "contributing", title: "Contributing" },
+        ],
+      },
+      {
+        category: "API",
+        items: [
+          { slug: "api-overview", title: "API Reference" },
+        ],
+      },
+    ],
   },
   ja: {
-    introduction: introduction_ja,
-    installation: installation_ja,
-    configuration: configuration_ja,
-    "docker-setup": dockerSetup_ja,
-    "edge-deployment": edgeDeployment_ja,
-    "database-setup": databaseSetup_ja,
-    "api-overview": apiOverview_ja,
-    authentication: authentication_ja,
-    endpoints: endpoints_ja,
+    title: "ドキュメント",
+    categories: [
+      {
+        category: "はじめに",
+        items: [
+          { slug: "introduction", title: "Roxの紹介" },
+          { slug: "getting-started", title: "はじめに" },
+        ],
+      },
+      {
+        category: "ガイド",
+        items: [
+          { slug: "architecture", title: "アーキテクチャ" },
+          { slug: "deployment", title: "デプロイメント" },
+          { slug: "configuration", title: "設定" },
+          { slug: "authentication", title: "認証ガイド" },
+          { slug: "federation", title: "連合ガイド" },
+          { slug: "contributing", title: "コントリビューション" },
+        ],
+      },
+      {
+        category: "API",
+        items: [
+          { slug: "api-overview", title: "APIリファレンス" },
+        ],
+      },
+    ],
   },
 };
-
-// Build categories with titles for sidebar
-function buildCategoriesWithTitles(
-  indexData: typeof docsIndex_en,
-  pages: Record<string, DocPage>,
-) {
-  return indexData.categories.map((cat) => ({
-    category: cat.category,
-    items: cat.items.map((slug) => ({
-      slug,
-      title: pages[slug]?.title || slug,
-    })),
-  }));
-}
 
 export default async function DocsPage({
   lang,
   slug,
 }: PageProps<"/[lang]/docs/[slug]">) {
-  const locale = (lang as keyof typeof docsIndexData) || "en";
-  const indexData = docsIndexData[locale];
-  const pages = docPages[locale] ?? docPages.en;
-  const pageData = pages?.[slug];
+  const locale = (lang as 'en' | 'ja') || 'en';
+  const content = await loadMarkdownBySlug('docs', slug, locale);
+  const structure = docsStructure[locale];
 
-  if (!pages || !pageData) {
+  if (!content) {
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <title>Not Found - Rox</title>
@@ -100,23 +86,30 @@ export default async function DocsPage({
     );
   }
 
-  const categoriesWithTitles = buildCategoriesWithTitles(indexData, pages);
-
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <title>{`${pageData.title} - ${indexData.title} - Rox`}</title>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+      <title>{`${content.metadata.title} - ${structure.title} - Rox`}</title>
+      <meta name="description" content={content.metadata.description} />
 
       <div className="flex gap-8">
         <DocsSidebar
-          categories={categoriesWithTitles}
+          categories={structure.categories}
           currentSlug={slug}
           lang={lang}
         />
-        <DocContent
-          title={pageData.title}
-          content={pageData.content}
-          lastUpdated={pageData.lastUpdated}
-        />
+
+        <article className="flex-1 prose prose-slate dark:prose-invert max-w-none">
+          {content.metadata.date && (
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+              {new Date(content.metadata.date).toLocaleDateString(locale, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+          )}
+          <div dangerouslySetInnerHTML={{ __html: content.html }} />
+        </article>
       </div>
     </div>
   );

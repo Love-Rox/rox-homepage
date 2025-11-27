@@ -1,6 +1,0 @@
-{
-  "slug": "introduction",
-  "title": "Introduction",
-  "content": "Welcome to Rox documentation.\n\nRox is a lightweight ActivityPub server focused on performance and usability. It is designed to be compatible with Misskey clients and services.\n\nThis documentation will guide you through the installation, configuration, and usage of Rox.",
-  "lastUpdated": "2025-01-01"
-}

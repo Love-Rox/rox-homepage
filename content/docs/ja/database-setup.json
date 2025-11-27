@@ -1,6 +1,0 @@
-{
-  "slug": "database-setup",
-  "title": "データベースセットアップ",
-  "content": "TODO: データベースセットアップガイドを追加。\n\nこのページでは以下を説明します：\n- PostgreSQL設定\n- MySQL設定\n- SQLite/D1設定\n- マイグレーションガイド",
-  "lastUpdated": "2025-01-01"
-}

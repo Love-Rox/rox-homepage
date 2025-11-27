@@ -1,0 +1,51 @@
+{
+  "title": "Brand Assets",
+  "heading": "Rox Brand Assets",
+  "subtitle": "Download logos and brand resources for Rox",
+  "description": "Official logos and brand assets for the Rox project. Feel free to use these in articles, presentations, or projects related to Rox.",
+  "sections": {
+    "logos": "Logos",
+    "usage": "Usage Guidelines",
+    "download": "Download"
+  },
+  "logoTypes": {
+    "horizontal": "Horizontal Logo",
+    "horizontalWhite": "Horizontal Logo (White)",
+    "icon": "Icon",
+    "iconFull": "Icon (Full)",
+    "iconSq": "Icon (Square)"
+  },
+  "formats": {
+    "svg": "SVG (Vector)",
+    "png": "PNG (Standard)",
+    "png2x": "PNG (2x)",
+    "jpg": "JPG (Standard)",
+    "jpg2x": "JPG (2x)"
+  },
+  "usageGuidelines": {
+    "title": "Usage Guidelines",
+    "intro": "Please follow these guidelines when using Rox brand assets:",
+    "dos": {
+      "title": "Do",
+      "items": [
+        "Use the official logos provided here",
+        "Maintain adequate clear space around the logo",
+        "Use the logo on backgrounds that provide sufficient contrast",
+        "Scale the logo proportionally"
+      ]
+    },
+    "donts": {
+      "title": "Don't",
+      "items": [
+        "Modify the logo colors or design",
+        "Distort or rotate the logo",
+        "Place the logo on busy or low-contrast backgrounds",
+        "Use outdated or unofficial versions"
+      ]
+    }
+  },
+  "downloadAll": "Download All Assets",
+  "preview": "Preview",
+  "lightBg": "Light",
+  "darkBg": "Dark"
+}

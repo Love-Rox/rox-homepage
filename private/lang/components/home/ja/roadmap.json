@@ -6,8 +6,8 @@
       "title": "基盤",
       "status": "complete",
       "items": [
-        "データベース抽象化（Repository Pattern）",
-        "ストレージ抽象化（Adapter Pattern）",
+        "データベース抽象化（リポジトリパターン）",
+        "ストレージ抽象化（アダプターパターン）",
         "依存性注入のセットアップ"
       ]
     },
@@ -25,27 +25,82 @@
     {
       "phase": "Phase 2",
       "title": "フロントエンド（Wakuクライアント）",
-      "status": "in-progress",
+      "status": "complete",
       "items": [
-        "Waku + Jotaiセットアップ ✅",
-        "Tailwind CSS v4（OKLCH色空間） ✅",
-        "React Aria Components ✅",
-        "Lingui i18n（英語・日本語） ✅",
-        "認証（Passkey + パスワード） ✅",
-        "タイムライン・ノート作成 ✅",
-        "ファイルアップロード 🚧",
-        "ユーザープロフィール 🚧"
+        "Waku + Jotaiセットアップ",
+        "Tailwind CSS v4（OKLCHカラー）",
+        "React Aria Components",
+        "Lingui i18n（英語/日本語 - 87メッセージ）",
+        "認証（パスキー + パスワード）",
+        "タイムライン（表示、無限スクロールページネーション）",
+        "ノートコンポーザー（テキスト、画像、CW、公開範囲、返信、リノート）",
+        "ユーザーインタラクション（返信、リアクション、フォロー/アンフォロー）",
+        "ファイルアップロード（複数画像、ドラッグ&ドロップ、プレビュー）",
+        "ユーザープロフィールページ（自己紹介、統計、投稿、フォローボタン）",
+        "画像モーダル（ズーム、パン、ギャラリーナビゲーション）",
+        "アクセシビリティ（キーボードナビゲーション、フォーカス管理、ARIAラベル）"
       ]
     },
     {
       "phase": "Phase 3",
       "title": "ActivityPub連合",
+      "status": "complete",
+      "items": [
+        "WebFinger（RFC 7033準拠）",
+        "Actorドキュメント（Person、JSON-LD）",
+        "HTTP署名（RSA-SHA256、hs2019）",
+        "Inbox（11種類のアクティビティ：Follow、Create、Like、Announce、Deleteなど）",
+        "Outbox & Collections（フォロワー/フォロー中）",
+        "アクティビティ配信キュー（BullMQ + Dragonfly）",
+        "共有Inboxサポート（配信50-90%削減）",
+        "サーバーごとのレート制限",
+        "アクティビティ重複排除",
+        "配信メトリクス＆モニタリング",
+        "連合テスト済み（Mastodon、Misskey、GoToSocial）"
+      ]
+    },
+    {
+      "phase": "Phase 4",
+      "title": "リファクタリング＆最適化",
+      "status": "complete",
+      "items": [
+        "コードリファクタリング（inboxハンドラーを11個の専用ハンドラーに分割）",
+        "Redisキャッシング（CacheService経由でユーザープロフィール）",
+        "画像最適化（ImageProcessor経由でWebP変換）",
+        "テストカバレッジ改善（180以上のユニットテスト）"
+      ]
+    },
+    {
+      "phase": "Phase 5",
+      "title": "管理＆セキュリティ",
+      "status": "complete",
+      "items": [
+        "管理者ロールと権限（requireAdminミドルウェア）",
+        "インスタンスブロック管理（API + 連合強制）",
+        "ユーザー停止/モデレーション（API + 認証強制）",
+        "レート制限（ミドルウェア実装済み）"
+      ]
+    },
+    {
+      "phase": "Phase 6",
+      "title": "本番環境対応",
+      "status": "complete",
+      "items": [
+        "入力検証（Zodスキーマ）",
+        "ヘルスチェックとメトリクスエンドポイント",
+        "デプロイメントドキュメント（Docker＆ベアメタル）",
+        "CI/CDワークフロー（GitHub Actions）",
+        "180以上のユニットテスト"
+      ]
+    },
+    {
+      "phase": "Phase 7",
+      "title": "プラグインシステム",
       "status": "planned",
       "items": [
-        "ActivityPubプロトコル実装",
-        "他サーバーとの連合",
-        "WebFingerサポート",
-        "リモートユーザーインタラクション"
+        "プラグインアーキテクチャ設計",
+        "拡張ポイント",
+        "プラグインマーケットプレイス"
       ]
     }
   ]

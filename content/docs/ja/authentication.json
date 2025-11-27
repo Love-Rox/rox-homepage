@@ -1,6 +1,0 @@
-{
-  "slug": "authentication",
-  "title": "認証",
-  "content": "TODO: 認証ガイドを追加。\n\nこのページでは以下を説明します：\n- Passkey認証\n- パスワード認証\n- OAuth連携\n- トークン管理",
-  "lastUpdated": "2025-01-01"
-}
