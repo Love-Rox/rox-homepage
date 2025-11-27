@@ -129,9 +129,22 @@ export const Footer = ({ lang = 'en' }: FooterProps) => {
 
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
-          <p className="text-center text-sm text-slate-600 dark:text-slate-400">
-            {content.copyright}
-          </p>
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              {content.copyright}
+            </p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              {content.builtWith}{' '}
+              <a
+                href="https://waku.gg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-600 dark:text-primary-400 hover:underline"
+              >
+                Waku
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
