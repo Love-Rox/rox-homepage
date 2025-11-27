@@ -75,6 +75,7 @@ export async function loadMarkdownBySlug(
 ): Promise<MarkdownContent | null> {
   const filePath = path.join(
     process.cwd(),
+    'private',
     'contents',
     type,
     locale,
