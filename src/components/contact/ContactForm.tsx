@@ -122,7 +122,7 @@ export function ContactForm({ lang }: ContactFormProps) {
     setSubmitStatus('idle');
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

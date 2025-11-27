@@ -124,6 +124,12 @@ async function sendConfirmationEmail(
   await transporter.sendMail(mailOptions);
 }
 
+export const getConfig = async () => {
+  return {
+    render: 'dynamic',
+  };
+};
+
 export async function POST(request: Request): Promise<Response> {
   try {
     const body: ContactFormData = await request.json();
