@@ -24,5 +24,10 @@ export default defineConfig({
         "@content": path.resolve(__dirname, "private/contents"),
       },
     },
+    build: {
+      rollupOptions: {
+        external: ['@resvg/resvg-js'],
+      },
+    },
   },
 });
