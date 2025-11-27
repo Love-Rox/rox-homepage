@@ -34,7 +34,7 @@ export default async function OGImage(input: any) {
   }
 
   // Load font
-  const fontPath = join(process.cwd(), 'node_modules/@fontsource/m-plus-rounded-1c/files/m-plus-rounded-1c-japanese-700-normal.woff');
+  const fontPath = join(process.cwd(), 'public/assets/fonts/m-plus-rounded-1c-japanese-700-normal.woff');
   const fontData = readFileSync(fontPath);
 
   // Load logo
