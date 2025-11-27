@@ -2,66 +2,12 @@ import { PageProps } from "waku/router";
 import { DocsSidebar } from "@/components/docs/sidebar";
 import { loadMarkdownBySlug } from "@/lib/markdown-loader";
 
-// Docs categories and structure
+import docsLangEn from '@private/lang/pages/en/docs.json';
+import docsLangJa from '@private/lang/pages/ja/docs.json';
+
 const docsStructure = {
-  en: {
-    title: "Documentation",
-    categories: [
-      {
-        category: "Getting Started",
-        items: [
-          { slug: "introduction", title: "Introduction" },
-          { slug: "getting-started", title: "Getting Started" },
-        ],
-      },
-      {
-        category: "Guides",
-        items: [
-          { slug: "architecture", title: "Architecture" },
-          { slug: "deployment", title: "Deployment" },
-          { slug: "configuration", title: "Configuration" },
-          { slug: "authentication", title: "Authentication" },
-          { slug: "federation", title: "Federation" },
-          { slug: "contributing", title: "Contributing" },
-        ],
-      },
-      {
-        category: "API",
-        items: [
-          { slug: "api-overview", title: "API Reference" },
-        ],
-      },
-    ],
-  },
-  ja: {
-    title: "ドキュメント",
-    categories: [
-      {
-        category: "はじめに",
-        items: [
-          { slug: "introduction", title: "Roxの紹介" },
-          { slug: "getting-started", title: "はじめに" },
-        ],
-      },
-      {
-        category: "ガイド",
-        items: [
-          { slug: "architecture", title: "アーキテクチャ" },
-          { slug: "deployment", title: "デプロイメント" },
-          { slug: "configuration", title: "設定" },
-          { slug: "authentication", title: "認証ガイド" },
-          { slug: "federation", title: "連合ガイド" },
-          { slug: "contributing", title: "コントリビューション" },
-        ],
-      },
-      {
-        category: "API",
-        items: [
-          { slug: "api-overview", title: "APIリファレンス" },
-        ],
-      },
-    ],
-  },
+  en: docsLangEn,
+  ja: docsLangJa,
 };
 
 export default async function DocsPage({

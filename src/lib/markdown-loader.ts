@@ -75,8 +75,7 @@ export async function loadMarkdownBySlug(
 ): Promise<MarkdownContent | null> {
   const filePath = path.join(
     process.cwd(),
-    'private',
-    'content',
+    'contents',
     type,
     locale,
     `${slug}.md`
@@ -99,6 +98,6 @@ export async function getAllSlugs(
   type: 'docs' | 'blog',
   locale: 'en' | 'ja'
 ): Promise<string[]> {
-  const dirPath = path.join(process.cwd(), 'private', 'content', type, locale);
+  const dirPath = path.join(process.cwd(), 'private', 'contents', type, locale);
   return await getMarkdownFiles(dirPath);
 }
