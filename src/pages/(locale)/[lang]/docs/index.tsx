@@ -1,11 +1,13 @@
+import { Meta } from "@/components/global/meta";
 import { PageProps } from "waku/router";
 import { Link } from "waku";
-import docsLangEn from '@private/lang/pages/en/docs.json';
-import docsLangJa from '@private/lang/pages/ja/docs.json';
+
+import docs_en from "@private/lang/pages/en/docs.json";
+import docs_ja from "@private/lang/pages/ja/docs.json";
 
 const docsLangData = {
-  en: docsLangEn,
-  ja: docsLangJa,
+  en: docs_en,
+  ja: docs_ja,
 };
 
 export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">) {
@@ -14,8 +16,11 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
-      <title>{`${content.title} - Rox`}</title>
-      <meta name="description" content={content.subtitle} />
+      <Meta
+        title={`${content.title} - Rox`}
+        description={content.subtitle}
+        image={`/api/og?title=${encodeURIComponent(content.title)}`}
+      />
 
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-4 break-words">

@@ -1,3 +1,4 @@
+import { Meta } from "@/components/global/meta";
 import { Hero } from "@/components/home/hero";
 import { Stacks } from "@/components/home/stacks";
 import { AdditionalStacks } from "@/components/home/additional-stacks";
@@ -65,12 +66,16 @@ const communityLangData = {
 };
 
 export default async function LangHomePage({ lang }: PageProps<"/[lang]">) {
-  const locale = (lang as keyof typeof heroLangData) || "en";
+  const supportedLocales = ["en", "ja"] as const;
+  const locale = supportedLocales.includes(lang as any) ? (lang as typeof supportedLocales[number]) : "en";
 
   return (
     <div>
-      <title>{heroLangData[locale].title}</title>
-      <meta name="description" content={heroLangData[locale].description} />
+      <Meta
+        title={heroLangData[locale].title}
+        description={heroLangData[locale].description}
+        image={`/api/og?title=${encodeURIComponent(heroLangData[locale].title)}`}
+      />
       <Hero {...heroLangData[locale]} />
       <Stacks {...stacksLangData[locale]} />
       <AdditionalStacks {...additionalStacksLangData[locale]} />

@@ -1,3 +1,4 @@
+import { Meta } from "@/components/global/meta";
 import { PageProps } from "waku/router";
 import { Link } from "waku";
 import { getAllSlugs, loadMarkdownBySlug } from "@/lib/markdown-loader";
@@ -44,8 +45,11 @@ export default async function BlogIndexPage({
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
-      <title>{`${indexData.title} - Rox`}</title>
-      <meta name="description" content={indexData.description} />
+      <Meta
+        title={`${indexData.title} - Rox`}
+        description={indexData.description}
+        image={`/api/og?title=${encodeURIComponent(indexData.title)}`}
+      />
 
       <header className="mb-12">
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">

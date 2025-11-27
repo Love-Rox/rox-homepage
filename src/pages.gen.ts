@@ -21,6 +21,8 @@ import type { getConfig as File_LocaleLangDocsSlug_getConfig } from './pages/(lo
 import type { getConfig as File_LocaleLangDocsIndex_getConfig } from './pages/(locale)/[lang]/docs/index';
 // prettier-ignore
 import type { getConfig as File_LocaleLangIndex_getConfig } from './pages/(locale)/[lang]/index';
+// prettier-ignore
+import type { getConfig as File_ApiOg_getConfig } from './pages/api/og';
 
 // prettier-ignore
 type Page =
@@ -33,7 +35,8 @@ type Page =
 | ({ path: '/[lang]/contact' } & GetConfigResponse<typeof File_LocaleLangContact_getConfig>)
 | ({ path: '/[lang]/docs/[slug]' } & GetConfigResponse<typeof File_LocaleLangDocsSlug_getConfig>)
 | ({ path: '/[lang]/docs' } & GetConfigResponse<typeof File_LocaleLangDocsIndex_getConfig>)
-| ({ path: '/[lang]' } & GetConfigResponse<typeof File_LocaleLangIndex_getConfig>);
+| ({ path: '/[lang]' } & GetConfigResponse<typeof File_LocaleLangIndex_getConfig>)
+| ({ path: '/api/og' } & GetConfigResponse<typeof File_ApiOg_getConfig>);
 
 // prettier-ignore
 declare module 'waku/router' {

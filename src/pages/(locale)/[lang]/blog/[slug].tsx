@@ -1,3 +1,4 @@
+import { Meta } from "@/components/global/meta";
 import { PageProps } from "waku/router";
 import { loadMarkdownBySlug } from "@/lib/markdown-loader";
 import { BlogPost } from "@/components/blog/blog-post";
@@ -25,7 +26,10 @@ export default async function BlogPostPage({
   if (!content) {
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
-        <title>Not Found - Rox</title>
+        <Meta
+          title="Not Found - Rox"
+          description="The requested blog post could not be found."
+        />
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
           Post Not Found
         </h1>
@@ -36,10 +40,15 @@ export default async function BlogPostPage({
     );
   }
 
+  const ogUrl = `/api/og?title=${encodeURIComponent(content.metadata.title)}`;
+
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
-      <title>{`${content.metadata.title} - ${indexData.title} - Rox`}</title>
-      <meta name="description" content={content.metadata.excerpt || content.metadata.description} />
+      <Meta
+        title={`${content.metadata.title} - ${indexData.title} - Rox`}
+        description={content.metadata.excerpt || content.metadata.description}
+        image={ogUrl}
+      />
 
       <BlogPost
         content={content.html}
