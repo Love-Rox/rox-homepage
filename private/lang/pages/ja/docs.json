@@ -1,0 +1,69 @@
+{
+  "title": "ドキュメント",
+  "subtitle": "Roxについて知る必要のあるすべて",
+  "categories": [
+    {
+      "category": "はじめに",
+      "description": "基本を学び、Roxを起動する",
+      "items": [
+        {
+          "slug": "introduction",
+          "title": "Roxの紹介",
+          "description": "Roxとその機能について学ぶ"
+        },
+        {
+          "slug": "getting-started",
+          "title": "はじめに",
+          "description": "数分でRoxをローカルにセットアップ"
+        }
+      ]
+    },
+    {
+      "category": "ガイド",
+      "description": "Roxのデプロイと設定に関する詳細ガイド",
+      "items": [
+        {
+          "slug": "architecture",
+          "title": "アーキテクチャ",
+          "description": "Roxのアーキテクチャと設計パターンを理解"
+        },
+        {
+          "slug": "deployment",
+          "title": "デプロイメント",
+          "description": "Roxを本番環境にデプロイ"
+        },
+        {
+          "slug": "configuration",
+          "title": "設定",
+          "description": "ニーズに合わせてRoxを設定"
+        },
+        {
+          "slug": "authentication",
+          "title": "認証ガイド",
+          "description": "パスキーとパスワードサポートについて学ぶ"
+        },
+        {
+          "slug": "federation",
+          "title": "連合ガイド",
+          "description": "RoxがFediverseとどのようにつながるか"
+        },
+        {
+          "slug": "contributing",
+          "title": "コントリビューション",
+          "description": "Roxの開発に貢献する方法"
+        }
+      ]
+    },
+    {
+      "category": "API",
+      "description": "APIリファレンスと統合ガイド",
+      "items": [
+        {
+          "slug": "api-overview",
+          "title": "APIリファレンス",
+          "description": "完全なMisskey互換APIリファレンス"
+        }
+      ]
+    }
+  ]
+}
