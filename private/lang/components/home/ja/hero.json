@@ -2,8 +2,11 @@
     "title": "Rox - 軽量ActivityPubサーバー/クライアント",
     "aboveLink": "Roxが登場しました。",
     "link": "詳細を見る",
+    "linkUrl": "/ja/blog/welcome-to-rox",
     "heading": "愛がロックする。Rox.",
     "description": "Roxは、パフォーマンスと使いやすさに重点を置いたActivityPubサーバーです。Misskeyのクライアントやサービスと互換性を持てるよう設計されています。",
     "getStarted": "さぁ始めよう",
-    "learnMore": "詳細を見る"
+    "getStartedUrl": "/ja/docs",
+    "learnMore": "詳細を見る",
+    "learnMoreUrl": "/ja/blog"
 }
