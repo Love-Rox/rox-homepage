@@ -15,7 +15,6 @@ export const BlogPost = ({ content, date, author, lang, backLabel }: BlogPostPro
         to={`/${lang}/blog` as `/${string}`}
         className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline mb-8"
       >
-        <span className="mr-1">&larr;</span>
         {backLabel}
       </Link>
 
@@ -28,7 +27,7 @@ export const BlogPost = ({ content, date, author, lang, backLabel }: BlogPostPro
         </p>
       </header>
 
-      <div className="prose prose-slate dark:prose-invert max-w-none">
+      <div className="prose prose-slate dark:prose-invert max-w-none prose-sm sm:prose-base lg:prose-lg">
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     </article>

@@ -41,3 +41,54 @@
 .pause-animation:hover {
   animation-play-state: paused;
 }
+
+/* Code block responsiveness */
+.prose pre {
+  overflow-x: auto;
+  max-width: 100%;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+/* Responsive headings for prose */
+.prose h1 {
+  font-size: 1.875rem; /* text-3xl */
+  line-height: 2.25rem;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 640px) {
+  .prose h1 {
+    font-size: 2.25rem; /* text-4xl */
+    line-height: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .prose h1 {
+    font-size: 3rem; /* text-5xl */
+    line-height: 1;
+  }
+}
+
+/* Inline code styling */
+.prose :not(pre) > code {
+  background-color: rgba(241, 245, 249, 1); /* slate-100 */
+  color: rgba(15, 23, 42, 1); /* slate-900 */
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.875em;
+  border: 1px solid rgba(226, 232, 240, 1); /* slate-200 */
+}
+
+.dark .prose :not(pre) > code {
+  background-color: rgba(30, 41, 59, 1); /* slate-800 */
+  color: rgba(226, 232, 240, 1); /* slate-200 */
+  border-color: rgba(51, 65, 85, 1); /* slate-700 */
+}
+
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}

@@ -37,14 +37,14 @@ export default async function DocsPage({
       <title>{`${content.metadata.title} - ${structure.title} - Rox`}</title>
       <meta name="description" content={content.metadata.description} />
 
-      <div className="flex gap-8">
+      <div className="flex flex-col lg:flex-row gap-8">
         <DocsSidebar
           categories={structure.categories}
           currentSlug={slug}
           lang={lang}
         />
 
-        <article className="flex-1 prose prose-slate dark:prose-invert max-w-none">
+        <article className="flex-1 prose prose-slate dark:prose-invert max-w-none min-w-0">
           {content.metadata.date && (
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
               {new Date(content.metadata.date).toLocaleDateString(locale, {

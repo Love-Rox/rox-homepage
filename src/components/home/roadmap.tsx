@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 interface RoadmapItem {
   phase: string;
   title: string;
@@ -29,6 +33,21 @@ const statusConfig = {
 };
 
 export const Roadmap = ({ title, phases }: RoadmapProps) => {
+  // Initialize with all phases collapsed
+  const [openPhases, setOpenPhases] = useState<Set<number>>(new Set());
+
+  const togglePhase = (index: number) => {
+    setOpenPhases((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h2 className="text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-12 text-center">{title}</h2>
@@ -36,33 +55,58 @@ export const Roadmap = ({ title, phases }: RoadmapProps) => {
       <div className="max-w-4xl mx-auto space-y-6">
         {phases.map((phase, index) => {
           const config = statusConfig[phase.status as keyof typeof statusConfig];
+          const isOpen = openPhases.has(index);
+
           return (
             <div
               key={index}
-              className={`bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border-l-4 ${config.borderClass}`}
+              className={`bg-white dark:bg-slate-800 rounded-xl shadow-lg border-l-4 ${config.borderClass} overflow-hidden transition-all duration-300`}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100">
-                    {phase.phase}: {phase.title}
-                  </h3>
+              <button
+                onClick={() => togglePhase(index)}
+                className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus:bg-slate-50 dark:focus:bg-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                aria-expanded={isOpen}
+              >
+                <div className="flex-1 pr-4">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100">
+                      {phase.phase}: {phase.title}
+                    </h3>
+                    <span className={`px-3 py-1 rounded-full text-xs sm:text-sm font-semibold ${config.badgeClass}`}>
+                      {config.badge}
+                    </span>
+                  </div>
                 </div>
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${config.badgeClass}`}>
-                  {config.badge}
-                </span>
-              </div>
-
-              <ul className="space-y-2">
-                {phase.items.map((item, itemIndex) => (
-                  <li
-                    key={itemIndex}
-                    className="flex items-start gap-2 text-slate-600 dark:text-slate-300"
+                <div className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+                  <svg
+                    className="w-6 h-6 text-slate-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    <span className="text-primary-500 dark:text-primary-400 mt-1">▸</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+
+              <div
+                className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
+              >
+                <div className="px-6 pb-6 pt-0">
+                  <ul className="space-y-2 border-t border-slate-100 dark:border-slate-700 pt-4">
+                    {phase.items.map((item, itemIndex) => (
+                      <li
+                        key={itemIndex}
+                        className="flex items-start gap-2 text-slate-600 dark:text-slate-300"
+                      >
+                        <span className="text-primary-500 dark:text-primary-400 mt-1 shrink-0">▸</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
           );
         })}
