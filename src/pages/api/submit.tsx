@@ -63,9 +63,11 @@ async function sendAdminNotification(
   transporter: nodemailer.Transporter,
   formData: ContactFormData
 ) {
+  const senderEmail = process.env.SENDER_EMAIL || process.env.GMAIL_USER;
   const mailOptions = {
-    from: process.env.GMAIL_USER,
+    from: senderEmail,
     to: 'dev@love-rox.cc',
+    replyTo: formData.email,
     subject: `[Contact Form] ${formData.subject}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -94,8 +96,9 @@ async function sendConfirmationEmail(
   transporter: nodemailer.Transporter,
   formData: ContactFormData
 ) {
+  const senderEmail = process.env.SENDER_EMAIL || process.env.GMAIL_USER;
   const mailOptions = {
-    from: process.env.GMAIL_USER,
+    from: senderEmail,
     to: formData.email,
     subject: 'Thank you for contacting Rox',
     html: `
