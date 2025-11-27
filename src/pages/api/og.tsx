@@ -1,4 +1,5 @@
-import { ImageResponse } from '@vercel/og';
+import satori from 'satori';
+import { Resvg } from '@resvg/resvg-js';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -43,80 +44,78 @@ export default async function OGImage(input: any) {
   const logoBase64 = logoData.toString('base64');
   const logoSrc = `data:image/svg+xml;base64,${logoBase64}`;
 
-  return new ImageResponse(
-    (
+  const svg = await satori(
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff7ed', // orange-50
+        backgroundImage: 'radial-gradient(circle at 25px 25px, #ffedd5 2%, transparent 0%), radial-gradient(circle at 75px 75px, #ffedd5 2%, transparent 0%)',
+        backgroundSize: '100px 100px',
+        fontFamily: '"M PLUS Rounded 1c"',
+      }}
+    >
       <div
         style={{
-          height: '100%',
-          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#fff7ed', // orange-50
-          backgroundImage: 'radial-gradient(circle at 25px 25px, #ffedd5 2%, transparent 0%), radial-gradient(circle at 75px 75px, #ffedd5 2%, transparent 0%)',
-          backgroundSize: '100px 100px',
-          fontFamily: '"M PLUS Rounded 1c"',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          padding: '80px 120px',
+          borderRadius: '40px',
+          border: '2px solid rgba(255, 255, 255, 0.8)',
+          boxShadow: '0 30px 60px -15px rgba(255, 91, 17, 0.15)', // orange shadow
+          maxWidth: '85%',
         }}
       >
+        {/* Logo */}
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            padding: '80px 120px',
-            borderRadius: '40px',
-            border: '2px solid rgba(255, 255, 255, 0.8)',
-            boxShadow: '0 30px 60px -15px rgba(255, 91, 17, 0.15)', // orange shadow
-            maxWidth: '85%',
+            marginBottom: 40,
           }}
         >
-          {/* Logo */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: 40,
-            }}
-          >
-            <img
-              src={logoSrc}
-              height={80}
-              style={{ objectFit: 'contain' }}
-            />
-          </div>
+          <img
+            src={logoSrc}
+            height={80}
+            style={{ objectFit: 'contain' }}
+          />
+        </div>
 
-          {/* Title */}
-          <div
-            style={{
-              fontSize: 64,
-              fontWeight: 700,
-              color: '#1a202c', // gray-900
-              textAlign: 'center',
-              lineHeight: 1.2,
-              marginBottom: 20,
-            }}
-          >
-            {title}
-          </div>
+        {/* Title */}
+        <div
+          style={{
+            fontSize: 64,
+            fontWeight: 700,
+            color: '#1a202c', // gray-900
+            textAlign: 'center',
+            lineHeight: 1.2,
+            marginBottom: 20,
+          }}
+        >
+          {title}
+        </div>
 
-          {/* Tagline */}
-          <div
-            style={{
-              fontSize: 24,
-              color: '#ff5b11', // Primary Orange
-              marginTop: 20,
-              letterSpacing: '0.05em',
-              fontWeight: 700,
-            }}
-          >
-            The Lightweight ActivityPub Server
-          </div>
+        {/* Tagline */}
+        <div
+          style={{
+            fontSize: 24,
+            color: '#ff5b11', // Primary Orange
+            marginTop: 20,
+            letterSpacing: '0.05em',
+            fontWeight: 700,
+          }}
+        >
+          The Lightweight ActivityPub Server
         </div>
       </div>
-    ),
+    </div>,
     {
       width: 1200,
       height: 630,
@@ -128,6 +127,17 @@ export default async function OGImage(input: any) {
           weight: 700,
         },
       ],
-    },
+    }
   );
+
+  const resvg = new Resvg(svg);
+  const pngData = resvg.render();
+  const pngBuffer = pngData.asPng();
+
+  return new Response(pngBuffer, {
+    headers: {
+      'Content-Type': 'image/png',
+      'Cache-Control': 'public, max-age=31536000, immutable',
+    },
+  });
 }
