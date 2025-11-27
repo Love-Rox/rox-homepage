@@ -1,5 +1,5 @@
 import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
+import { initWasm, Resvg } from '@resvg/resvg-wasm';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -8,6 +8,8 @@ export const getConfig = async () => {
     render: 'dynamic',
   };
 };
+
+let wasmInitialized = false;
 
 export default async function OGImage(input: any) {
   let title = 'Rox';
@@ -43,6 +45,20 @@ export default async function OGImage(input: any) {
   const logoData = readFileSync(logoPath);
   const logoBase64 = logoData.toString('base64');
   const logoSrc = `data:image/svg+xml;base64,${logoBase64}`;
+
+  // Initialize Wasm
+  if (!wasmInitialized) {
+    try {
+      const wasmPath = join(process.cwd(), 'public/assets/resvg.wasm');
+      const wasmData = readFileSync(wasmPath);
+      await initWasm(wasmData);
+      wasmInitialized = true;
+    } catch (e) {
+      // If already initialized, it might throw, but we can ignore it if it works.
+      // However, initWasm checks internally.
+      console.error('Failed to initialize resvg wasm:', e);
+    }
+  }
 
   const svg = await satori(
     <div
