@@ -40,13 +40,17 @@ function generateSitemap(): string {
 
   // Helper to add URL with language alternatives
   const addUrl = (urlPath: string, priority: string, changefreq: string) => {
-    urls.push(`
-  <url>
+    urls.push(`  <url>
     <loc>${SITE_URL}${urlPath}</loc>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
     ${LANGUAGES.map(lang => {
-      const altPath = urlPath.replace(/\/(en|ja)/, `/${lang}`);
+      let altPath = urlPath;
+      if (urlPath === '/') {
+        altPath = `/${lang}`;
+      } else {
+        altPath = urlPath.replace(/\/(en|ja)/, `/${lang}`);
+      }
       return `<xhtml:link rel="alternate" hreflang="${lang}" href="${SITE_URL}${altPath}" />`;
     }).join('\n    ')}
   </url>`);
