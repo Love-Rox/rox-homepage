@@ -172,107 +172,109 @@ export function ContactForm({ lang }: ContactFormProps) {
         </div>
       )}
 
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name" className="form-label">
-            {lang.form.name}
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder={lang.form.namePlaceholder}
-            className={`form-input ${errors.name ? 'error' : ''}`}
-          />
-          {errors.name && <span className="form-error">{errors.name}</span>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">
-            {lang.form.email}
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder={lang.form.emailPlaceholder}
-            className={`form-input ${errors.email ? 'error' : ''}`}
-          />
-          {errors.email && <span className="form-error">{errors.email}</span>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="subject" className="form-label">
-            {lang.form.subject}
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            placeholder={lang.form.subjectPlaceholder}
-            className={`form-input ${errors.subject ? 'error' : ''}`}
-          />
-          {errors.subject && (
-            <span className="form-error">{errors.subject}</span>
-          )}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="message" className="form-label">
-            {lang.form.message}
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder={lang.form.messagePlaceholder}
-            className={`form-textarea ${errors.message ? 'error' : ''}`}
-          />
-          {errors.message && (
-            <span className="form-error">{errors.message}</span>
-          )}
-        </div>
-
-        <div className="turnstile-container">
-          <Turnstile
-            ref={turnstileRef}
-            siteKey={turnstileSiteKey}
-            onSuccess={(token) => {
-              setTurnstileToken(token);
-              setErrors((prev) => {
-                const { turnstile: _turnstile, ...rest } = prev;
-                return rest;
-              });
-            }}
-            onError={() => {
-              setTurnstileToken('');
-            }}
-            onExpire={() => {
-              setTurnstileToken('');
-            }}
-          />
-        </div>
-        {errors.turnstile && (
-          <div className="form-error" style={{ textAlign: 'center', marginTop: '-0.5rem' }}>
-            {errors.turnstile}
+      {submitStatus !== 'success' && (
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">
+              {lang.form.name}
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder={lang.form.namePlaceholder}
+              className={`form-input ${errors.name ? 'error' : ''}`}
+            />
+            {errors.name && <span className="form-error">{errors.name}</span>}
           </div>
-        )}
 
-        <button
-          type="submit"
-          className="submit-button"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? lang.form.sending : lang.form.submit}
-        </button>
-      </form>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              {lang.form.email}
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder={lang.form.emailPlaceholder}
+              className={`form-input ${errors.email ? 'error' : ''}`}
+            />
+            {errors.email && <span className="form-error">{errors.email}</span>}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="subject" className="form-label">
+              {lang.form.subject}
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              placeholder={lang.form.subjectPlaceholder}
+              className={`form-input ${errors.subject ? 'error' : ''}`}
+            />
+            {errors.subject && (
+              <span className="form-error">{errors.subject}</span>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="message" className="form-label">
+              {lang.form.message}
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              placeholder={lang.form.messagePlaceholder}
+              className={`form-textarea ${errors.message ? 'error' : ''}`}
+            />
+            {errors.message && (
+              <span className="form-error">{errors.message}</span>
+            )}
+          </div>
+
+          <div className="turnstile-container">
+            <Turnstile
+              ref={turnstileRef}
+              siteKey={turnstileSiteKey}
+              onSuccess={(token) => {
+                setTurnstileToken(token);
+                setErrors((prev) => {
+                  const { turnstile: _turnstile, ...rest } = prev;
+                  return rest;
+                });
+              }}
+              onError={() => {
+                setTurnstileToken('');
+              }}
+              onExpire={() => {
+                setTurnstileToken('');
+              }}
+            />
+          </div>
+          {errors.turnstile && (
+            <div className="form-error" style={{ textAlign: 'center', marginTop: '-0.5rem' }}>
+              {errors.turnstile}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? lang.form.sending : lang.form.submit}
+          </button>
+        </form>
+      )}
     </div>
   );
 }
