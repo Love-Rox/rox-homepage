@@ -1,6 +1,6 @@
 {
   "name": "rox-homepage",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "private": true,
   "scripts": {
@@ -18,16 +18,16 @@
     "@tailwindcss/typography": "^0.5.19",
     "gray-matter": "^4.0.3",
     "nodemailer": "^7.0.11",
-    "react": "19.2.0",
+    "react": "^19.2.1",
     "react-aria-components": "^1.13.0",
-    "react-dom": "19.2.0",
-    "react-server-dom-webpack": "19.2.0",
+    "react-dom": "^19.2.1",
+    "react-server-dom-webpack": "^19.2.1",
     "rehype-highlight": "^7.0.2",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "tailwindcss-react-aria-components": "^2.0.1",
-    "waku": "0.27.1"
+    "waku": "^0.27.3"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.17",
