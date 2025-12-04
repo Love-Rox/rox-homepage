@@ -9,7 +9,7 @@
     {
       "icon": "🌍",
       "title": "Infrastructure Agnostic",
-      "description": "Run on traditional VPS with Docker or edge environments like Cloudflare Workers/D1."
+      "description": "Whether Docker or native, it's lightweight so it runs on minimal configurations."
     },
     {
       "icon": "🔄",
@@ -19,7 +19,7 @@
     {
       "icon": "💾",
       "title": "Multi-Database Support",
-      "description": "Choose from PostgreSQL, MySQL, or SQLite/D1 based on your needs."
+      "description": "Choose from PostgreSQL, MySQL, or SQLite based on your needs."
     },
     {
       "icon": "📦",

@@ -9,7 +9,7 @@
     {
       "icon": "🌍",
       "title": "インフラ非依存",
-      "description": "DockerでVPSに、またはCloudflare Workers/D1などのエッジ環境で実行可能。"
+      "description": "Dockerでもネイティブでも、軽量だから最小構成でも動かせる。"
     },
     {
       "icon": "🔄",
@@ -19,7 +19,7 @@
     {
       "icon": "💾",
       "title": "マルチデータベース対応",
-      "description": "PostgreSQL、MySQL、SQLite/D1から、ニーズに応じて選択可能。"
+      "description": "PostgreSQL、MySQL、SQLiteから、ニーズに応じて選択可能。"
     },
     {
       "icon": "📦",
