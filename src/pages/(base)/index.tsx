@@ -17,8 +17,9 @@ export default function HomePage() {
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
       <Meta
-        title="Rox - Modern Development Studio"
-        description="Rox is a modern development studio focused on creating high-quality web applications."
+        title="Rox - The Lightweight ActivityPub Server"
+        description="Rox is a ActivityPub server focused on performance and usability. Compatible with Misskey clients and services."
+        image="/api/og?title=Rox"
       />
       <p>Redirecting...</p>
       <p>

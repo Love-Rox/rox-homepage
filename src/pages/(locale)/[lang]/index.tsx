@@ -74,7 +74,7 @@ export default async function LangHomePage({ lang }: PageProps<"/[lang]">) {
       <Meta
         title={heroLangData[locale].title}
         description={heroLangData[locale].description}
-        image={`/api/og?title=${encodeURIComponent(heroLangData[locale].title)}`}
+        image="/api/og?title=Rox"
       />
       <Hero {...heroLangData[locale]} />
       <Stacks {...stacksLangData[locale]} />
