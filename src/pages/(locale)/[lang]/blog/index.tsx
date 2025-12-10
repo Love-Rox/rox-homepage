@@ -43,11 +43,17 @@ export default async function BlogIndexPage({
   const validPosts = posts
     .filter((post): post is NonNullable<typeof post> => post !== null)
     .filter((post) => {
+      // If no date, show the post
+      if (!post.date) return true;
+
       // Hide posts with future dates (scheduled posts)
-      // Compare dates in JST timezone
       // Parse the date as JST (if date is "2024-12-11", treat it as "2024-12-11 00:00:00 JST")
-      const postDateStr = post.date;
-      const postDateInJST = new Date(postDateStr + 'T00:00:00+09:00');
+      // This means the post becomes visible at midnight JST on the specified date
+      const postDateInJST = new Date(`${post.date}T00:00:00+09:00`);
+
+      // Check if valid date
+      if (isNaN(postDateInJST.getTime())) return true;
+
       return postDateInJST <= now;
     });
   const sortedPosts = validPosts.sort(
