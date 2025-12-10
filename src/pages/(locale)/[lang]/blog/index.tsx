@@ -38,13 +38,17 @@ export default async function BlogIndexPage({
   );
 
   // Filter out null values, filter future posts, and sort by date
+  // Use Japan Standard Time (JST = UTC+9) for publication date comparison
   const now = new Date();
   const validPosts = posts
     .filter((post): post is NonNullable<typeof post> => post !== null)
     .filter((post) => {
       // Hide posts with future dates (scheduled posts)
-      const postDate = new Date(post.date);
-      return postDate <= now;
+      // Compare dates in JST timezone
+      // Parse the date as JST (if date is "2024-12-11", treat it as "2024-12-11 00:00:00 JST")
+      const postDateStr = post.date;
+      const postDateInJST = new Date(postDateStr + 'T00:00:00+09:00');
+      return postDateInJST <= now;
     });
   const sortedPosts = validPosts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
