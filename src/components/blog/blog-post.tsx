@@ -1,4 +1,5 @@
 import { Link } from 'waku';
+import { MermaidRenderer } from '@/components/common/mermaid-renderer';
 
 interface BlogPostProps {
   content: string;
@@ -27,9 +28,7 @@ export const BlogPost = ({ content, date, author, lang, backLabel }: BlogPostPro
         </p>
       </header>
 
-      <div className="prose prose-slate dark:prose-invert max-w-none prose-sm sm:prose-base lg:prose-lg">
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-      </div>
+      <MermaidRenderer content={content} />
     </article>
   );
 };

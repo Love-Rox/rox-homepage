@@ -107,6 +107,34 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/welcome-to-rox" />
   </url>
     <url>
+    <loc>https://love-rox.cc/en/blog/react-tokyo-advent-calendar-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/react-tokyo-advent-calendar-2025" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/react-tokyo-advent-calendar-2025" />
+  </url>
+    <url>
+    <loc>https://love-rox.cc/ja/blog/react-tokyo-advent-calendar-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/react-tokyo-advent-calendar-2025" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/react-tokyo-advent-calendar-2025" />
+  </url>
+    <url>
+    <loc>https://love-rox.cc/en/blog/rox-december-2025-update</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/rox-december-2025-update" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/rox-december-2025-update" />
+  </url>
+    <url>
+    <loc>https://love-rox.cc/ja/blog/rox-december-2025-update</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/rox-december-2025-update" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/rox-december-2025-update" />
+  </url>
+    <url>
     <loc>https://love-rox.cc/en/docs/authentication</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
