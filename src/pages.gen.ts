@@ -8,6 +8,8 @@ import type { getConfig as File_BaseAbout_getConfig } from './pages/(base)/about
 // prettier-ignore
 import type { getConfig as File_BaseContact_getConfig } from './pages/(base)/contact';
 // prettier-ignore
+import type { getConfig as File_LocaleLang404_getConfig } from './pages/(locale)/[lang]/404';
+// prettier-ignore
 import type { getConfig as File_LocaleLangAssets_getConfig } from './pages/(locale)/[lang]/assets';
 // prettier-ignore
 import type { getConfig as File_LocaleLangBlogSlug_getConfig } from './pages/(locale)/[lang]/blog/[slug]';
@@ -31,6 +33,7 @@ type Page =
 | ({ path: '/about' } & GetConfigResponse<typeof File_BaseAbout_getConfig>)
 | ({ path: '/contact' } & GetConfigResponse<typeof File_BaseContact_getConfig>)
 | { path: '/'; render: 'dynamic' }
+| ({ path: '/[lang]/404' } & GetConfigResponse<typeof File_LocaleLang404_getConfig>)
 | ({ path: '/[lang]/assets' } & GetConfigResponse<typeof File_LocaleLangAssets_getConfig>)
 | ({ path: '/[lang]/blog/[slug]' } & GetConfigResponse<typeof File_LocaleLangBlogSlug_getConfig>)
 | ({ path: '/[lang]/blog' } & GetConfigResponse<typeof File_LocaleLangBlogIndex_getConfig>)
