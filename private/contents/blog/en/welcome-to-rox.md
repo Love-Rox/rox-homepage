@@ -45,11 +45,11 @@ Full ActivityPub support means Rox can federate with:
 Choose how you want to deploy:
 
 ```bash
-# Traditional Docker deployment
-docker compose up -d
+# Bare Metal deployment (recommended)
+bun run build && bun run start
 
-# Edge deployment with Cloudflare Workers
-wrangler deploy
+# Docker deployment (alternative)
+docker compose up -d
 ```
 
 ## Getting Started

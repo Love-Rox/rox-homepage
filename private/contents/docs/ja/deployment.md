@@ -14,8 +14,169 @@ tags: [デプロイメント, docker, 本番環境, cloudflare]
 
 Roxは複数の方法でデプロイ可能：
 
-1. **Docker Compose** - 従来のVPSデプロイメント（推奨）
-2. **ベアメタル** - 直接インストール
+1. **ベアメタル** - 直接インストール（推奨）
+2. **Docker Compose** - コンテナベースのデプロイメント
+
+## ベアメタルデプロイメント
+
+### 前提条件
+
+- Ubuntu 22.04または同等のOS
+- Bunがインストール済み
+- PostgreSQLがインストール済み
+- NginxまたはCaddyがインストール済み
+
+### ステップ1: 依存関係をインストール
+
+```bash
+# Bunをインストール
+curl -fsSL https://bun.sh/install | bash
+
+# PostgreSQLをインストール
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# Nginxをインストール
+sudo apt install nginx
+```
+
+### ステップ2: データベースをセットアップ
+
+```bash
+sudo -u postgres psql
+CREATE DATABASE rox;
+CREATE USER rox WITH ENCRYPTED PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE rox TO rox;
+\q
+```
+
+### ステップ3: クローンとビルド
+
+```bash
+git clone https://github.com/Love-Rox/rox.git
+cd rox
+bun install
+bun run build
+```
+
+### ステップ4: 環境設定
+
+```bash
+cp .env.example .env
+```
+
+`.env`を本番環境の設定で編集：
+
+```bash
+# データベース
+DB_TYPE=postgres
+DATABASE_URL=postgresql://rox:secure_password@localhost:5432/rox
+
+# ストレージ
+STORAGE_TYPE=s3
+S3_ENDPOINT=https://your-account.r2.cloudflarestorage.com
+S3_BUCKET_NAME=rox-media
+S3_ACCESS_KEY=your-access-key
+S3_SECRET_KEY=your-secret-key
+
+# サーバー
+NODE_ENV=production
+PORT=3000
+FRONTEND_URL=https://your-domain.com
+BACKEND_URL=https://api.your-domain.com
+
+# セキュリティ
+JWT_SECRET=your-very-secure-random-string
+SESSION_SECRET=another-secure-random-string
+```
+
+### ステップ5: マイグレーション実行
+
+```bash
+bun run db:migrate
+```
+
+### ステップ6: Systemdサービスをセットアップ
+
+`/etc/systemd/system/rox-backend.service`を作成：
+
+```ini
+[Unit]
+Description=Rox Backend
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=rox
+WorkingDirectory=/home/rox/rox/packages/backend
+ExecStart=/home/rox/.bun/bin/bun run start
+Restart=always
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+`/etc/systemd/system/rox-frontend.service`を作成：
+
+```ini
+[Unit]
+Description=Rox Frontend
+After=network.target
+
+[Service]
+Type=simple
+User=rox
+WorkingDirectory=/home/rox/rox/packages/frontend
+ExecStart=/home/rox/.bun/bin/bun run start
+Restart=always
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+サービスを有効化して起動：
+
+```bash
+sudo systemctl enable rox-backend rox-frontend
+sudo systemctl start rox-backend rox-frontend
+```
+
+### ステップ7: リバースプロキシ設定
+
+#### Nginxの例
+
+```nginx
+# バックエンドAPI
+server {
+    listen 443 ssl http2;
+    server_name api.your-domain.com;
+
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+
+# フロントエンド
+server {
+    listen 443 ssl http2;
+    server_name your-domain.com;
+
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+
+    location / {
+        proxy_pass http://localhost:3001;
+        proxy_set_header Host $host;
+    }
+}
+```
 
 ## Docker Composeデプロイメント
 

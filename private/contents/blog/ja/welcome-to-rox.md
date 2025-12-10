@@ -45,11 +45,11 @@ Roxは最先端の技術を活用：
 デプロイ方法を選択できます：
 
 ```bash
-# 従来のDockerデプロイメント
-docker compose up -d
+# ベアメタルデプロイメント（推奨）
+bun run build && bun run start
 
-# Cloudflare Workersでのエッジデプロイメント
-wrangler deploy
+# Dockerデプロイメント（代替手段）
+docker compose up -d
 ```
 
 ## はじめに

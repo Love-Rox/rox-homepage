@@ -49,7 +49,7 @@ cp .env.example .env
 
 ### 4. 開発サービスを起動
 
-Docker ComposeでPostgreSQLとDragonflyを起動：
+Docker ComposeでPostgreSQLとDragonflyを起動（開発環境用）：
 
 ```bash
 docker compose up -d
@@ -60,6 +60,8 @@ docker compose up -d
 ```bash
 docker compose ps
 ```
+
+> **注意**: ここでは開発用データベースサービスにDockerを使用しています。本番環境へのデプロイには、より良いパフォーマンスと制御のために[ベアメタルインストール](deployment)を推奨します。
 
 ### 5. データベースマイグレーションを実行
 

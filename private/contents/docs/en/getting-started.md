@@ -49,7 +49,7 @@ Edit `.env` with your configuration. Key variables include:
 
 ### 4. Start Development Services
 
-Start PostgreSQL and Dragonfly using Docker Compose:
+Start PostgreSQL and Dragonfly using Docker Compose (for development only):
 
 ```bash
 docker compose up -d
@@ -60,6 +60,8 @@ Wait for services to be healthy:
 ```bash
 docker compose ps
 ```
+
+> **Note**: Docker is used here for development database services. For production deployments, we recommend [bare metal installation](deployment) for better performance and control.
 
 ### 5. Run Database Migrations
 

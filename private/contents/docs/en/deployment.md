@@ -14,8 +14,193 @@ This guide covers deploying Rox to various environments.
 
 Rox can be deployed in multiple ways:
 
-1. **Docker Compose** - Traditional VPS deployment (recommended)
-2. **Bare Metal** - Direct installation
+1. **Bare Metal** - Direct installation (recommended)
+2. **Docker Compose** - Container-based deployment
+
+## Bare Metal Deployment
+
+### Prerequisites
+
+- Ubuntu 22.04 or similar
+- Bun installed
+- PostgreSQL installed
+- Nginx or Caddy installed
+
+### Step 1: Install Dependencies
+
+```bash
+# Install Bun
+curl -fsSL https://bun.sh/install | bash
+
+# Install PostgreSQL
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+
+# Install Nginx
+sudo apt install nginx
+```
+
+### Step 2: Setup Database
+
+```bash
+sudo -u postgres psql
+CREATE DATABASE rox;
+CREATE USER rox WITH ENCRYPTED PASSWORD 'your_password';
+GRANT ALL PRIVILEGES ON DATABASE rox TO rox;
+\q
+```
+
+### Step 3: Clone and Build
+
+```bash
+git clone https://github.com/Love-Rox/rox.git
+cd rox
+bun install
+bun run build
+```
+
+### Step 4: Configure Environment
+
+```bash
+cp .env.example .env
+# Edit .env with your settings
+```
+
+Edit `.env` with your production settings:
+
+```bash
+# Database
+DB_TYPE=postgres
+DATABASE_URL=postgresql://rox:your_secure_password@localhost:5432/rox
+
+# Storage
+STORAGE_TYPE=s3
+S3_ENDPOINT=https://your-account.r2.cloudflarestorage.com
+S3_BUCKET_NAME=rox-media
+S3_ACCESS_KEY=your-access-key
+S3_SECRET_KEY=your-secret-key
+S3_REGION=auto
+
+# Server
+NODE_ENV=production
+PORT=3000
+FRONTEND_URL=https://your-domain.com
+BACKEND_URL=https://api.your-domain.com
+
+# Security
+JWT_SECRET=your-very-secure-random-string
+SESSION_SECRET=another-secure-random-string
+
+# Federation
+INSTANCE_NAME=Your Instance Name
+INSTANCE_DESCRIPTION=Your instance description
+ADMIN_EMAIL=admin@your-domain.com
+```
+
+### Step 5: Run Migrations
+
+```bash
+bun run db:migrate
+```
+
+### Step 6: Setup Systemd Service
+
+Create `/etc/systemd/system/rox-backend.service`:
+
+```ini
+[Unit]
+Description=Rox Backend
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=rox
+WorkingDirectory=/home/rox/rox/packages/backend
+ExecStart=/home/rox/.bun/bin/bun run start
+Restart=always
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Create `/etc/systemd/system/rox-frontend.service`:
+
+```ini
+[Unit]
+Description=Rox Frontend
+After=network.target
+
+[Service]
+Type=simple
+User=rox
+WorkingDirectory=/home/rox/rox/packages/frontend
+ExecStart=/home/rox/.bun/bin/bun run start
+Restart=always
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start services:
+
+```bash
+sudo systemctl enable rox-backend rox-frontend
+sudo systemctl start rox-backend rox-frontend
+```
+
+### Step 7: Configure Reverse Proxy
+
+#### Nginx Example
+
+```nginx
+# Backend API
+server {
+    listen 443 ssl http2;
+    server_name api.your-domain.com;
+
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+# Frontend
+server {
+    listen 443 ssl http2;
+    server_name your-domain.com;
+
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+
+    location / {
+        proxy_pass http://localhost:3001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+#### Caddy Example
+
+```caddyfile
+api.your-domain.com {
+    reverse_proxy localhost:3000
+}
+
+your-domain.com {
+    reverse_proxy localhost:3001
+}
+```
 
 ## Docker Compose Deployment
 
@@ -94,159 +279,6 @@ docker compose exec backend bun run db:migrate
 docker compose exec backend bun run create-admin
 ```
 
-### Step 6: Configure Reverse Proxy
-
-#### Nginx Example
-
-```nginx
-# Backend API
-server {
-    listen 443 ssl http2;
-    server_name api.your-domain.com;
-
-    ssl_certificate /path/to/cert.pem;
-    ssl_certificate_key /path/to/key.pem;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-
-# Frontend
-server {
-    listen 443 ssl http2;
-    server_name your-domain.com;
-
-    ssl_certificate /path/to/cert.pem;
-    ssl_certificate_key /path/to/key.pem;
-
-    location / {
-        proxy_pass http://localhost:3001;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-#### Caddy Example
-
-```caddyfile
-api.your-domain.com {
-    reverse_proxy localhost:3000
-}
-
-your-domain.com {
-    reverse_proxy localhost:3001
-}
-```
-
-## Bare Metal Deployment
-
-### Prerequisites
-
-- Ubuntu 22.04 or similar
-- Bun installed
-- PostgreSQL installed
-- Nginx or Caddy installed
-
-### Step 1: Install Dependencies
-
-```bash
-# Install Bun
-curl -fsSL https://bun.sh/install | bash
-
-# Install PostgreSQL
-sudo apt update
-sudo apt install postgresql postgresql-contrib
-
-# Install Nginx
-sudo apt install nginx
-```
-
-### Step 2: Setup Database
-
-```bash
-sudo -u postgres psql
-CREATE DATABASE rox;
-CREATE USER rox WITH ENCRYPTED PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE rox TO rox;
-\q
-```
-
-### Step 3: Clone and Build
-
-```bash
-git clone https://github.com/Love-Rox/rox.git
-cd rox
-bun install
-bun run build
-```
-
-### Step 4: Configure Environment
-
-```bash
-cp .env.example .env
-# Edit .env with your settings
-```
-
-### Step 5: Run Migrations
-
-```bash
-bun run db:migrate
-```
-
-### Step 6: Setup Systemd Service
-
-Create `/etc/systemd/system/rox-backend.service`:
-
-```ini
-[Unit]
-Description=Rox Backend
-After=network.target postgresql.service
-
-[Service]
-Type=simple
-User=rox
-WorkingDirectory=/home/rox/rox/packages/backend
-ExecStart=/home/rox/.bun/bin/bun run start
-Restart=always
-Environment=NODE_ENV=production
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Create `/etc/systemd/system/rox-frontend.service`:
-
-```ini
-[Unit]
-Description=Rox Frontend
-After=network.target
-
-[Service]
-Type=simple
-User=rox
-WorkingDirectory=/home/rox/rox/packages/frontend
-ExecStart=/home/rox/.bun/bin/bun run start
-Restart=always
-Environment=NODE_ENV=production
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Enable and start services:
-
-```bash
-sudo systemctl enable rox-backend rox-frontend
-sudo systemctl start rox-backend rox-frontend
-```
 
 ## Database Backup
 
