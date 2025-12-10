@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ClientRouterHelper } from "@/helper/ClientRouterHelper";
+import { DarkModeToggle } from "@/components/common/dark-mode-toggle";
 
 interface NavItem {
   name: string;
@@ -76,8 +77,9 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
           ))}
         </div>
 
-        {/* Desktop language switcher */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        {/* Desktop language switcher and dark mode toggle */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-x-4">
+          <DarkModeToggle />
           <ClientRouterHelper currentLang={lang || "en"} />
         </div>
       </nav>
@@ -140,10 +142,16 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
                   ))}
                 </div>
                 <div className="py-6">
-                  <div className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800">
+                  <div className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
                     <div className="flex items-center justify-between">
-                      <span>Language / Theme</span>
+                      <span>Language</span>
                       <ClientRouterHelper currentLang={lang || "en"} />
+                    </div>
+                  </div>
+                  <div className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
+                    <div className="flex items-center justify-between">
+                      <span>Theme</span>
+                      <DarkModeToggle />
                     </div>
                   </div>
                 </div>

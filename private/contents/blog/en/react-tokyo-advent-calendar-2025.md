@@ -2,7 +2,7 @@
 title: The Modern React Stack Behind Rox - A Lightweight ActivityPub Server
 description: React Tokyo Advent Calendar 2025 Day 11. Building a decentralized social media server with Waku, Jotai, Hono, and React Aria Components
 date: 2025-12-11
-author: Sasapiyo
+author: SASAPIYO
 tags: [React, Waku, Jotai, Hono, ActivityPub, Advent Calendar]
 excerpt: Introducing the technology stack of "Rox", a lightweight ActivityPub server inspired by the AI coding workshop at React Tokyo's hot spring retreat.
 ---
@@ -14,7 +14,7 @@ excerpt: Introducing the technology stack of "Rox", a lightweight ActivityPub se
 
 ## Introduction
 
-Hi there! I'm Sasapiyo.
+Hi there! I'm SASAPIYO.
 
 I spend my time doing programming, design, and video production, while also serving as a **Community Supporter for React Tokyo**. React Tokyo is a community for those interested in React. We're active both online and offline, providing opportunities for knowledge sharing and networking through meetups and events.
 
