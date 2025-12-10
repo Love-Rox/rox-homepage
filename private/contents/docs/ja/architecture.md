@@ -1,7 +1,7 @@
 ---
 title: アーキテクチャガイド
 description: Roxのアーキテクチャと設計パターンを理解する
-date: 2025-01-01
+date: 2025-12-10
 author: Roxチーム
 tags: [アーキテクチャ, 設計パターン, リポジトリパターン, アダプターパターン]
 ---
@@ -214,3 +214,11 @@ app.use('/api/*', rateLimiter({
 - [デプロイメントガイド](deployment) - Roxを本番環境にデプロイ
 - [APIリファレンス](api-overview) - APIを探索
 - [コントリビューション](https://github.com/Love-Rox/rox/blob/main/CONTRIBUTING.md) - Roxに貢献
+
+---
+
+## 更新履歴
+
+| 日付 | 変更内容 |
+|------|----------|
+| 2025-12-10 | Cloudflare D1データベース参照を削除（開発中止） |

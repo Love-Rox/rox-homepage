@@ -4,6 +4,8 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkHtml from 'remark-html';
 import remarkGfm from 'remark-gfm';
+import { remarkAlert } from 'remark-github-blockquote-alert';
+import remarkMermaid from 'remark-mermaidjs';
 
 
 export interface MarkdownMetadata {
@@ -33,7 +35,25 @@ export async function loadMarkdown(filePath: string): Promise<MarkdownContent> {
   // Convert Markdown to HTML
   const processedContent = await remark()
     .use(remarkGfm)
-    .use(remarkHtml)
+    .use(remarkAlert)
+    .use(remarkMermaid, {
+      mermaidConfig: {
+        theme: 'base',
+        themeVariables: {
+          primaryColor: '#ff5b11',
+          primaryTextColor: '#1e293b',
+          primaryBorderColor: '#ff5b11',
+          lineColor: '#64748b',
+          secondaryColor: '#f8fafc',
+          tertiaryColor: '#fff7ed',
+          nodeTextColor: '#1e293b',
+          clusterBkg: '#fff7ed',
+          clusterBorder: '#ff5b11',
+          edgeLabelBackground: '#ffffff',
+        },
+      },
+    })
+    .use(remarkHtml, { sanitize: false })
     .process(content);
 
   const html = processedContent.toString();

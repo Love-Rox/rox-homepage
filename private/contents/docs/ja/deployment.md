@@ -1,7 +1,7 @@
 ---
 title: デプロイメントガイド
 description: Roxを本番環境にデプロイする
-date: 2025-01-01
+date: 2025-12-10
 author: Roxチーム
 tags: [デプロイメント, docker, 本番環境, cloudflare]
 ---
@@ -14,9 +14,8 @@ tags: [デプロイメント, docker, 本番環境, cloudflare]
 
 Roxは複数の方法でデプロイ可能：
 
-1. **Docker Compose** - 従来のVPSデプロイメント
-2. **Cloudflare Workers** - エッジデプロイメント
-3. **ベアメタル** - 直接インストール
+1. **Docker Compose** - 従来のVPSデプロイメント（推奨）
+2. **ベアメタル** - 直接インストール
 
 ## Docker Composeデプロイメント
 
@@ -118,40 +117,6 @@ server {
 }
 ```
 
-## Cloudflare Workersデプロイメント
-
-### 前提条件
-
-- Cloudflareアカウント
-- Wrangler CLIインストール済み
-- D1データベース作成済み
-- R2バケット作成済み
-
-### ステップ1: Wranglerインストール
-
-```bash
-npm install -g wrangler
-wrangler login
-```
-
-### ステップ2: D1データベース作成
-
-```bash
-wrangler d1 create rox-db
-```
-
-### ステップ3: R2バケット作成
-
-```bash
-wrangler r2 bucket create rox-media
-```
-
-### ステップ4: デプロイ
-
-```bash
-wrangler deploy
-```
-
 ## データベースバックアップ
 
 ### PostgreSQLバックアップ
@@ -246,3 +211,11 @@ sudo kill -9 <PID>
 - [設定ガイド](configuration) - 詳細な設定オプション
 - [アーキテクチャ](architecture) - アーキテクチャを理解
 - [APIリファレンス](api-overview) - APIを探索
+
+---
+
+## 更新履歴
+
+| 日付 | 変更内容 |
+|------|----------|
+| 2025-12-10 | Cloudflare Workersデプロイメントオプションを削除（開発中止） |

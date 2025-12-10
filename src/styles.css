@@ -92,3 +92,139 @@
 .prose :not(pre) > code::after {
   content: none;
 }
+
+/* GitHub-style Alert Blocks */
+.markdown-alert {
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid;
+  border-radius: 0.375rem;
+  background-color: rgba(241, 245, 249, 0.5);
+}
+
+.dark .markdown-alert {
+  background-color: rgba(30, 41, 59, 0.5);
+}
+
+.markdown-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  padding: 0;
+}
+
+.markdown-alert p {
+  margin: 0;
+}
+
+/* NOTE - Blue */
+.markdown-alert-note {
+  border-color: #3b82f6;
+}
+.markdown-alert-note .markdown-alert-title {
+  color: #3b82f6;
+}
+.dark .markdown-alert-note .markdown-alert-title {
+  color: #60a5fa;
+}
+
+/* TIP - Green */
+.markdown-alert-tip {
+  border-color: #22c55e;
+}
+.markdown-alert-tip .markdown-alert-title {
+  color: #22c55e;
+}
+.dark .markdown-alert-tip .markdown-alert-title {
+  color: #4ade80;
+}
+
+/* IMPORTANT - Purple */
+.markdown-alert-important {
+  border-color: #a855f7;
+}
+.markdown-alert-important .markdown-alert-title {
+  color: #a855f7;
+}
+.dark .markdown-alert-important .markdown-alert-title {
+  color: #c084fc;
+}
+
+/* WARNING - Yellow/Orange */
+.markdown-alert-warning {
+  border-color: #f59e0b;
+}
+.markdown-alert-warning .markdown-alert-title {
+  color: #f59e0b;
+}
+.dark .markdown-alert-warning .markdown-alert-title {
+  color: #fbbf24;
+}
+
+/* CAUTION - Red */
+.markdown-alert-caution {
+  border-color: #ef4444;
+}
+.markdown-alert-caution .markdown-alert-title {
+  color: #ef4444;
+}
+.dark .markdown-alert-caution .markdown-alert-title {
+  color: #f87171;
+}
+
+/* Table styling */
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--color-primary-300);
+  padding: 0.5rem 0.75rem;
+}
+
+.dark .prose th,
+.dark .prose td {
+  border-color: var(--color-primary-700);
+}
+
+.prose th {
+  background-color: var(--color-primary-50);
+}
+
+.dark .prose th {
+  background-color: var(--color-primary-900);
+}
+
+/* List styling */
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ul li::marker {
+  color: var(--color-primary-500);
+}
+
+.dark .prose ul li::marker {
+  color: var(--color-primary-400);
+}
+
+.prose ol li::marker {
+  color: var(--color-primary-500);
+}
+
+.dark .prose ol li::marker {
+  color: var(--color-primary-400);
+}
+
+/* Horizontal rule */
+.prose hr {
+  border-color: var(--color-primary-200);
+}
+
+.dark .prose hr {
+  border-color: var(--color-primary-800);
+}

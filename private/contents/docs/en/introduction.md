@@ -1,7 +1,7 @@
 ---
 title: Introduction to Rox
 description: Learn about Rox, a lightweight ActivityPub server and client with Misskey API compatibility
-date: 2025-01-01
+date: 2025-12-10
 author: Rox Team
 tags: [introduction, overview, activitypub, misskey]
 ---
@@ -17,7 +17,7 @@ Rox is a next-generation federated social media platform that combines:
 - **ActivityPub Protocol**: Full federation with Mastodon, Misskey, GoToSocial, and other ActivityPub-compatible servers
 - **Misskey API Compatibility**: Seamless migration path for existing Misskey users and clients
 - **Modern Architecture**: Built with cutting-edge technologies for performance and developer experience
-- **Deployment Flexibility**: Run on traditional VPS with Docker or edge environments like Cloudflare Workers
+- **Deployment Flexibility**: Run on traditional VPS with Docker or bare metal installation
 
 ## Key Features
 
@@ -27,8 +27,7 @@ Built with Bun runtime and modern web standards for exceptional speed and effici
 ### Infrastructure Agnostic
 Deploy Rox anywhere:
 - **Traditional VPS**: Use Docker Compose for easy deployment
-- **Edge Computing**: Deploy to Cloudflare Workers with D1 database
-- **Hybrid**: Mix and match based on your needs
+- **Bare Metal**: Direct installation for maximum performance
 
 ### Misskey API Compatible
 Full compatibility with the Misskey API means:
@@ -40,7 +39,7 @@ Full compatibility with the Misskey API means:
 Choose the database that fits your deployment:
 - **PostgreSQL**: Recommended for production
 - **MySQL**: Alternative relational database
-- **SQLite/D1**: Perfect for edge deployments
+- **SQLite**: For easy setup and personal instances
 
 ### Flexible Storage
 Store media files where you want:
@@ -111,8 +110,7 @@ Rox is perfect for:
 1. **Personal Instances**: Run your own federated social media server
 2. **Community Platforms**: Build communities with ActivityPub federation
 3. **Misskey Migration**: Migrate from Misskey with minimal disruption
-4. **Edge Deployments**: Deploy globally with Cloudflare Workers
-5. **Development**: Learn about ActivityPub and federated systems
+4. **Development**: Learn about ActivityPub and federated systems
 
 ## Next Steps
 
@@ -132,3 +130,11 @@ Ready to get started? Check out these guides:
 ## License
 
 Rox is open source software licensed under the MIT License.
+
+---
+
+## Update History
+
+| Date | Changes |
+|------|---------|
+| 2025-12-10 | Removed Cloudflare Workers/edge deployment references (development discontinued) |

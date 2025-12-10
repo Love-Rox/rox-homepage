@@ -1,7 +1,7 @@
 ---
 title: 設定ガイド
 description: Roxのデプロイメント設定
-date: 2025-01-01
+date: 2025-12-10
 author: Roxチーム
 tags: [設定, 環境変数, セットアップ]
 ---
@@ -245,3 +245,11 @@ aws s3 ls s3://your-bucket --endpoint-url=$S3_ENDPOINT
 - [デプロイメントガイド](deployment) - Roxを本番環境にデプロイ
 - [アーキテクチャガイド](architecture) - アーキテクチャを理解
 - [APIリファレンス](api-overview) - APIを探索
+
+---
+
+## 更新履歴
+
+| 日付 | 変更内容 |
+|------|----------|
+| 2025-12-10 | Cloudflare D1およびwrangler.tomlセクションを削除（開発中止） |

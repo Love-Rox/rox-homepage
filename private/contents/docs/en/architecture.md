@@ -1,7 +1,7 @@
 ---
 title: Architecture Guide
 description: Understanding Rox's architecture and design patterns
-date: 2025-01-01
+date: 2025-12-10
 author: Rox Team
 tags: [architecture, design-patterns, repository-pattern, adapter-pattern]
 ---
@@ -240,7 +240,6 @@ Rox supports multiple databases through Drizzle's database adapters:
 - **PostgreSQL**: `drizzle-orm/postgres-js`
 - **MySQL**: `drizzle-orm/mysql2`
 - **SQLite**: `drizzle-orm/better-sqlite3`
-- **Cloudflare D1**: `drizzle-orm/d1`
 
 ## API Layer
 
@@ -428,3 +427,11 @@ app.use('/api/*', rateLimiter({
 - [Deployment Guide](deployment) - Deploy Rox to production
 - [API Reference](api-overview) - Explore the API
 - [Contributing](https://github.com/Love-Rox/rox/blob/main/CONTRIBUTING.md) - Contribute to Rox
+
+---
+
+## Update History
+
+| Date | Changes |
+|------|---------|
+| 2025-12-10 | Removed Cloudflare D1 database reference (development discontinued) |

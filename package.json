@@ -18,6 +18,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "gray-matter": "^4.0.3",
     "nodemailer": "^7.0.11",
+    "playwright": "^1.57.0",
     "react": "^19.2.1",
     "react-aria-components": "^1.13.0",
     "react-dom": "^19.2.1",
@@ -25,7 +26,9 @@
     "rehype-highlight": "^7.0.2",
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
+    "remark-github-blockquote-alert": "^2.0.0",
     "remark-html": "^16.0.1",
+    "remark-mermaidjs": "^7.0.0",
     "satori": "^0.18.3",
     "tailwindcss-react-aria-components": "^2.0.1",
     "waku": "^0.27.3"

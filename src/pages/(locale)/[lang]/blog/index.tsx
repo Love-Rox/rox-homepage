@@ -37,8 +37,15 @@ export default async function BlogIndexPage({
     })
   );
 
-  // Filter out null values and sort by date
-  const validPosts = posts.filter((post): post is NonNullable<typeof post> => post !== null);
+  // Filter out null values, filter future posts, and sort by date
+  const now = new Date();
+  const validPosts = posts
+    .filter((post): post is NonNullable<typeof post> => post !== null)
+    .filter((post) => {
+      // Hide posts with future dates (scheduled posts)
+      const postDate = new Date(post.date);
+      return postDate <= now;
+    });
   const sortedPosts = validPosts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );

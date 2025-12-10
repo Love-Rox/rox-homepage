@@ -1,7 +1,7 @@
 ---
 title: Configuration Guide
 description: Configure Rox for your deployment
-date: 2025-01-01
+date: 2025-12-10
 author: Rox Team
 tags: [configuration, environment-variables, setup]
 ---
@@ -42,13 +42,6 @@ DATABASE_URL=mysql://username:password@host:3306/database
 ```bash
 DB_TYPE=sqlite
 DATABASE_URL=sqlite://./rox.db
-```
-
-#### Cloudflare D1
-
-```bash
-DB_TYPE=d1
-# D1 binding configured in wrangler.toml
 ```
 
 ### Storage Configuration
@@ -258,28 +251,6 @@ DEV_SKIP_AUTH=false
 
 ## Configuration Files
 
-### wrangler.toml (Cloudflare Workers)
-
-```toml
-name = "rox"
-main = "src/index.ts"
-compatibility_date = "2024-01-01"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "rox-db"
-database_id = "your-database-id"
-
-[[r2_buckets]]
-binding = "MEDIA"
-bucket_name = "rox-media"
-
-[vars]
-NODE_ENV = "production"
-INSTANCE_NAME = "Your Instance"
-INSTANCE_DESCRIPTION = "Your instance description"
-```
-
 ### docker-compose.yml
 
 ```yaml
@@ -420,3 +391,11 @@ redis-cli -u $REDIS_URL ping
 - [Deployment Guide](deployment) - Deploy Rox to production
 - [Architecture Guide](architecture) - Understand the architecture
 - [API Reference](api-overview) - Explore the API
+
+---
+
+## Update History
+
+| Date | Changes |
+|------|---------|
+| 2025-12-10 | Removed Cloudflare D1 and wrangler.toml sections (development discontinued) |

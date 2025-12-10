@@ -1,7 +1,7 @@
 ---
 title: Deployment Guide
 description: Deploy Rox to production environments
-date: 2025-01-01
+date: 2025-12-10
 author: Rox Team
 tags: [deployment, docker, production, cloudflare]
 ---
@@ -14,9 +14,8 @@ This guide covers deploying Rox to various environments.
 
 Rox can be deployed in multiple ways:
 
-1. **Docker Compose** - Traditional VPS deployment
-2. **Cloudflare Workers** - Edge deployment
-3. **Bare Metal** - Direct installation
+1. **Docker Compose** - Traditional VPS deployment (recommended)
+2. **Bare Metal** - Direct installation
 
 ## Docker Compose Deployment
 
@@ -145,67 +144,6 @@ api.your-domain.com {
 your-domain.com {
     reverse_proxy localhost:3001
 }
-```
-
-## Cloudflare Workers Deployment
-
-### Prerequisites
-
-- Cloudflare account
-- Wrangler CLI installed
-- D1 database created
-- R2 bucket created
-
-### Step 1: Install Wrangler
-
-```bash
-npm install -g wrangler
-wrangler login
-```
-
-### Step 2: Create D1 Database
-
-```bash
-wrangler d1 create rox-db
-```
-
-### Step 3: Create R2 Bucket
-
-```bash
-wrangler r2 bucket create rox-media
-```
-
-### Step 4: Configure wrangler.toml
-
-```toml
-name = "rox"
-main = "src/index.ts"
-compatibility_date = "2024-01-01"
-
-[[d1_databases]]
-binding = "DB"
-database_name = "rox-db"
-database_id = "your-database-id"
-
-[[r2_buckets]]
-binding = "MEDIA"
-bucket_name = "rox-media"
-
-[vars]
-NODE_ENV = "production"
-INSTANCE_NAME = "Your Instance"
-```
-
-### Step 5: Run Migrations
-
-```bash
-wrangler d1 migrations apply rox-db
-```
-
-### Step 6: Deploy
-
-```bash
-wrangler deploy
 ```
 
 ## Bare Metal Deployment
@@ -476,3 +414,11 @@ server {
 - [Configuration Guide](configuration) - Detailed configuration options
 - [Monitoring Guide](monitoring) - Set up monitoring and alerts
 - [Backup Strategy](backup) - Comprehensive backup strategy
+
+---
+
+## Update History
+
+| Date | Changes |
+|------|---------|
+| 2025-12-10 | Removed Cloudflare Workers deployment option (development discontinued) |
