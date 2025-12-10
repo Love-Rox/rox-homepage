@@ -36,7 +36,7 @@ Roxは現在、2つのデプロイメント方法を公式にサポートして�
    - コンテナのオーバーヘッドなし
    - 経験豊富な管理者向け
 
-詳細なデプロイメント手順については、更新された[デプロイメントガイド](/docs/deployment)をご覧ください。
+詳細なデプロイメント手順については、更新された[デプロイメントガイド](/ja/docs/deployment)をご覧ください。
 
 ## データベースサポート
 
@@ -54,10 +54,10 @@ Roxは引き続き複数のデータベースをサポートしています：
 
 これらの変更を反映して、以下のドキュメントを更新しました：
 
-- [デプロイメントガイド](/docs/deployment)
-- [Roxの紹介](/docs/introduction)
-- [アーキテクチャガイド](/docs/architecture)
-- [設定ガイド](/docs/configuration)
+- [デプロイメントガイド](/ja/docs/deployment)
+- [Roxの紹介](/ja/docs/introduction)
+- [アーキテクチャガイド](/ja/docs/architecture)
+- [設定ガイド](/ja/docs/configuration)
 
 ## ありがとうございます
 

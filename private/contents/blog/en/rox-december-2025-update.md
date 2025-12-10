@@ -36,7 +36,7 @@ Rox now officially supports two deployment methods:
    - No container overhead
    - Best for experienced administrators
 
-For detailed deployment instructions, please refer to our updated [Deployment Guide](/docs/deployment).
+For detailed deployment instructions, please refer to our updated [Deployment Guide](/en/docs/deployment).
 
 ## Database Support
 
@@ -54,10 +54,10 @@ The project has progressed to version **2025.12.0-rc.7**, with significant impro
 
 We've updated the following documentation pages to reflect these changes:
 
-- [Deployment Guide](/docs/deployment)
-- [Introduction](/docs/introduction)
-- [Architecture Guide](/docs/architecture)
-- [Configuration Guide](/docs/configuration)
+- [Deployment Guide](/en/docs/deployment)
+- [Introduction](/en/docs/introduction)
+- [Architecture Guide](/en/docs/architecture)
+- [Configuration Guide](/en/docs/configuration)
 
 ## Thank You
 
