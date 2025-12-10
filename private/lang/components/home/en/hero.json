@@ -8,5 +8,7 @@
     "getStarted": "Get started",
     "getStartedUrl": "/en/docs",
     "learnMore": "Learn more",
-    "learnMoreUrl": "/en/blog"
+    "learnMoreUrl": "/en/blog",
+    "stableLabel": "Stable",
+    "prereleaseLabel": "Pre-release"
 }

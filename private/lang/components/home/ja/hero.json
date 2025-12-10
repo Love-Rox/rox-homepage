@@ -8,5 +8,7 @@
     "getStarted": "さぁ始めよう",
     "getStartedUrl": "/ja/docs",
     "learnMore": "詳細を見る",
-    "learnMoreUrl": "/ja/blog"
+    "learnMoreUrl": "/ja/blog",
+    "stableLabel": "安定版",
+    "prereleaseLabel": "プレリリース"
 }
