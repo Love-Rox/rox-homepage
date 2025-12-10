@@ -14,6 +14,29 @@ This guide covers all configuration options for Rox.
 
 Rox is configured entirely through environment variables. Copy `.env.example` to `.env` and customize as needed.
 
+### Application Configuration
+
+```bash
+# Backend server port (default: 3000)
+PORT=3000
+
+# Frontend server port (default: 3001)
+FRONTEND_PORT=3001
+
+# Environment mode: development | production
+NODE_ENV=development
+
+# Public URL of your instance (used for ActivityPub, links, etc.)
+# IMPORTANT: This must match your actual public URL for federation to work
+URL=https://your-domain.com
+```
+
+**Options:**
+- `PORT`: Backend server port (default: `3000`)
+- `FRONTEND_PORT`: Frontend server port (default: `3001`)
+- `NODE_ENV`: Environment (`development` or `production`)
+- `URL`: Public URL of your instance (required for federation)
+
 ### Database Configuration
 
 #### PostgreSQL (Recommended)
@@ -44,6 +67,22 @@ DB_TYPE=sqlite
 DATABASE_URL=sqlite://./rox.db
 ```
 
+#### Database Connection Pool Settings (PostgreSQL only)
+
+```bash
+# Maximum number of connections in the pool (default: 10)
+DB_POOL_MAX=10
+
+# Close idle connections after this many seconds (default: 20)
+DB_IDLE_TIMEOUT=20
+
+# Maximum connection lifetime in seconds (default: 1800 = 30 minutes)
+DB_MAX_LIFETIME=1800
+
+# Connection timeout in seconds (default: 30)
+DB_CONNECT_TIMEOUT=30
+```
+
 ### Storage Configuration
 
 #### Local Storage
@@ -68,6 +107,12 @@ S3_REGION=auto
 S3_PUBLIC_URL=https://media.your-domain.com
 ```
 
+> [!IMPORTANT]
+> The `S3_ENDPOINT` should NOT include the bucket name! The bucket name is specified separately via `S3_BUCKET_NAME`.
+>
+> **Correct:** `https://your-account.r2.cloudflarestorage.com`
+> **Incorrect:** `https://rox-media.your-account.r2.cloudflarestorage.com`
+
 **Options:**
 - `S3_ENDPOINT`: S3 endpoint URL
 - `S3_BUCKET_NAME`: Bucket name
@@ -83,37 +128,31 @@ S3_PUBLIC_URL=https://media.your-domain.com
 - DigitalOcean Spaces
 - Backblaze B2
 
-### Server Configuration
+### File Upload Configuration
 
 ```bash
-NODE_ENV=production
-PORT=3000
-FRONTEND_PORT=3001
-FRONTEND_URL=https://your-domain.com
-BACKEND_URL=https://api.your-domain.com
+# Maximum file size in bytes (default: 10MB = 10485760)
+MAX_FILE_SIZE=10485760
+
+# Maximum number of files per note (default: 4)
+MAX_FILES_PER_NOTE=4
+
+# Allowed MIME types for uploads
+ALLOWED_MIME_TYPES=image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm
+
+# Enable automatic WebP conversion for images (default: false)
+ENABLE_WEBP_CONVERSION=false
 ```
 
-**Options:**
-- `NODE_ENV`: Environment (`development` or `production`)
-- `PORT`: Backend server port (default: `3000`)
-- `FRONTEND_PORT`: Frontend server port (default: `3001`)
-- `FRONTEND_URL`: Frontend public URL
-- `BACKEND_URL`: Backend public URL
-
-### Security Configuration
+### Authentication & Sessions
 
 ```bash
-JWT_SECRET=your-very-secure-random-string-at-least-32-chars
-SESSION_SECRET=another-secure-random-string-at-least-32-chars
-COOKIE_SECURE=true
-COOKIE_DOMAIN=.your-domain.com
-```
+# Session expiry in days (default: 30)
+SESSION_EXPIRY_DAYS=30
 
-**Options:**
-- `JWT_SECRET`: Secret for JWT tokens (required, min 32 chars)
-- `SESSION_SECRET`: Secret for sessions (required, min 32 chars)
-- `COOKIE_SECURE`: Use secure cookies (default: `true` in production)
-- `COOKIE_DOMAIN`: Cookie domain (optional)
+# JWT secret for token signing (reserved for future use)
+JWT_SECRET=your-secure-random-secret-here
+```
 
 **Generate Secure Secrets:**
 
@@ -128,126 +167,129 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 bun -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 ```
 
+### Registration & Moderation
+
+```bash
+# Enable new user registration (default: false)
+ENABLE_REGISTRATION=true
+
+# Require invitation code for registration (default: false)
+REQUIRE_INVITATION=false
+```
+
+### OAuth Configuration (Optional)
+
+Configure OAuth providers to allow users to login/register using external accounts.
+
+#### GitHub OAuth
+
+Create OAuth app at: https://github.com/settings/developers
+
+```bash
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+GITHUB_REDIRECT_URI=https://your-domain.com/api/auth/oauth/github/callback
+```
+
+#### Google OAuth
+
+Create credentials at: https://console.cloud.google.com/apis/credentials
+
+```bash
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_REDIRECT_URI=https://your-domain.com/api/auth/oauth/google/callback
+```
+
+#### Discord OAuth
+
+Create application at: https://discord.com/developers/applications
+
+```bash
+DISCORD_CLIENT_ID=your-discord-client-id
+DISCORD_CLIENT_SECRET=your-discord-client-secret
+DISCORD_REDIRECT_URI=https://your-domain.com/api/auth/oauth/discord/callback
+```
+
+#### Mastodon OAuth
+
+Register app in your Mastodon instance: Settings > Development > New Application
+Scopes needed: `read:accounts`
+
+```bash
+MASTODON_CLIENT_ID=your-mastodon-client-id
+MASTODON_CLIENT_SECRET=your-mastodon-client-secret
+MASTODON_INSTANCE_URL=https://mastodon.social
+MASTODON_REDIRECT_URI=https://your-domain.com/api/auth/oauth/mastodon/callback
+```
+
 ### Instance Configuration
 
 ```bash
 INSTANCE_NAME=Your Instance Name
-INSTANCE_DESCRIPTION=A description of your instance
+INSTANCE_DESCRIPTION=A lightweight ActivityPub server
 ADMIN_EMAIL=admin@your-domain.com
-INSTANCE_ICON_URL=https://your-domain.com/icon.png
-INSTANCE_BANNER_URL=https://your-domain.com/banner.png
 ```
 
 **Options:**
-- `INSTANCE_NAME`: Name of your instance
+- `INSTANCE_NAME`: Name of your instance (shown in NodeInfo)
 - `INSTANCE_DESCRIPTION`: Description shown on instance info
-- `ADMIN_EMAIL`: Admin contact email
-- `INSTANCE_ICON_URL`: Instance icon/logo URL
-- `INSTANCE_BANNER_URL`: Instance banner image URL
+- `ADMIN_EMAIL`: Admin contact email (shown in NodeInfo)
 
-### Federation Configuration
+### Federation & ActivityPub
 
 ```bash
-FEDERATION_ENABLED=true
-FEDERATION_ALLOWLIST=
-FEDERATION_BLOCKLIST=
-SHARED_INBOX_ENABLED=true
+# Enable federation (ActivityPub support)
+ENABLE_FEDERATION=true
 ```
 
-**Options:**
-- `FEDERATION_ENABLED`: Enable ActivityPub federation (default: `true`)
-- `FEDERATION_ALLOWLIST`: Comma-separated list of allowed domains (empty = allow all)
-- `FEDERATION_BLOCKLIST`: Comma-separated list of blocked domains
-- `SHARED_INBOX_ENABLED`: Enable shared inbox (default: `true`)
-
-**Example:**
+### Redis / Queue Configuration
 
 ```bash
-# Block specific instances
-FEDERATION_BLOCKLIST=spam.example.com,bad-actor.net
-
-# Allow only specific instances
-FEDERATION_ALLOWLIST=mastodon.social,misskey.io
-```
-
-### Cache Configuration
-
-```bash
+# Redis URL for caching and job queues
 REDIS_URL=redis://localhost:6379
-CACHE_TTL=3600
+
+# Disable queue and use synchronous delivery (default: false)
+USE_QUEUE=true
+
+# Number of retry attempts for failed ActivityPub deliveries
+DELIVERY_RETRY_ATTEMPTS=3
+
+# Stats logging interval in milliseconds (default: 3600000 = 1 hour)
+STATS_LOG_INTERVAL_MS=3600000
 ```
 
-**Options:**
-- `REDIS_URL`: Redis connection URL (optional, uses Dragonfly in Docker)
-- `CACHE_TTL`: Default cache TTL in seconds (default: `3600`)
+> [!NOTE]
+> Redis is required for the ActivityPub delivery queue in production. You can use [Dragonfly](https://www.dragonflydb.io/) as a high-performance Redis alternative.
 
-### Queue Configuration
+### Web Push Notifications (VAPID)
+
+Generate VAPID keys with:
 
 ```bash
-QUEUE_REDIS_URL=redis://localhost:6379
-QUEUE_CONCURRENCY=10
-QUEUE_MAX_RETRIES=3
+bunx web-push generate-vapid-keys
 ```
-
-**Options:**
-- `QUEUE_REDIS_URL`: Redis URL for BullMQ (defaults to `REDIS_URL`)
-- `QUEUE_CONCURRENCY`: Number of concurrent jobs (default: `10`)
-- `QUEUE_MAX_RETRIES`: Max retry attempts for failed jobs (default: `3`)
-
-### Rate Limiting
 
 ```bash
-RATE_LIMIT_ENABLED=true
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
+# VAPID public key (share this with the frontend)
+VAPID_PUBLIC_KEY=your-vapid-public-key
+
+# VAPID private key (keep this secret!)
+VAPID_PRIVATE_KEY=your-vapid-private-key
+
+# Contact email for VAPID (falls back to ADMIN_EMAIL if not set)
+VAPID_CONTACT_EMAIL=mailto:admin@example.com
 ```
-
-**Options:**
-- `RATE_LIMIT_ENABLED`: Enable rate limiting (default: `true`)
-- `RATE_LIMIT_WINDOW_MS`: Time window in milliseconds (default: `900000` = 15 min)
-- `RATE_LIMIT_MAX_REQUESTS`: Max requests per window (default: `100`)
-
-### Email Configuration
-
-```bash
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-app-password
-SMTP_FROM=noreply@your-domain.com
-```
-
-**Options:**
-- `SMTP_HOST`: SMTP server host
-- `SMTP_PORT`: SMTP server port (587 for TLS, 465 for SSL)
-- `SMTP_SECURE`: Use SSL (default: `false`, use TLS)
-- `SMTP_USER`: SMTP username
-- `SMTP_PASSWORD`: SMTP password
-- `SMTP_FROM`: From email address
 
 ### Logging Configuration
 
 ```bash
 LOG_LEVEL=info
-LOG_FORMAT=json
 ```
 
 **Options:**
 - `LOG_LEVEL`: Logging level (`debug`, `info`, `warn`, `error`)
-- `LOG_FORMAT`: Log format (`json` or `pretty`)
-
-### Development Configuration
-
-```bash
-# Development only
-DEV_CORS_ORIGIN=http://localhost:3001
-DEV_SKIP_AUTH=false
-```
-
-**Options:**
-- `DEV_CORS_ORIGIN`: CORS origin for development
-- `DEV_SKIP_AUTH`: Skip authentication (DANGEROUS, dev only)
+  - Default: `debug` in development, `info` in production
 
 ## Configuration Files
 
@@ -280,6 +322,7 @@ services:
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - REDIS_URL=redis://dragonfly:6379
+      - URL=${URL}
     depends_on:
       - postgres
       - dragonfly
@@ -307,15 +350,14 @@ volumes:
 1. **Never commit `.env` files** - Add to `.gitignore`
 2. **Use strong secrets** - Minimum 32 characters, random
 3. **Rotate secrets regularly** - Change JWT/session secrets periodically
-4. **Limit CORS origins** - Only allow trusted domains
-5. **Enable HTTPS** - Always use SSL/TLS in production
+4. **Enable HTTPS** - Always use SSL/TLS in production
 
 ### Performance
 
 1. **Enable caching** - Configure Redis for better performance
 2. **Use CDN** - Serve static assets through CDN
 3. **Optimize database** - Add indexes for common queries
-4. **Configure connection pooling** - Use PgBouncer for PostgreSQL
+4. **Configure connection pooling** - Tune `DB_POOL_MAX` for your workload
 
 ### Reliability
 
@@ -331,30 +373,17 @@ volumes:
 ```bash
 NODE_ENV=development
 LOG_LEVEL=debug
-LOG_FORMAT=pretty
-DEV_CORS_ORIGIN=http://localhost:3001
-RATE_LIMIT_ENABLED=false
-```
-
-### Staging
-
-```bash
-NODE_ENV=production
-LOG_LEVEL=info
-LOG_FORMAT=json
-RATE_LIMIT_ENABLED=true
-RATE_LIMIT_MAX_REQUESTS=200
+URL=http://localhost:3000
+ENABLE_REGISTRATION=true
 ```
 
 ### Production
 
 ```bash
 NODE_ENV=production
-LOG_LEVEL=warn
-LOG_FORMAT=json
-COOKIE_SECURE=true
-RATE_LIMIT_ENABLED=true
-RATE_LIMIT_MAX_REQUESTS=100
+LOG_LEVEL=info
+URL=https://your-domain.com
+ENABLE_FEDERATION=true
 ```
 
 ## Troubleshooting
@@ -398,4 +427,4 @@ redis-cli -u $REDIS_URL ping
 
 | Date | Changes |
 |------|---------|
-| 2025-12-10 | Removed Cloudflare D1 and wrangler.toml sections (development discontinued) |
+| 2025-12-10 | Updated to match current .env.example: Added OAuth providers, VAPID, file upload config, simplified URL configuration |

@@ -43,9 +43,9 @@ cp .env.example .env
 
 `.env`を編集して設定します。主要な変数：
 
+- `URL`: インスタンスの公開URL（例: `https://your-domain.com`）
 - `DATABASE_URL`: データベース接続文字列
 - `STORAGE_TYPE`: `local`または`s3`を選択
-- `JWT_SECRET`: JWTトークンの秘密鍵
 
 ### 4. 開発サービスを起動
 

@@ -43,9 +43,9 @@ cp .env.example .env
 
 Edit `.env` with your configuration. Key variables include:
 
+- `URL`: Your instance's public URL (e.g., `https://your-domain.com`)
 - `DATABASE_URL`: Your database connection string
 - `STORAGE_TYPE`: Choose between `local` or `s3`
-- `JWT_SECRET`: Secret key for JWT tokens
 
 ### 4. Start Development Services
 
