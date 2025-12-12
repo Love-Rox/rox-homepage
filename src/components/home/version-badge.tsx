@@ -57,7 +57,7 @@ export const VersionBadge = ({ stableLabel, prereleaseLabel }: VersionBadgeProps
           href={releaseInfo.stable.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 ring-1 ring-primary-700/10 dark:ring-primary-300/10 hover:bg-primary-200 dark:hover:bg-primary-800 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-primary-600 dark:bg-primary-500 text-white shadow-sm hover:bg-primary-500 dark:hover:bg-primary-400 transition-colors"
         >
           <svg
             className="w-4 h-4"
