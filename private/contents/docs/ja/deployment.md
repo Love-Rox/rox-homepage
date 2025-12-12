@@ -228,19 +228,19 @@ SESSION_SECRET=another-secure-random-string
 
 ```bash
 # イメージをビルド
-docker compose build
+docker compose -f docker/compose.yml build
 
 # サービスを起動
-docker compose up -d
+docker compose -f docker/compose.yml up -d
 
 # ステータス確認
-docker compose ps
+docker compose -f docker/compose.yml ps
 ```
 
 ### ステップ4: マイグレーション実行
 
 ```bash
-docker compose exec backend bun run db:migrate
+docker compose -f docker/compose.yml exec backend bun run db:migrate
 ```
 
 ### ステップ5: リバースプロキシ設定
@@ -379,4 +379,5 @@ sudo kill -9 <PID>
 
 | 日付 | 変更内容 |
 |------|----------|
+| 2025-12-12 | Docker Composeコマンドのパスを `docker/compose.yml` に修正 |
 | 2025-12-10 | Cloudflare Workersデプロイメントオプションを削除（開発中止） |

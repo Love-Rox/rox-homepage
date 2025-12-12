@@ -18,7 +18,36 @@ Before you begin, make sure you have the following installed:
 - [Docker](https://www.docker.com/) and Docker Compose
 - PostgreSQL >= 14 (or MySQL >= 8.0, or SQLite)
 
-## Installation Steps
+## Using DevContainer (Recommended)
+
+If you're using VS Code or GitHub Codespaces, you can set up your development environment with just one click using DevContainer.
+
+### DevContainer Features
+
+- **One-click setup**: Dependencies, databases, and SSL certificates are all automatically configured
+- **Multi-database**: PostgreSQL, MariaDB, and Dragonfly are ready to use out of the box
+- **HTTPS enabled**: Local SSL certificates are automatically generated with mkcert
+- **AI development support**: Claude Code comes pre-installed
+
+### Setup Steps
+
+1. Install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VS Code
+2. Clone the repository: `git clone https://github.com/Love-rox/rox.git`
+3. Open the folder in VS Code
+4. Select "Reopen in Container" (or press `F1` → `Dev Containers: Reopen in Container`)
+5. The initial setup will run automatically (takes about 5-10 minutes)
+
+Once setup is complete, start development with:
+
+```bash
+bun run dev
+```
+
+> **Tip**: HTTPS is enabled inside DevContainer, so you can access it via `https://localhost`.
+
+---
+
+## Manual Installation
 
 ### 1. Clone the Repository
 
@@ -114,3 +143,11 @@ If you encounter database connection errors, make sure:
 If ports 3000 or 3001 are already in use, you can change them in:
 - Backend: `packages/backend/.env` → `PORT`
 - Frontend: `packages/frontend/waku.config.ts` → `port`
+
+---
+
+## Update History
+
+| Date | Changes |
+|------|---------|
+| 2025-12-12 | Added DevContainer section |

@@ -18,7 +18,36 @@ Roxへようこそ！このガイドでは、ローカルマシンでRoxをセ�
 - [Docker](https://www.docker.com/) と Docker Compose
 - PostgreSQL >= 14（またはMySQL >= 8.0、またはSQLite）
 
-## インストール手順
+## DevContainerを使う（推奨）
+
+VS CodeまたはGitHub Codespacesを使用している場合、DevContainerで開発環境をワンクリックでセットアップできます。
+
+### DevContainerの特徴
+
+- **ワンクリックセットアップ**: 依存関係、データベース、SSL証明書がすべて自動構成
+- **マルチデータベース**: PostgreSQL、MariaDB、Dragonflyがすぐに使える状態で起動
+- **HTTPS対応**: mkcertによるローカルSSL証明書が自動生成
+- **AI開発支援**: Claude Codeが事前インストール済み
+
+### セットアップ手順
+
+1. VS Codeで[Dev Containers拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)をインストール
+2. リポジトリをクローン: `git clone https://github.com/Love-rox/rox.git`
+3. VS Codeでフォルダを開く
+4. 「Reopen in Container」を選択（または `F1` → `Dev Containers: Reopen in Container`）
+5. 初回起動時は自動セットアップが実行されます（5〜10分程度）
+
+セットアップ完了後、以下のコマンドで開発を開始できます：
+
+```bash
+bun run dev
+```
+
+> **ヒント**: DevContainer内ではHTTPSが有効になっているため、`https://localhost` でアクセスできます。
+
+---
+
+## 手動インストール
 
 ### 1. リポジトリをクローン
 
@@ -114,3 +143,11 @@ bun run frontend:dev
 ポート3000または3001が既に使用されている場合、変更できます：
 - バックエンド: `packages/backend/.env` → `PORT`
 - フロントエンド: `packages/frontend/waku.config.ts` → `port`
+
+---
+
+## 更新履歴
+
+| 日付 | 変更内容 |
+|------|----------|
+| 2025-12-12 | DevContainerセクションを追加 |

@@ -24,6 +24,19 @@ By participating in this project, you agree to abide by our [Code of Conduct](ht
 
 ### Setting Up Your Environment
 
+#### Option A: Using DevContainer (Recommended)
+
+If you're using VS Code or GitHub Codespaces, you can set up your development environment with just one click using DevContainer.
+
+1. Fork and clone the repository
+2. Open the folder in VS Code
+3. Select "Reopen in Container"
+4. Once auto-setup completes, run `bun run dev` to start developing
+
+See the [Getting Started Guide](getting-started) for more details.
+
+#### Option B: Manual Setup
+
 1.  **Fork the repository** on GitHub.
 2.  **Clone your fork**:
     ```bash
@@ -83,4 +96,12 @@ If you find a bug or have a feature request, please open an issue on GitHub. Pro
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the project's [MIT License](https://github.com/Love-Rox/rox/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under the project's [AGPL-3.0 License](https://github.com/Love-Rox/rox/blob/main/LICENSE).
+
+---
+
+## Update History
+
+| Date | Changes |
+|------|---------|
+| 2025-12-12 | Added DevContainer option, corrected license to AGPL-3.0 |

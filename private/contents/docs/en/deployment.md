@@ -258,25 +258,25 @@ ADMIN_EMAIL=admin@your-domain.com
 
 ```bash
 # Build images
-docker compose build
+docker compose -f docker/compose.yml build
 
 # Start services
-docker compose up -d
+docker compose -f docker/compose.yml up -d
 
 # Check status
-docker compose ps
+docker compose -f docker/compose.yml ps
 ```
 
 ### Step 4: Run Migrations
 
 ```bash
-docker compose exec backend bun run db:migrate
+docker compose -f docker/compose.yml exec backend bun run db:migrate
 ```
 
 ### Step 5: Create Admin User
 
 ```bash
-docker compose exec backend bun run create-admin
+docker compose -f docker/compose.yml exec backend bun run create-admin
 ```
 
 
@@ -453,4 +453,5 @@ server {
 
 | Date | Changes |
 |------|---------|
+| 2025-12-12 | Fixed Docker Compose command paths to `docker/compose.yml` |
 | 2025-12-10 | Removed Cloudflare Workers deployment option (development discontinued) |

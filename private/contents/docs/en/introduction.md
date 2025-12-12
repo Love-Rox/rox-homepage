@@ -129,7 +129,7 @@ Ready to get started? Check out these guides:
 
 ## License
 
-Rox is open source software licensed under the MIT License.
+Rox is open source software licensed under the AGPL-3.0 (GNU Affero General Public License v3). This copyleft license requires that modified source code be made available even when providing the software as a network service.
 
 ---
 
@@ -137,4 +137,5 @@ Rox is open source software licensed under the MIT License.
 
 | Date | Changes |
 |------|---------|
+| 2025-12-12 | Corrected license information from MIT to AGPL-3.0 |
 | 2025-12-10 | Removed Cloudflare Workers/edge deployment references (development discontinued) |
