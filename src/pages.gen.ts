@@ -6,7 +6,9 @@ import type { PathsForPages, GetConfigResponse } from 'waku/router';
 // prettier-ignore
 import type { getConfig as File_BaseAbout_getConfig } from './pages/(base)/about';
 // prettier-ignore
-import type { getConfig as File_BaseContact_getConfig } from './pages/(base)/contact';
+import type { getConfig as File_BaseBlogSlug_getConfig } from './pages/(base)/blog/[slug]';
+// prettier-ignore
+import type { getConfig as File_BaseDocsSlug_getConfig } from './pages/(base)/docs/[slug]';
 // prettier-ignore
 import type { getConfig as File_LocaleLang404_getConfig } from './pages/(locale)/[lang]/404';
 // prettier-ignore
@@ -33,7 +35,12 @@ import type { getConfig as File_ApiSubmit_getConfig } from './pages/api/submit';
 // prettier-ignore
 type Page =
 | ({ path: '/about' } & GetConfigResponse<typeof File_BaseAbout_getConfig>)
-| ({ path: '/contact' } & GetConfigResponse<typeof File_BaseContact_getConfig>)
+| { path: '/assets'; render: 'dynamic' }
+| ({ path: '/blog/[slug]' } & GetConfigResponse<typeof File_BaseBlogSlug_getConfig>)
+| { path: '/blog'; render: 'dynamic' }
+| { path: '/contact'; render: 'dynamic' }
+| ({ path: '/docs/[slug]' } & GetConfigResponse<typeof File_BaseDocsSlug_getConfig>)
+| { path: '/docs'; render: 'dynamic' }
 | { path: '/'; render: 'dynamic' }
 | ({ path: '/[lang]/404' } & GetConfigResponse<typeof File_LocaleLang404_getConfig>)
 | ({ path: '/[lang]/assets' } & GetConfigResponse<typeof File_LocaleLangAssets_getConfig>)
