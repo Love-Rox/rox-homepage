@@ -40,24 +40,37 @@ function generateSitemap(): string {
 
   // Helper to add URL with language alternatives
   const addUrl = (urlPath: string, priority: string, changefreq: string) => {
-    urls.push(`  <url>
-    <loc>${SITE_URL}${urlPath}</loc>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
-    ${LANGUAGES.map(lang => {
+    const alternates = LANGUAGES.map(lang => {
       let altPath = urlPath;
       if (urlPath === '/') {
         altPath = `/${lang}`;
       } else {
         altPath = urlPath.replace(/\/(en|ja)/, `/${lang}`);
       }
-      return `<xhtml:link rel="alternate" hreflang="${lang}" href="${SITE_URL}${altPath}" />`;
-    }).join('\n    ')}
+      return `    <xhtml:link rel="alternate" hreflang="${lang}" href="${SITE_URL}${altPath}" />`;
+    });
+
+    // Add x-default for all pages (pointing to the root or the language-neutral version)
+    // For now, only the homepage has a clear language-neutral root version (/)
+    if (urlPath === '/' || urlPath === '/en' || urlPath === '/ja') {
+      alternates.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`);
+    }
+
+    urls.push(`  <url>
+    <loc>${SITE_URL}${urlPath}</loc>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+${alternates.join('\n')}
   </url>`);
   };
 
-  // Homepage
+  // Homepage (Root/Default)
   addUrl('/', '1.0', 'weekly');
+
+  // Strategy: For each page, we need to add the URL entry for each language, 
+  // and EVERY such entry must have alternates for ALL languages (including itself).
+
+  // Homepage (Language specific)
   LANGUAGES.forEach(lang => {
     addUrl(`/${lang}`, '1.0', 'weekly');
   });
@@ -87,7 +100,7 @@ function generateSitemap(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  ${urls.join('\n  ')}
+${urls.join('\n')}
 </urlset>`;
 }
 
