@@ -108,20 +108,20 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/development-philosophy" />
   </url>
   <url>
-    <loc>https://love-rox.cc/en/blog/first-release-2025-12</loc>
+    <loc>https://love-rox.cc/en/blog/welcome-to-rox</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/first-release-2025-12" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/first-release-2025-12" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/welcome-to-rox" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/welcome-to-rox" />
   </url>
   <url>
-    <loc>https://love-rox.cc/ja/blog/first-release-2025-12</loc>
+    <loc>https://love-rox.cc/ja/blog/welcome-to-rox</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/first-release-2025-12" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/first-release-2025-12" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/welcome-to-rox" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/welcome-to-rox" />
   </url>
   <url>
     <loc>https://love-rox.cc/en/blog/react-tokyo-advent-calendar-2025</loc>
@@ -156,36 +156,36 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/rox-december-2025-update" />
   </url>
   <url>
-    <loc>https://love-rox.cc/en/blog/welcome-to-rox</loc>
+    <loc>https://love-rox.cc/en/blog/first-release-2025-12</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/welcome-to-rox" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/welcome-to-rox" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/first-release-2025-12" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/first-release-2025-12" />
   </url>
   <url>
-    <loc>https://love-rox.cc/ja/blog/welcome-to-rox</loc>
+    <loc>https://love-rox.cc/ja/blog/first-release-2025-12</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/welcome-to-rox" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/welcome-to-rox" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/blog/first-release-2025-12" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/blog/first-release-2025-12" />
   </url>
   <url>
-    <loc>https://love-rox.cc/en/docs/api-overview</loc>
+    <loc>https://love-rox.cc/en/docs/authentication</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/api-overview" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/api-overview" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/authentication" />
   </url>
   <url>
-    <loc>https://love-rox.cc/ja/docs/api-overview</loc>
+    <loc>https://love-rox.cc/ja/docs/authentication</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/api-overview" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/api-overview" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/authentication" />
   </url>
   <url>
     <loc>https://love-rox.cc/en/docs/architecture</loc>
@@ -204,20 +204,84 @@
     <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/architecture" />
   </url>
   <url>
-    <loc>https://love-rox.cc/en/docs/authentication</loc>
+    <loc>https://love-rox.cc/en/docs/api-overview</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/authentication" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/api-overview" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/api-overview" />
   </url>
   <url>
-    <loc>https://love-rox.cc/ja/docs/authentication</loc>
+    <loc>https://love-rox.cc/ja/docs/api-overview</loc>
     <lastmod>2025-12-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/authentication" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/authentication" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/api-overview" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/api-overview" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/en/docs/federation</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/federation" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/federation" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/ja/docs/federation</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/federation" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/federation" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/en/docs/introduction</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/introduction" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/introduction" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/ja/docs/introduction</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/introduction" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/introduction" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/en/docs/getting-started</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/getting-started" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/ja/docs/getting-started</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/getting-started" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/en/docs/deployment</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/deployment" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/deployment" />
+  </url>
+  <url>
+    <loc>https://love-rox.cc/ja/docs/deployment</loc>
+    <lastmod>2025-12-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/deployment" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/deployment" />
   </url>
   <url>
     <loc>https://love-rox.cc/en/docs/configuration</loc>
@@ -250,69 +314,5 @@
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/contributing" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/contributing" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/en/docs/deployment</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/deployment" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/deployment" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/ja/docs/deployment</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/deployment" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/deployment" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/en/docs/federation</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/federation" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/federation" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/ja/docs/federation</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/federation" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/federation" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/en/docs/getting-started</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/getting-started" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/getting-started" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/ja/docs/getting-started</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/getting-started" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/getting-started" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/en/docs/introduction</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/introduction" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/introduction" />
-  </url>
-  <url>
-    <loc>https://love-rox.cc/ja/docs/introduction</loc>
-    <lastmod>2025-12-31</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://love-rox.cc/en/docs/introduction" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://love-rox.cc/ja/docs/introduction" />
   </url>
 </urlset>

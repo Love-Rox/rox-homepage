@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/global/footer";
 import { Header } from "@/components/global/header";
 import { unstable_getContext } from "waku/server";
+import { WebSiteSchema, OrganizationSchema, SoftwareApplicationSchema } from "@/components/seo/structured-data";
 
 import nav_en from "@private/lang/components/global/en/nav.json";
 import nav_ja from "@private/lang/components/global/ja/nav.json";
@@ -46,6 +47,9 @@ export default async function RootLayout(props: LayoutProps) {
           href="https://fonts.gstatic.com"
           crossOrigin=""
         />
+        <WebSiteSchema lang={currentLang as 'en' | 'ja'} />
+        <OrganizationSchema />
+        <SoftwareApplicationSchema />
       </head>
       <body>
         <div className="font-m-plus-rounded-1c bg-primary-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 min-h-screen flex flex-col">

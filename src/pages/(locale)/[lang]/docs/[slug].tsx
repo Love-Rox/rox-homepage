@@ -5,6 +5,8 @@ import { loadMarkdownBySlug } from "@/lib/markdown-loader";
 import { DocsSidebar } from "@/components/docs/sidebar";
 import docs_en from "@private/lang/pages/en/docs.json";
 import docs_ja from "@private/lang/pages/ja/docs.json";
+import { Breadcrumbs, generateBreadcrumbItems } from "@/components/common/breadcrumbs";
+import { BreadcrumbSchema, TechArticleSchema } from "@/components/seo/structured-data";
 
 const docsStructure = {
   en: docs_en,
@@ -44,6 +46,26 @@ export default async function DocsPage({
         title={`${content.metadata.title} - ${structure.title} - Rox`}
         description={content.metadata.description || ""}
         image={ogUrl}
+      />
+      <BreadcrumbSchema
+        items={generateBreadcrumbItems([
+          { label: structure.title, href: `/${locale}/docs` },
+          { label: content.metadata.title, href: `/${locale}/docs/${slug}` },
+        ], locale)}
+      />
+      <TechArticleSchema
+        title={content.metadata.title}
+        description={content.metadata.description || ''}
+        url={`/${locale}/docs/${slug}`}
+        {...(content.metadata.date && { dateModified: content.metadata.date })}
+      />
+
+      <Breadcrumbs
+        items={[
+          { label: structure.title, href: `/${locale}/docs` },
+          { label: content.metadata.title },
+        ]}
+        lang={locale}
       />
 
       <div className="flex flex-col lg:flex-row gap-8">

@@ -2,6 +2,8 @@ import { Meta } from "@/components/global/meta";
 import { PageProps } from "waku/router";
 import { Link } from "waku";
 import { getAllSlugs, loadMarkdownBySlug } from "@/lib/markdown-loader";
+import { Breadcrumbs, generateBreadcrumbItems } from "@/components/common/breadcrumbs";
+import { BreadcrumbSchema } from "@/components/seo/structured-data";
 
 const blogIndexData = {
   en: {
@@ -67,6 +69,9 @@ export default async function BlogIndexPage({
         description={indexData.description}
         image={`/api/og?title=${encodeURIComponent(indexData.title)}`}
       />
+      <BreadcrumbSchema items={generateBreadcrumbItems([{ label: indexData.title, href: `/${locale}/blog` }], locale)} />
+
+      <Breadcrumbs items={[{ label: indexData.title }]} lang={locale} />
 
       <header className="mb-12">
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">

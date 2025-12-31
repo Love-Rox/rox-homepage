@@ -2,6 +2,8 @@ import { Meta } from "@/components/global/meta";
 import { PageProps } from "waku/router";
 import { loadMarkdownBySlug } from "@/lib/markdown-loader";
 import { BlogPost } from "@/components/blog/blog-post";
+import { Breadcrumbs, generateBreadcrumbItems } from "@/components/common/breadcrumbs";
+import { BreadcrumbSchema, ArticleSchema } from "@/components/seo/structured-data";
 
 // Blog index data
 const blogIndexData = {
@@ -48,6 +50,28 @@ export default async function BlogPostPage({
         title={`${content.metadata.title} - ${indexData.title} - Rox`}
         description={content.metadata.excerpt || content.metadata.description}
         image={ogUrl}
+      />
+      <BreadcrumbSchema
+        items={generateBreadcrumbItems([
+          { label: indexData.title, href: `/${locale}/blog` },
+          { label: content.metadata.title, href: `/${locale}/blog/${slug}` },
+        ], locale)}
+      />
+      <ArticleSchema
+        title={content.metadata.title}
+        description={content.metadata.excerpt || content.metadata.description || ''}
+        url={`/${locale}/blog/${slug}`}
+        image={ogUrl}
+        {...(content.metadata.date && { datePublished: content.metadata.date })}
+        author={content.metadata.author || 'Rox Team'}
+      />
+
+      <Breadcrumbs
+        items={[
+          { label: indexData.title, href: `/${locale}/blog` },
+          { label: content.metadata.title },
+        ]}
+        lang={locale}
       />
 
       <BlogPost

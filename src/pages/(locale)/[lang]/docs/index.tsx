@@ -4,6 +4,8 @@ import { Link } from "waku";
 
 import docs_en from "@private/lang/pages/en/docs.json";
 import docs_ja from "@private/lang/pages/ja/docs.json";
+import { Breadcrumbs, generateBreadcrumbItems } from "@/components/common/breadcrumbs";
+import { BreadcrumbSchema } from "@/components/seo/structured-data";
 
 const docsLangData = {
   en: docs_en,
@@ -21,8 +23,11 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
         description={content.subtitle}
         image={`/api/og?title=${encodeURIComponent(content.title)}`}
       />
+      <BreadcrumbSchema items={generateBreadcrumbItems([{ label: content.title, href: `/${locale}/docs` }], locale)} />
 
       <div className="max-w-4xl mx-auto">
+        <Breadcrumbs items={[{ label: content.title }]} lang={locale} />
+
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-4 break-words">
           {content.title}
         </h1>

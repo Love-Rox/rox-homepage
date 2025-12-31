@@ -2,6 +2,8 @@ import { AssetCard } from '@/components/assets/AssetCard';
 import assetsLangJa from '@private/lang/pages/ja/assets.json';
 import assetsLangEn from '@private/lang/pages/en/assets.json';
 import { PageProps } from 'waku/router';
+import { Breadcrumbs, generateBreadcrumbItems } from '@/components/common/breadcrumbs';
+import { BreadcrumbSchema } from '@/components/seo/structured-data';
 
 const assetsLangData = {
   en: assetsLangEn,
@@ -74,8 +76,11 @@ export default async function AssetsPage({ lang }: PageProps<'/[lang]/assets'>) 
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
       <title>{content.title}</title>
       <meta name="description" content={content.subtitle} />
+      <BreadcrumbSchema items={generateBreadcrumbItems([{ label: content.heading, href: `/${locale}/assets` }], locale)} />
 
       <div className="max-w-6xl mx-auto">
+        <Breadcrumbs items={[{ label: content.heading }]} lang={locale} />
+
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-4">
