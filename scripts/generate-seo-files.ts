@@ -38,6 +38,9 @@ function generateSitemap(): string {
 
   const urls: string[] = [];
 
+  // Get current date in ISO format for lastmod
+  const currentDate = new Date().toISOString().split('T')[0];
+
   // Helper to add URL with language alternatives
   const addUrl = (urlPath: string, priority: string, changefreq: string) => {
     const alternates = LANGUAGES.map(lang => {
@@ -58,6 +61,7 @@ function generateSitemap(): string {
 
     urls.push(`  <url>
     <loc>${SITE_URL}${urlPath}</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
 ${alternates.join('\n')}
