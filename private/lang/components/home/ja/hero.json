@@ -1,8 +1,8 @@
 {
     "title": "Rox - 軽量ActivityPubサーバー/クライアント",
-    "aboveLink": "Roxが登場しました。",
+    "aboveLink": "Rox v2026.1.0がリリースされました！",
     "link": "詳細を見る",
-    "linkUrl": "/ja/blog/welcome-to-rox",
+    "linkUrl": "/ja/blog/rox-v2026-1-0-plugin-system",
     "heading": "愛がロックする。Rox.",
     "description": "Roxは、パフォーマンスと使いやすさに重点を置いたActivityPubサーバーです。Misskeyのクライアントやサービスと互換性を持てるよう設計されています。",
     "getStarted": "さぁ始めよう",

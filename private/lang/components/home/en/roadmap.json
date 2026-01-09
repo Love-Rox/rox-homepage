@@ -96,11 +96,25 @@
     {
       "phase": "Phase 7",
       "title": "Plugin System",
-      "status": "planned",
+      "status": "complete",
       "items": [
-        "Plugin architecture design",
-        "Extension points",
-        "Plugin marketplace"
+        "EventBus architecture (before/after lifecycle hooks)",
+        "Secure plugin context (permission-based sandbox)",
+        "Plugin registry (dynamic loading & lifecycle management)",
+        "UI slot system (component injection points)",
+        "Hot reload support (development mode)",
+        "Sample plugins (activity-logger, auto-cw)",
+        "Plugin development documentation (English/Japanese)"
+      ]
+    },
+    {
+      "phase": "Phase 8",
+      "title": "Ecosystem Expansion",
+      "status": "in-progress",
+      "items": [
+        "Plugin marketplace",
+        "Official plugin development",
+        "Enhanced third-party integrations"
       ]
     }
   ]
