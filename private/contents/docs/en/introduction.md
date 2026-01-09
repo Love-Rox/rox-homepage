@@ -121,6 +121,15 @@ Ready to get started? Check out these guides:
 - [Deployment](deployment) - Deploy Rox to production
 - [API Reference](api-overview) - Explore the API
 
+### Plugin Development
+
+Want to extend Rox functionality with plugins? Check out these guides:
+
+- [Plugin Getting Started](plugin-getting-started) - Create your first plugin
+- [Plugin Architecture](plugin-architecture) - Internal structure of the plugin system
+- [Plugin Manifest](plugin-manifest) - plugin.json reference
+- [Plugin Events](plugin-events) - Lifecycle event details
+
 ## Community
 
 - **GitHub**: [Love-Rox/rox](https://github.com/Love-Rox/rox)

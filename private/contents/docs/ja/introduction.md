@@ -121,6 +121,15 @@ Roxは以下に最適：
 - [デプロイメント](deployment) - Roxを本番環境にデプロイ
 - [APIリファレンス](api-overview) - APIを探索
 
+### プラグイン開発
+
+Roxの機能を拡張するプラグインを開発したい方はこちら：
+
+- [プラグイン開発入門](plugin-getting-started) - 初めてのプラグインを作成
+- [プラグインアーキテクチャ](plugin-architecture) - プラグインシステムの内部構造
+- [プラグインマニフェスト](plugin-manifest) - plugin.jsonリファレンス
+- [プラグインイベント](plugin-events) - ライフサイクルイベントの詳細
+
 ## コミュニティ
 
 - **GitHub**: [Love-Rox/rox](https://github.com/Love-Rox/rox)
