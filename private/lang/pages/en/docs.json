@@ -55,6 +55,32 @@
       ]
     },
     {
+      "category": "Plugin Development",
+      "description": "Learn how to create plugins to extend Rox functionality",
+      "items": [
+        {
+          "slug": "plugin-getting-started",
+          "title": "Plugin Getting Started",
+          "description": "Create your first plugin"
+        },
+        {
+          "slug": "plugin-architecture",
+          "title": "Plugin Architecture",
+          "description": "Understand the plugin system internals"
+        },
+        {
+          "slug": "plugin-manifest",
+          "title": "Plugin Manifest",
+          "description": "Complete plugin.json reference"
+        },
+        {
+          "slug": "plugin-events",
+          "title": "Plugin Events",
+          "description": "Lifecycle events and EventBus"
+        }
+      ]
+    },
+    {
       "category": "API",
       "description": "API reference and integration guides",
       "items": [

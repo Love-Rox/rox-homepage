@@ -55,6 +55,32 @@
       ]
     },
     {
+      "category": "プラグイン開発",
+      "description": "Roxの機能を拡張するプラグインの作成方法",
+      "items": [
+        {
+          "slug": "plugin-getting-started",
+          "title": "プラグイン開発入門",
+          "description": "初めてのプラグインを作成する"
+        },
+        {
+          "slug": "plugin-architecture",
+          "title": "プラグインアーキテクチャ",
+          "description": "プラグインシステムの内部構造を理解"
+        },
+        {
+          "slug": "plugin-manifest",
+          "title": "プラグインマニフェスト",
+          "description": "plugin.jsonの完全リファレンス"
+        },
+        {
+          "slug": "plugin-events",
+          "title": "プラグインイベント",
+          "description": "ライフサイクルイベントとEventBus"
+        }
+      ]
+    },
+    {
       "category": "API",
       "description": "APIリファレンスと統合ガイド",
       "items": [
