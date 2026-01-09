@@ -28,6 +28,11 @@
           "description": "Understand Rox's architecture and design patterns"
         },
         {
+          "slug": "backend-frontend",
+          "title": "Backend & Frontend",
+          "description": "Understand the roles of backend and frontend"
+        },
+        {
           "slug": "deployment",
           "title": "Deployment",
           "description": "Deploy Rox to production environments"

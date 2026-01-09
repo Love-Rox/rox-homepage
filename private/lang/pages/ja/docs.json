@@ -28,6 +28,11 @@
           "description": "Roxのアーキテクチャと設計パターンを理解"
         },
         {
+          "slug": "backend-frontend",
+          "title": "バックエンドとフロントエンド",
+          "description": "バックエンドとフロントエンドの役割分担を理解"
+        },
+        {
           "slug": "deployment",
           "title": "デプロイメント",
           "description": "Roxを本番環境にデプロイ"
