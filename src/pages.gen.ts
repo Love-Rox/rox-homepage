@@ -26,22 +26,22 @@ import type { getConfig as File_LocaleLangDocsIndex_getConfig } from './pages/(l
 // prettier-ignore
 import type { getConfig as File_LocaleLangIndex_getConfig } from './pages/(locale)/[lang]/index';
 // prettier-ignore
-import type { getConfig as File_ApiOg_getConfig } from './pages/api/og';
+import type { getConfig as File_ApiOg_getConfig } from './pages/_api/og';
 // prettier-ignore
-import type { getConfig as File_ApiReleases_getConfig } from './pages/api/releases';
+import type { getConfig as File_ApiReleases_getConfig } from './pages/_api/releases';
 // prettier-ignore
-import type { getConfig as File_ApiSubmit_getConfig } from './pages/api/submit';
+import type { getConfig as File_ApiSubmit_getConfig } from './pages/_api/submit';
 
 // prettier-ignore
 type Page =
 | ({ path: '/about' } & GetConfigResponse<typeof File_BaseAbout_getConfig>)
-| { path: '/assets'; render: 'static' }
+| { path: '/assets'; render: 'dynamic' }
 | ({ path: '/blog/[slug]' } & GetConfigResponse<typeof File_BaseBlogSlug_getConfig>)
-| { path: '/blog'; render: 'static' }
-| { path: '/contact'; render: 'static' }
+| { path: '/blog'; render: 'dynamic' }
+| { path: '/contact'; render: 'dynamic' }
 | ({ path: '/docs/[slug]' } & GetConfigResponse<typeof File_BaseDocsSlug_getConfig>)
-| { path: '/docs'; render: 'static' }
-| { path: '/'; render: 'static' }
+| { path: '/docs'; render: 'dynamic' }
+| { path: '/'; render: 'dynamic' }
 | ({ path: '/[lang]/404' } & GetConfigResponse<typeof File_LocaleLang404_getConfig>)
 | ({ path: '/[lang]/assets' } & GetConfigResponse<typeof File_LocaleLangAssets_getConfig>)
 | ({ path: '/[lang]/blog/[slug]' } & GetConfigResponse<typeof File_LocaleLangBlogSlug_getConfig>)
@@ -50,9 +50,9 @@ type Page =
 | ({ path: '/[lang]/docs/[slug]' } & GetConfigResponse<typeof File_LocaleLangDocsSlug_getConfig>)
 | ({ path: '/[lang]/docs' } & GetConfigResponse<typeof File_LocaleLangDocsIndex_getConfig>)
 | ({ path: '/[lang]' } & GetConfigResponse<typeof File_LocaleLangIndex_getConfig>)
-| ({ path: '/api/og' } & GetConfigResponse<typeof File_ApiOg_getConfig>)
-| ({ path: '/api/releases' } & GetConfigResponse<typeof File_ApiReleases_getConfig>)
-| ({ path: '/api/submit' } & GetConfigResponse<typeof File_ApiSubmit_getConfig>);
+| ({ path: '/_api/og' } & GetConfigResponse<typeof File_ApiOg_getConfig>)
+| ({ path: '/_api/releases' } & GetConfigResponse<typeof File_ApiReleases_getConfig>)
+| ({ path: '/_api/submit' } & GetConfigResponse<typeof File_ApiSubmit_getConfig>);
 
 // prettier-ignore
 declare module 'waku/router' {
