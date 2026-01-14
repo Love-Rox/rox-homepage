@@ -1,65 +1,49 @@
 ---
 title: waku2bun2 - Working Toward Bun-Native Waku
-description: A challenge to make everything Bun-native. Testing the Waku fork "waku2bun2"
+description: A fork project aiming for Bun-native support in Waku
 date: 2026-01-14
 author: Rox Team
 tags: [Rox, Waku, Bun, Development, Infrastructure]
-excerpt: "If we're using Bun, why not make everything native?" — With this challenge in mind, we've started testing the Bun-native Waku fork "waku2bun2" on the Rox homepage. If successful, we aim to contribute these changes to upstream Waku.
+excerpt: "If we're using Bun, why not make everything native?" — With this thought in mind, we started the waku2bun2 fork project aiming for Bun-native support in Waku. Due to current RSC support limitations in Bun, we are preparing while waiting for Bun's development to progress.
 ---
 
 # waku2bun2 - Working Toward Bun-Native Waku
 
 ## The "Make Everything Bun-Native" Challenge
 
-**"If we're using Bun, why not make everything native?"** — With this challenge in mind, we've started testing the Bun-native Waku fork "**waku2bun2**" on the Rox homepage 🚀
-
-> [!NOTE]
-> This is currently only being tested on rox-homepage and has not yet been applied to the main Rox project.
+**"If we're using Bun, why not make everything native?"** — With this thought in mind, we started the **waku2bun2** fork project aiming for Bun-native support in Waku 🚀
 
 ## What is waku2bun2?
 
-[waku2bun2](https://github.com/Love-Rox/waku2bun2) is a fork of [Waku](https://waku.gg/), a React Server Components (RSC) framework, modified to run natively on the Bun runtime.
+[waku2bun2](https://github.com/Love-Rox/waku2bun2) is a fork project **aiming** to run [Waku](https://waku.gg/), a React Server Components (RSC) framework, natively on the Bun runtime.
 
-### Key Features
+## Current Technical Challenges
 
-- **Bun-Native Support** - Runs directly on Bun instead of Node.js
-- **Fast Startup Time** - Benefits from Bun's fast JavaScript/TypeScript runtime
-- **Maintained Compatibility** - Easy migration from existing Waku projects
+After testing, we discovered that Bun has fundamental limitations for RSC support at this time.
 
-## Why Migrate to Bun?
+### Unsupported `react-server` Export Condition
 
-### Performance Improvements
+Bun does not yet support Node.js's `react-server` export condition, which is required for React Server Components to work.
 
-Bun has extremely fast startup times, which can provide significant improvements especially for hot reloading during development and cold starts in production.
-
-### Improved Developer Experience
-
-Bun is an all-in-one toolkit that integrates a package manager, test runner, bundler, and more. It simplifies the entire toolchain.
-
-### Ecosystem Evolution
-
-As Bun adoption grows, the Rox project is moving forward with support for this new runtime.
-
-## Current Status
-
-After testing, we discovered that React Server Components (RSC) support in Bun currently has some challenges. As a result, rox-homepage has reverted to using the standard Waku package.
-
-```json
-{
-  "dependencies": {
-    "waku": "^1.0.0-alpha.2"
-  }
-}
+```
+error: No matching export in "react-dom/package.json" for import "react-dom"
 ```
 
-> [!IMPORTANT]
-> Bun's RSC support is still evolving. We are currently using the standard Waku (Node.js-based), but will revisit waku2bun2 as Bun's native RSC support matures.
+As a result, **all phases (dev, build, start) currently require Node.js**.
+
+## Goals
+
+Once Bun's support progresses, waku2bun2 aims to achieve:
+
+- **Development** - Native hot reload with `bun waku dev`
+- **Build** - Native build with `bun waku build`
+- **Runtime** - Native server startup with `bun waku start`
 
 ## Future Plans
 
-1. **Watch Bun's RSC Development** - Continue tracking the Bun team's progress on RSC support
-2. **Re-evaluate waku2bun2 as Bun Matures** - Test again as Bun's RSC support improves
-3. **Contribute to Upstream Waku** - If stable, contribute our changes to the main Waku project
+1. **Watch Bun's RSC Development** - Track support for `react-server` export condition
+2. **Update waku2bun2 as Bun Matures** - Advance implementation as Bun develops
+3. **Contribute to Upstream Waku** - If stable, contribute to the main Waku project
 
 ## Related Links
 
@@ -67,6 +51,6 @@ After testing, we discovered that React Server Components (RSC) support in Bun c
 - [Waku Official Website](https://waku.gg/)
 - [Bun Official Website](https://bun.sh/)
 
-We will keep you updated as testing progresses.
+As Bun evolves, this project will move forward too.
 
 **Love rocks. Rox.** 💜
