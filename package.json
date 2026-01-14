@@ -30,7 +30,7 @@
     "remark-html": "^16.0.1",
     "satori": "^0.18.3",
     "tailwindcss-react-aria-components": "^2.0.1",
-    "waku": "^0.27.3"
+    "waku": "npm:@love-rox/waku@1.0.0-alpha.2"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.17",
