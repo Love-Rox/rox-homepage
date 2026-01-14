@@ -35,13 +35,13 @@ import type { getConfig as File_ApiSubmit_getConfig } from './pages/api/submit';
 // prettier-ignore
 type Page =
 | ({ path: '/about' } & GetConfigResponse<typeof File_BaseAbout_getConfig>)
-| { path: '/assets'; render: 'dynamic' }
+| { path: '/assets'; render: 'static' }
 | ({ path: '/blog/[slug]' } & GetConfigResponse<typeof File_BaseBlogSlug_getConfig>)
-| { path: '/blog'; render: 'dynamic' }
-| { path: '/contact'; render: 'dynamic' }
+| { path: '/blog'; render: 'static' }
+| { path: '/contact'; render: 'static' }
 | ({ path: '/docs/[slug]' } & GetConfigResponse<typeof File_BaseDocsSlug_getConfig>)
-| { path: '/docs'; render: 'dynamic' }
-| { path: '/'; render: 'dynamic' }
+| { path: '/docs'; render: 'static' }
+| { path: '/'; render: 'static' }
 | ({ path: '/[lang]/404' } & GetConfigResponse<typeof File_LocaleLang404_getConfig>)
 | ({ path: '/[lang]/assets' } & GetConfigResponse<typeof File_LocaleLangAssets_getConfig>)
 | ({ path: '/[lang]/blog/[slug]' } & GetConfigResponse<typeof File_LocaleLangBlogSlug_getConfig>)
