@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "waku dev",
     "build": "waku build",
-    "start": "waku start",
+    "start": "bun dist/serve-bun.js",
+    "start:node": "waku start",
     "generate-seo": "bun run scripts/generate-seo-files.ts",
     "prebuild": "bun run generate-seo"
   },
