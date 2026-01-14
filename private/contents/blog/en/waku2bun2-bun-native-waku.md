@@ -42,23 +42,24 @@ As Bun adoption grows, the Rox project is moving forward with support for this n
 
 ## Current Status
 
-We have experimentally introduced the `@love-rox/waku` package on rox-homepage.
+After testing, we discovered that React Server Components (RSC) support in Bun currently has some challenges. As a result, rox-homepage has reverted to using the standard Waku package.
 
 ```json
 {
   "dependencies": {
-    "waku": "npm:@love-rox/waku@1.0.0-alpha.2"
+    "waku": "^1.0.0-alpha.2"
   }
 }
 ```
 
+> [!IMPORTANT]
+> Bun's RSC support is still evolving. We are currently using the standard Waku (Node.js-based), but will revisit waku2bun2 as Bun's native RSC support matures.
+
 ## Future Plans
 
-1. **Testing on rox-homepage** - Verifying each page and feature
-2. **Performance Measurement** - Comparing with Node.js version
-3. **Stability Verification** - Long-term production testing
-4. **Consideration for Main Rox** - Decision based on verification results
-5. **Upstream Integration** - If successful, contribute to the main Waku project
+1. **Watch Bun's RSC Development** - Continue tracking the Bun team's progress on RSC support
+2. **Re-evaluate waku2bun2 as Bun Matures** - Test again as Bun's RSC support improves
+3. **Contribute to Upstream Waku** - If stable, contribute our changes to the main Waku project
 
 ## Related Links
 
