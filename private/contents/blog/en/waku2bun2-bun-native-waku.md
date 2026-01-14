@@ -1,5 +1,5 @@
 ---
-title: waku2bun2 - Migrating to Bun-Native Waku
+title: waku2bun2 - Working Toward Bun-Native Waku
 description: A challenge to make everything Bun-native. Testing the Waku fork "waku2bun2"
 date: 2026-01-14
 author: Rox Team
@@ -7,7 +7,7 @@ tags: [Rox, Waku, Bun, Development, Infrastructure]
 excerpt: "If we're using Bun, why not make everything native?" — With this challenge in mind, we've started testing the Bun-native Waku fork "waku2bun2" on the Rox homepage. If successful, we aim to contribute these changes to upstream Waku.
 ---
 
-# waku2bun2 - Migrating to Bun-Native Waku
+# waku2bun2 - Working Toward Bun-Native Waku
 
 ## The "Make Everything Bun-Native" Challenge
 

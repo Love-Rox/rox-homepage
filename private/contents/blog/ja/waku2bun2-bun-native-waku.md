@@ -1,5 +1,5 @@
 ---
-title: waku2bun2 - Bunネイティブ対応Wakuへの移行
+title: waku2bun2 - Bunネイティブ対応に向けた取り組み
 description: 「Bunを使うなら全てネイティブに」というチャレンジ。Wakuフォーク「waku2bun2」のテストを開始
 date: 2026-01-14
 author: Roxチーム
@@ -7,7 +7,7 @@ tags: [Rox, Waku, Bun, 開発, インフラ]
 excerpt: 「せっかくBunを使うなら、全てネイティブにできないか」——そんなチャレンジとして、RoxホームページでBunネイティブ対応のWakuフォーク「waku2bun2」のテストを開始しました。問題がなければ本家Wakuへの統合も目指しています。
 ---
 
-# waku2bun2 - Bunネイティブ対応Wakuへの移行
+# waku2bun2 - Bunネイティブ対応に向けた取り組み
 
 ## 「全てをBunネイティブに」というチャレンジ
 
