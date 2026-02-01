@@ -400,9 +400,104 @@ export default analyticsPlugin;
 | `note:afterDelete` | after | ノート削除後 |
 | `user:beforeRegister` | before | ユーザー登録前 |
 | `user:afterRegister` | after | ユーザー登録後 |
+| `user:beforeLogin` | before | ユーザーログイン前 |
+| `user:afterLogin` | after | ユーザーログイン後 |
+| `follow:afterCreate` | after | フォロー作成後 |
+| `follow:afterDelete` | after | フォロー削除後 |
+
+## 追加イベント詳細
+
+### user:beforeLogin
+
+ユーザーがログインする前に発火します。
+
+```typescript
+interface UserBeforeLoginData {
+  /** ユーザー名またはメールアドレス */
+  identifier: string;
+}
+```
+
+**使用例: ログイン制限**
+
+```typescript
+events.onBefore("user:beforeLogin", async ({ identifier }) => {
+  const blockedUsers = await config.get<string[]>("blockedUsers") ?? [];
+  
+  if (blockedUsers.includes(identifier.toLowerCase())) {
+    return { cancel: true, reason: "このアカウントはログインが制限されています" };
+  }
+  
+  return {};
+});
+```
+
+### user:afterLogin
+
+ユーザーが正常にログインした後に発火します。
+
+```typescript
+interface UserAfterLoginData {
+  /** ログインしたユーザーID */
+  userId: string;
+  /** ユーザー名 */
+  username: string;
+}
+```
+
+**使用例: ログイン通知**
+
+```typescript
+events.on("user:afterLogin", ({ userId, username }) => {
+  logger.info({ userId, username }, "ユーザーがログインしました");
+});
+```
+
+### follow:afterCreate
+
+フォロー関係が作成された後に発火します。
+
+```typescript
+interface FollowAfterCreateData {
+  /** フォローしたユーザーID */
+  followerId: string;
+  /** フォローされたユーザーID */
+  followeeId: string;
+}
+```
+
+**使用例: フォロー通知**
+
+```typescript
+events.on("follow:afterCreate", ({ followerId, followeeId }) => {
+  logger.info({ followerId, followeeId }, "新しいフォロー関係が作成されました");
+});
+```
+
+### follow:afterDelete
+
+フォロー関係が削除された後に発火します。
+
+```typescript
+interface FollowAfterDeleteData {
+  /** フォローを解除したユーザーID */
+  followerId: string;
+  /** フォローを解除されたユーザーID */
+  followeeId: string;
+}
+```
+
+**使用例: フォロー解除ログ**
+
+```typescript
+events.on("follow:afterDelete", ({ followerId, followeeId }) => {
+  logger.info({ followerId, followeeId }, "フォロー関係が削除されました");
+});
+```
 
 ## 関連ドキュメント
 
 - [プラグイン開発入門](plugin-getting-started) - 入門ガイド
 - [プラグインアーキテクチャ](plugin-architecture) - アーキテクチャの詳細
 - [プラグインマニフェスト](plugin-manifest) - plugin.json リファレンス
+

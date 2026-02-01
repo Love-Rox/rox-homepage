@@ -400,9 +400,104 @@ export default analyticsPlugin;
 | `note:afterDelete` | after | After note deletion |
 | `user:beforeRegister` | before | Before user registration |
 | `user:afterRegister` | after | After user registration |
+| `user:beforeLogin` | before | Before user login |
+| `user:afterLogin` | after | After user login |
+| `follow:afterCreate` | after | After follow creation |
+| `follow:afterDelete` | after | After follow deletion |
+
+## Additional Event Details
+
+### user:beforeLogin
+
+Fired before a user logs in.
+
+```typescript
+interface UserBeforeLoginData {
+  /** Username or email address */
+  identifier: string;
+}
+```
+
+**Example: Login Restriction**
+
+```typescript
+events.onBefore("user:beforeLogin", async ({ identifier }) => {
+  const blockedUsers = await config.get<string[]>("blockedUsers") ?? [];
+  
+  if (blockedUsers.includes(identifier.toLowerCase())) {
+    return { cancel: true, reason: "This account is restricted from logging in" };
+  }
+  
+  return {};
+});
+```
+
+### user:afterLogin
+
+Fired after a user successfully logs in.
+
+```typescript
+interface UserAfterLoginData {
+  /** ID of the logged-in user */
+  userId: string;
+  /** Username */
+  username: string;
+}
+```
+
+**Example: Login Notification**
+
+```typescript
+events.on("user:afterLogin", ({ userId, username }) => {
+  logger.info({ userId, username }, "User logged in");
+});
+```
+
+### follow:afterCreate
+
+Fired after a follow relationship is created.
+
+```typescript
+interface FollowAfterCreateData {
+  /** ID of the user who followed */
+  followerId: string;
+  /** ID of the user who was followed */
+  followeeId: string;
+}
+```
+
+**Example: Follow Notification**
+
+```typescript
+events.on("follow:afterCreate", ({ followerId, followeeId }) => {
+  logger.info({ followerId, followeeId }, "New follow relationship created");
+});
+```
+
+### follow:afterDelete
+
+Fired after a follow relationship is deleted.
+
+```typescript
+interface FollowAfterDeleteData {
+  /** ID of the user who unfollowed */
+  followerId: string;
+  /** ID of the user who was unfollowed */
+  followeeId: string;
+}
+```
+
+**Example: Unfollow Logging**
+
+```typescript
+events.on("follow:afterDelete", ({ followerId, followeeId }) => {
+  logger.info({ followerId, followeeId }, "Follow relationship deleted");
+});
+```
 
 ## Related Documentation
 
 - [Plugin Getting Started](plugin-getting-started) - Introductory guide
 - [Plugin Architecture](plugin-architecture) - Architecture details
 - [Plugin Manifest](plugin-manifest) - plugin.json reference
+

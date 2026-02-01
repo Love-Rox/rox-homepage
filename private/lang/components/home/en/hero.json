@@ -1,8 +1,8 @@
 {
     "title": "Rox - The Lightweight ActivityPub Server/Client",
-    "aboveLink": "Rox v2026.1.0 has been released!",
+    "aboveLink": "Rox v2026.2.0 has been released!",
     "link": "Read more",
-    "linkUrl": "/en/blog/rox-v2026-1-0-plugin-system",
+    "linkUrl": "/en/blog/rox-v2026-2-0-event-bus",
     "heading": "The Love Rocks. Rox.",
     "description": "Rox is a ActivityPub server focused on performance and usability.  Compatible with Misskey clients and services.",
     "getStarted": "Get started",
