@@ -19,7 +19,7 @@ export default function HomePage() {
       <Meta
         title="Rox - The Lightweight ActivityPub Server"
         description="Rox is a ActivityPub server focused on performance and usability. Compatible with Misskey clients and services."
-        image="/api/og?title=Rox"
+        image="/_api/og?title=Rox"
       />
       <p>Redirecting...</p>
       <p>

@@ -24,5 +24,18 @@ export default defineConfig({
         "@content": path.resolve(__dirname, "private/contents"),
       },
     },
+    build: {
+      rollupOptions: {
+        onwarn(warning, warn) {
+          if (
+            warning.code === "EVAL" &&
+            warning.id?.includes("gray-matter/lib/engines.js")
+          ) {
+            return;
+          }
+          warn(warning);
+        },
+      },
+    },
   },
 });
