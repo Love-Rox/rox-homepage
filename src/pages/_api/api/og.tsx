@@ -9,9 +9,44 @@ export const getConfig = async () => {
   };
 };
 
+
 let wasmInitialized = false;
+let fontData: Buffer | null = null;
+let logoSrc: string | null = null;
+
+const loadAssets = async () => {
+  try {
+    if (!fontData) {
+      const fontPath = join(process.cwd(), 'public/assets/fonts/m-plus-rounded-1c-japanese-700-normal.woff');
+      fontData = readFileSync(fontPath);
+    }
+
+    if (!logoSrc) {
+      const logoPath = join(process.cwd(), 'public/assets/logos/svg/rox-horizontal.svg');
+      const logoData = readFileSync(logoPath);
+      const logoBase64 = logoData.toString('base64');
+      logoSrc = `data:image/svg+xml;base64,${logoBase64}`;
+    }
+
+    if (!wasmInitialized) {
+      const wasmPath = join(process.cwd(), 'public/assets/resvg.wasm');
+      const wasmData = readFileSync(wasmPath);
+      await initWasm(wasmData);
+      wasmInitialized = true;
+    }
+  } catch (e) {
+    console.error('Failed to load assets:', e);
+    throw e;
+  }
+};
 
 export default async function OGImage(input: any) {
+  try {
+    await loadAssets();
+  } catch (e: any) {
+    return new Response('Failed to load assets: ' + e.message, { status: 500 });
+  }
+
   let title = 'Rox';
 
   // Handle standard Request object
@@ -36,35 +71,7 @@ export default async function OGImage(input: any) {
     }
   }
 
-  // Load assets
-  let fontData, logoSrc;
-  try {
-    const fontPath = join(process.cwd(), 'public/assets/fonts/m-plus-rounded-1c-japanese-700-normal.woff');
-    fontData = readFileSync(fontPath);
 
-    const logoPath = join(process.cwd(), 'public/assets/logos/svg/rox-horizontal.svg');
-    const logoData = readFileSync(logoPath);
-    const logoBase64 = logoData.toString('base64');
-    logoSrc = `data:image/svg+xml;base64,${logoBase64}`;
-  } catch (e) {
-    console.error('Failed to load assets:', e);
-    // Return a fallback or error response
-    return new Response('Failed to load assets: ' + (e as Error).message, { status: 500 });
-  }
-
-  // Initialize Wasm
-  if (!wasmInitialized) {
-    try {
-      const wasmPath = join(process.cwd(), 'public/assets/resvg.wasm');
-      const wasmData = readFileSync(wasmPath);
-      await initWasm(wasmData);
-      wasmInitialized = true;
-    } catch (e) {
-      // If already initialized, it might throw, but we can ignore it if it works.
-      // However, initWasm checks internally.
-      console.error('Failed to initialize resvg wasm:', e);
-    }
-  }
 
   const svg = await satori(
     <div
@@ -103,8 +110,9 @@ export default async function OGImage(input: any) {
             marginBottom: 40,
           }}
         >
+
           <img
-            src={logoSrc}
+            src={logoSrc as string}
             height={80}
             style={{ objectFit: 'contain' }}
           />
@@ -142,9 +150,10 @@ export default async function OGImage(input: any) {
       width: 1200,
       height: 630,
       fonts: [
+
         {
           name: 'M PLUS Rounded 1c',
-          data: fontData,
+          data: fontData as Buffer,
           style: 'normal',
           weight: 700,
         },
