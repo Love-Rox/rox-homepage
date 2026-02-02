@@ -7,17 +7,8 @@ import { LanguageSelector } from '@/components/global/language-selector';
 export function ClientRouterHelper({ currentLang: initialLang }: { currentLang: string }) {
   const router = useRouter();
 
-  // Use lazy initialization to read from URL on first render
-  const [currentLang, setCurrentLang] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const path = window.location.pathname;
-      const parts = path.split('/');
-      if (parts[1] === 'en' || parts[1] === 'ja') {
-        return parts[1];
-      }
-    }
-    return initialLang;
-  });
+  // Use state initialized from server prop to ensure hydration matches
+  const [currentLang, setCurrentLang] = useState(initialLang);
 
   useEffect(() => {
     const updateLangFromPath = () => {
