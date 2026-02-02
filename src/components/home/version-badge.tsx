@@ -27,7 +27,7 @@ export const VersionBadge = ({ stableLabel, prereleaseLabel }: VersionBadgeProps
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/_api/releases')
+    fetch('/api/releases')
       .then((res) => res.json())
       .then((data) => {
         setReleaseInfo(data);
