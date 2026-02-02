@@ -36,15 +36,21 @@ export default async function OGImage(input: any) {
     }
   }
 
-  // Load font
-  const fontPath = join(process.cwd(), 'public/assets/fonts/m-plus-rounded-1c-japanese-700-normal.woff');
-  const fontData = readFileSync(fontPath);
+  // Load assets
+  let fontData, logoSrc;
+  try {
+    const fontPath = join(process.cwd(), 'public/assets/fonts/m-plus-rounded-1c-japanese-700-normal.woff');
+    fontData = readFileSync(fontPath);
 
-  // Load logo
-  const logoPath = join(process.cwd(), 'public/assets/logos/svg/rox-horizontal.svg');
-  const logoData = readFileSync(logoPath);
-  const logoBase64 = logoData.toString('base64');
-  const logoSrc = `data:image/svg+xml;base64,${logoBase64}`;
+    const logoPath = join(process.cwd(), 'public/assets/logos/svg/rox-horizontal.svg');
+    const logoData = readFileSync(logoPath);
+    const logoBase64 = logoData.toString('base64');
+    logoSrc = `data:image/svg+xml;base64,${logoBase64}`;
+  } catch (e) {
+    console.error('Failed to load assets:', e);
+    // Return a fallback or error response
+    return new Response('Failed to load assets: ' + (e as Error).message, { status: 500 });
+  }
 
   // Initialize Wasm
   if (!wasmInitialized) {
