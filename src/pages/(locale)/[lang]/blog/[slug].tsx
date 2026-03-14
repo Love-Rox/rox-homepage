@@ -3,7 +3,12 @@ import { PageProps } from "waku/router";
 import { loadMarkdownBySlug } from "@/lib/markdown-loader";
 import { BlogPost } from "@/components/blog/blog-post";
 import { Breadcrumbs, generateBreadcrumbItems } from "@/components/common/breadcrumbs";
-import { BreadcrumbSchema, ArticleSchema } from "@/components/seo/structured-data";
+import {
+  BreadcrumbSchema,
+  ArticleSchema,
+  FAQPageSchema,
+  HowToSchema,
+} from "@/components/seo/structured-data";
 
 // Blog index data
 const blogIndexData = {
@@ -67,8 +72,11 @@ export default async function BlogPostPage({ lang, slug }: PageProps<"/[lang]/bl
         url={`/${locale}/blog/${slug}`}
         image={ogUrl}
         {...(content.metadata.date && { datePublished: content.metadata.date })}
+        {...(content.metadata.updated && { dateModified: content.metadata.updated })}
         author={content.metadata.author || "Rox Team"}
       />
+      {content.metadata.faq && <FAQPageSchema faq={content.metadata.faq} />}
+      {content.metadata.howto && <HowToSchema howto={content.metadata.howto} />}
 
       <Breadcrumbs
         items={[
@@ -88,6 +96,15 @@ export default async function BlogPostPage({ lang, slug }: PageProps<"/[lang]/bl
                 day: "numeric",
               })
             : ""
+        }
+        updatedDate={
+          content.metadata.updated
+            ? new Date(content.metadata.updated).toLocaleDateString(locale, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            : undefined
         }
         author={content.metadata.author || "Rox Team"}
         lang={locale}

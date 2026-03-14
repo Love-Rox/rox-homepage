@@ -97,6 +97,21 @@ export const ArticleSchema = ({
   dateModified,
   author = "Rox Team",
 }: ArticleSchemaProps) => {
+  const isRoxTeam = author === "Rox Team" || author === "sasapiyo" || author === "Rox";
+  const authorSchema = isRoxTeam ? {
+    "@type": "Person",
+    name: author,
+    url: "https://github.com/sasapiyo",
+    jobTitle: "Main Developer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Rox",
+    }
+  } : {
+    "@type": "Person",
+    name: author,
+  };
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -110,10 +125,7 @@ export const ArticleSchema = ({
       : `${SITE_URL}/assets/logos/png/rox-horizontal@2x.png`,
     ...(datePublished && { datePublished }),
     ...(dateModified && { dateModified: dateModified || datePublished }),
-    author: {
-      "@type": "Person",
-      name: author,
-    },
+    author: authorSchema,
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -153,8 +165,13 @@ export const TechArticleSchema = ({
     url: url.startsWith("http") ? url : `${SITE_URL}${url}`,
     ...(dateModified && { dateModified }),
     author: {
-      "@type": "Organization",
-      name: SITE_NAME,
+      "@type": "Person",
+      name: "Rox Team",
+      url: "https://love-rox.cc",
+      worksFor: {
+        "@type": "Organization",
+        name: "Rox",
+      }
     },
     publisher: {
       "@type": "Organization",
@@ -190,6 +207,77 @@ export const SoftwareApplicationSchema = () => {
     },
     license: "https://opensource.org/licenses/AGPL-3.0",
     programmingLanguage: "Rust",
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
+export interface FAQPageSchemaProps {
+  faq: { question: string; answer: string }[];
+}
+
+export const FAQPageSchema = ({ faq }: FAQPageSchemaProps) => {
+  if (!faq || faq.length === 0) return null;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
+export interface HowToSchemaProps {
+  howto: {
+    name: string;
+    description?: string;
+    supply?: string[];
+    tool?: string[];
+    step: { name: string; text: string; url?: string; image?: string }[];
+    totalTime?: string;
+  };
+}
+
+export const HowToSchema = ({ howto }: HowToSchemaProps) => {
+  if (!howto) return null;
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: howto.name,
+    ...(howto.description && { description: howto.description }),
+    ...(howto.totalTime && { totalTime: howto.totalTime }),
+    ...(howto.supply && {
+      supply: howto.supply.map((s) => ({ "@type": "HowToSupply", name: s })),
+    }),
+    ...(howto.tool && {
+      tool: howto.tool.map((t) => ({ "@type": "HowToTool", name: t })),
+    }),
+    step: howto.step.map((s) => ({
+      "@type": "HowToStep",
+      name: s.name,
+      text: s.text,
+      ...(s.url && { url: s.url }),
+      ...(s.image && { image: s.image }),
+    })),
   };
 
   return (

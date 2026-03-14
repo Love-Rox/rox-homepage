@@ -6,7 +6,12 @@ import { DocsSidebar } from "@/components/docs/sidebar";
 import docs_en from "@private/lang/pages/en/docs.json";
 import docs_ja from "@private/lang/pages/ja/docs.json";
 import { Breadcrumbs, generateBreadcrumbItems } from "@/components/common/breadcrumbs";
-import { BreadcrumbSchema, TechArticleSchema } from "@/components/seo/structured-data";
+import {
+  BreadcrumbSchema,
+  TechArticleSchema,
+  FAQPageSchema,
+  HowToSchema,
+} from "@/components/seo/structured-data";
 
 const docsStructure = {
   en: docs_en,
@@ -61,8 +66,11 @@ export default async function DocsPage({ lang, slug }: PageProps<"/[lang]/docs/[
         title={content.metadata.title}
         description={content.metadata.description || ""}
         url={`/${locale}/docs/${slug}`}
-        {...(content.metadata.date && { dateModified: content.metadata.date })}
+        {...(content.metadata.date && { datePublished: content.metadata.date })}
+        {...(content.metadata.updated && { dateModified: content.metadata.updated })}
       />
+      {content.metadata.faq && <FAQPageSchema faq={content.metadata.faq} />}
+      {content.metadata.howto && <HowToSchema howto={content.metadata.howto} />}
 
       <Breadcrumbs
         items={[
@@ -76,15 +84,30 @@ export default async function DocsPage({ lang, slug }: PageProps<"/[lang]/docs/[
         <DocsSidebar categories={structure.categories} currentSlug={slug} lang={locale} />
 
         <article className="flex-1 prose prose-slate dark:prose-invert max-w-none min-w-0">
-          {content.metadata.date && (
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-              {new Date(content.metadata.date).toLocaleDateString(locale, {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-          )}
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500 dark:text-slate-400 mb-4">
+            {content.metadata.date && (
+              <time dateTime={content.metadata.date}>
+                {new Date(content.metadata.date).toLocaleDateString(locale, {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+            )}
+            {content.metadata.updated && (
+              <span className="flex items-center gap-1">
+                <span>•</span>
+                <span>Updated:</span>
+                <time dateTime={content.metadata.updated}>
+                  {new Date(content.metadata.updated).toLocaleDateString(locale, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+              </span>
+            )}
+          </div>
           <div dangerouslySetInnerHTML={{ __html: content.html }} />
         </article>
       </div>

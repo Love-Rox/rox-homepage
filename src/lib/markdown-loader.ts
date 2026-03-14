@@ -5,13 +5,24 @@ import { remark } from "remark";
 import remarkHtml from "remark-html";
 import remarkGfm from "remark-gfm";
 import { remarkAlert } from "remark-github-blockquote-alert";
+import remarkDeflist from "remark-deflist";
 
 export interface MarkdownMetadata {
   title: string;
   description?: string;
   date?: string;
+  updated?: string;
   author?: string;
   tags?: string[];
+  faq?: { question: string; answer: string }[];
+  howto?: {
+    name: string;
+    description?: string;
+    supply?: string[];
+    tool?: string[];
+    step: { name: string; text: string; url?: string; image?: string }[];
+    totalTime?: string;
+  };
   [key: string]: any;
 }
 
@@ -34,6 +45,7 @@ export async function loadMarkdown(filePath: string): Promise<MarkdownContent> {
   const processedContent = await remark()
     .use(remarkGfm)
     .use(remarkAlert)
+    .use(remarkDeflist)
     .use(remarkHtml, { sanitize: false })
     .process(content);
 

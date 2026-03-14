@@ -29,6 +29,7 @@ import communityData_en from "@private/lang/components/home/en/community.json";
 import communityData_ja from "@private/lang/components/home/ja/community.json";
 
 import { PageProps } from "waku/router";
+import { OrganizationSchema, SoftwareApplicationSchema } from "@/components/seo/structured-data";
 
 const heroLangData = {
   en: hero_en,
@@ -80,6 +81,8 @@ export default async function LangHomePage({ lang }: PageProps<"/[lang]">) {
         url={`/${locale}`}
         lang={locale}
       />
+      <OrganizationSchema />
+      <SoftwareApplicationSchema />
       <Hero {...heroLangData[locale]} />
       <Stacks {...stacksLangData[locale]} />
       <AdditionalStacks {...additionalStacksLangData[locale]} />
