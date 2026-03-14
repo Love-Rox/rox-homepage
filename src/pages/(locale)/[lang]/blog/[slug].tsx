@@ -17,13 +17,10 @@ const blogIndexData = {
   },
 };
 
-export default async function BlogPostPage({
-  lang,
-  slug,
-}: PageProps<"/[lang]/blog/[slug]">) {
-  const locale = (lang as 'en' | 'ja') || 'en';
+export default async function BlogPostPage({ lang, slug }: PageProps<"/[lang]/blog/[slug]">) {
+  const locale = (lang as "en" | "ja") || "en";
   const indexData = blogIndexData[locale];
-  const content = await loadMarkdownBySlug('blog', slug, locale);
+  const content = await loadMarkdownBySlug("blog", slug, locale);
 
   if (!content) {
     return (
@@ -56,18 +53,21 @@ export default async function BlogPostPage({
         lang={locale}
       />
       <BreadcrumbSchema
-        items={generateBreadcrumbItems([
-          { label: indexData.title, href: `/${locale}/blog` },
-          { label: content.metadata.title, href: `/${locale}/blog/${slug}` },
-        ], locale)}
+        items={generateBreadcrumbItems(
+          [
+            { label: indexData.title, href: `/${locale}/blog` },
+            { label: content.metadata.title, href: `/${locale}/blog/${slug}` },
+          ],
+          locale,
+        )}
       />
       <ArticleSchema
         title={content.metadata.title}
-        description={content.metadata.excerpt || content.metadata.description || ''}
+        description={content.metadata.excerpt || content.metadata.description || ""}
         url={`/${locale}/blog/${slug}`}
         image={ogUrl}
         {...(content.metadata.date && { datePublished: content.metadata.date })}
-        author={content.metadata.author || 'Rox Team'}
+        author={content.metadata.author || "Rox Team"}
       />
 
       <Breadcrumbs
@@ -80,12 +80,16 @@ export default async function BlogPostPage({
 
       <BlogPost
         content={content.html}
-        date={content.metadata.date ? new Date(content.metadata.date).toLocaleDateString(locale, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }) : ''}
-        author={content.metadata.author || 'Rox Team'}
+        date={
+          content.metadata.date
+            ? new Date(content.metadata.date).toLocaleDateString(locale, {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            : ""
+        }
+        author={content.metadata.author || "Rox Team"}
         lang={locale}
         backLabel={indexData.backToList}
       />

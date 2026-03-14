@@ -72,9 +72,7 @@ export const AdditionalStacks = ({ title, tech }: AdditionalStacksProps) => {
 
       {/* Infinite Slider Container */}
       <div className="relative overflow-x-hidden">
-        <div className="flex animate-infinite-scroll hover:pause-animation">
-          {sliderItems}
-        </div>
+        <div className="flex animate-infinite-scroll hover:pause-animation">{sliderItems}</div>
       </div>
     </div>
   );

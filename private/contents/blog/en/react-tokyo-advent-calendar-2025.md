@@ -40,14 +40,14 @@ Let's take a look at the technology stack we're using in Rox!
 
 ## Technology Stack Overview
 
-| Layer | Technology |
-|-------|------------|
+| Layer              | Technology                         |
+| ------------------ | ---------------------------------- |
 | Frontend Framework | **Waku** (React Server Components) |
-| State Management | **Jotai** |
-| UI Components | **React Aria Components** |
-| Backend | **Hono** |
-| ORM | Drizzle ORM |
-| Runtime | Bun |
+| State Management   | **Jotai**                          |
+| UI Components      | **React Aria Components**          |
+| Backend            | **Hono**                           |
+| ORM                | Drizzle ORM                        |
+| Runtime            | Bun                                |
 
 ## Waku - React Server Components Framework
 
@@ -60,7 +60,7 @@ Rox's frontend uses Waku, a lightweight framework with native support for React 
 export default async function NotePage({ id }: { id: string }) {
   // Fetch data on the server side
   const note = await fetchNote(id);
-  
+
   return (
     <div>
       <NoteContent note={note} />
@@ -71,6 +71,7 @@ export default async function NotePage({ id }: { id: string }) {
 ```
 
 **Why we chose it:**
+
 - Great compatibility with React 19
 - First-class Server Components support
 - Small bundle size
@@ -102,6 +103,7 @@ function UserProfile() {
 ```
 
 **What's great about Jotai:**
+
 - Minimal boilerplate
 - Great TypeScript compatibility
 - Natural Suspense integration
@@ -114,7 +116,7 @@ function UserProfile() {
 Rox uses React Aria Components for its UI.
 
 ```tsx
-import { Button, Dialog, Modal } from 'react-aria-components';
+import { Button, Dialog, Modal } from "react-aria-components";
 
 function ConfirmDialog() {
   return (
@@ -131,6 +133,7 @@ function ConfirmDialog() {
 ```
 
 **Why we chose it:**
+
 - WAI-ARIA compliant accessibility
 - High styling flexibility
 - Keyboard navigation support
@@ -141,6 +144,7 @@ function ConfirmDialog() {
 In line with our goal of using Japanese technologies, we're also considering adopting **Yamada UI**.
 
 Yamada UI is a React component library from Japan with these attractive features:
+
 - Rich pre-built components
 - Dark mode support
 - Animation features
@@ -155,23 +159,24 @@ We're exploring a configuration that leverages both React Aria Components' low-l
 Rox's backend uses Hono, an ultra-lightweight and fast web framework.
 
 ```typescript
-import { Hono } from 'hono';
+import { Hono } from "hono";
 
 const app = new Hono();
 
-app.get('/api/notes/:id', async (c) => {
-  const noteRepository = c.get('noteRepository');
-  const note = await noteRepository.findById(c.req.param('id'));
-  
+app.get("/api/notes/:id", async (c) => {
+  const noteRepository = c.get("noteRepository");
+  const note = await noteRepository.findById(c.req.param("id"));
+
   if (!note) {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: "Not found" }, 404);
   }
-  
+
   return c.json(note);
 });
 ```
 
 **Why we chose Hono:**
+
 - Excellent compatibility with Bun
 - Web Standards API based
 - TypeScript first
@@ -191,11 +196,11 @@ flowchart LR
         Misskey[Misskey Instance]
         GoToSocial[GoToSocial Instance]
     end
-    
+
     subgraph Clients
         MisskeyClient[Misskey Client]
     end
-    
+
     Rox <-->|ActivityPub| Mastodon
     Rox <-->|ActivityPub| Misskey
     Rox <-->|ActivityPub| GoToSocial
@@ -203,6 +208,7 @@ flowchart LR
 ```
 
 Rox:
+
 - Federates with Mastodon, GoToSocial, and more via **ActivityPub**
 - Compatible with existing Misskey clients via **Misskey API**
 
@@ -224,6 +230,7 @@ rox/
 We're using a Bun-based monorepo setup, sharing types between frontend and backend.
 
 We've given our packages some loving names:
+
 - **hono-rox**: Hono-based backend
 - **waku-rox**: Waku-based frontend
 

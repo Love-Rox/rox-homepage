@@ -17,12 +17,12 @@ This release further strengthens the plugin system foundation introduced in v202
 
 ## Version Information
 
-| Component | Version |
-|-----------|---------|
-| **Rox (Project)** | `2026.2.0` |
-| Hono Rox (Backend) | `1.4.0` |
-| Waku Rox (Frontend) | `1.4.0` |
-| Shared | `1.4.0` |
+| Component           | Version    |
+| ------------------- | ---------- |
+| **Rox (Project)**   | `2026.2.0` |
+| Hono Rox (Backend)  | `1.4.0`    |
+| Waku Rox (Frontend) | `1.4.0`    |
+| Shared              | `1.4.0`    |
 
 ## New Features & Improvements
 
@@ -74,11 +74,11 @@ A new hook for centralized authentication state management:
 
 Split large components into smaller, focused modules:
 
-| Original | Split Into |
-|----------|------------|
-| `NoteCard.tsx` (929 lines) | `NoteCard.tsx` + `NoteCardMenu.tsx` |
+| Original                        | Split Into                                                                                                       |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `NoteCard.tsx` (929 lines)      | `NoteCard.tsx` + `NoteCardMenu.tsx`                                                                              |
 | `NoteComposer.tsx` (1430 lines) | `NoteComposer.tsx` + `NoteComposerAttachments.tsx` + `NoteComposerDrafts.tsx` + `NoteComposerSchedulePicker.tsx` |
-| `EmojiPicker.tsx` (1193 lines) | `EmojiPicker.tsx` + `emojiData.ts` |
+| `EmojiPicker.tsx` (1193 lines)  | `EmojiPicker.tsx` + `emojiData.ts`                                                                               |
 
 #### TSDoc Documentation
 

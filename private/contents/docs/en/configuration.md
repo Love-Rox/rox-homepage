@@ -32,6 +32,7 @@ URL=https://your-domain.com
 ```
 
 **Options:**
+
 - `PORT`: Backend server port (default: `3000`)
 - `FRONTEND_PORT`: Frontend server port (default: `3001`)
 - `NODE_ENV`: Environment (`development` or `production`)
@@ -47,6 +48,7 @@ DATABASE_URL=postgresql://username:password@host:5432/database
 ```
 
 **Options:**
+
 - `username`: Database user
 - `password`: Database password
 - `host`: Database host (default: `localhost`)
@@ -93,6 +95,7 @@ LOCAL_STORAGE_PATH=./uploads
 ```
 
 **Options:**
+
 - `LOCAL_STORAGE_PATH`: Directory for uploaded files (default: `./uploads`)
 
 #### S3-Compatible Storage
@@ -114,6 +117,7 @@ S3_PUBLIC_URL=https://media.your-domain.com
 > **Incorrect:** `https://rox-media.your-account.r2.cloudflarestorage.com`
 
 **Options:**
+
 - `S3_ENDPOINT`: S3 endpoint URL
 - `S3_BUCKET_NAME`: Bucket name
 - `S3_ACCESS_KEY`: Access key ID
@@ -122,6 +126,7 @@ S3_PUBLIC_URL=https://media.your-domain.com
 - `S3_PUBLIC_URL`: Public URL for media (optional)
 
 **Supported Providers:**
+
 - AWS S3
 - Cloudflare R2
 - MinIO
@@ -232,6 +237,7 @@ ADMIN_EMAIL=admin@your-domain.com
 ```
 
 **Options:**
+
 - `INSTANCE_NAME`: Name of your instance (shown in NodeInfo)
 - `INSTANCE_DESCRIPTION`: Description shown on instance info
 - `ADMIN_EMAIL`: Admin contact email (shown in NodeInfo)
@@ -288,6 +294,7 @@ LOG_LEVEL=info
 ```
 
 **Options:**
+
 - `LOG_LEVEL`: Logging level (`debug`, `info`, `warn`, `error`)
   - Default: `debug` in development, `info` in production
 
@@ -296,7 +303,7 @@ LOG_LEVEL=info
 ### docker-compose.yml
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
@@ -425,6 +432,6 @@ redis-cli -u $REDIS_URL ping
 
 ## Update History
 
-| Date | Changes |
-|------|---------|
+| Date       | Changes                                                                                                               |
+| ---------- | --------------------------------------------------------------------------------------------------------------------- |
 | 2025-12-10 | Updated to match current .env.example: Added OAuth providers, VAPID, file upload config, simplified URL configuration |

@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 interface ContactFormData {
   name: string;
@@ -13,29 +13,26 @@ async function verifyTurnstileToken(token: string): Promise<boolean> {
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
 
   if (!secretKey) {
-    console.error('TURNSTILE_SECRET_KEY is not configured');
+    console.error("TURNSTILE_SECRET_KEY is not configured");
     return false;
   }
 
   try {
-    const response = await fetch(
-      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          secret: secretKey,
-          response: token,
-        }),
-      }
-    );
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secret: secretKey,
+        response: token,
+      }),
+    });
 
     const data = await response.json();
     return data.success === true;
   } catch (error) {
-    console.error('Turnstile verification error:', error);
+    console.error("Turnstile verification error:", error);
     return false;
   }
 }
@@ -46,11 +43,11 @@ function createTransporter() {
   const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
 
   if (!gmailUser || !gmailAppPassword) {
-    throw new Error('Gmail credentials are not configured');
+    throw new Error("Gmail credentials are not configured");
   }
 
   return nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: gmailUser,
       pass: gmailAppPassword,
@@ -61,12 +58,12 @@ function createTransporter() {
 // Send email to admin
 async function sendAdminNotification(
   transporter: nodemailer.Transporter,
-  formData: ContactFormData
+  formData: ContactFormData,
 ) {
   const senderEmail = process.env.SENDER_EMAIL || process.env.GMAIL_USER;
   const mailOptions = {
     from: senderEmail,
-    to: 'dev@love-rox.cc',
+    to: "dev@love-rox.cc",
     replyTo: formData.email,
     subject: `[Contact Form] ${formData.subject}`,
     html: `
@@ -94,13 +91,13 @@ async function sendAdminNotification(
 // Send confirmation email to sender
 async function sendConfirmationEmail(
   transporter: nodemailer.Transporter,
-  formData: ContactFormData
+  formData: ContactFormData,
 ) {
   const senderEmail = process.env.SENDER_EMAIL || process.env.GMAIL_USER;
   const mailOptions = {
     from: senderEmail,
     to: formData.email,
-    subject: 'Thank you for contacting Rox',
+    subject: "Thank you for contacting Rox",
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #4f46e5;">Thank you for contacting us!</h2>
@@ -129,7 +126,7 @@ async function sendConfirmationEmail(
 
 export const getConfig = async () => {
   return {
-    render: 'dynamic',
+    render: "dynamic",
   };
 };
 
@@ -139,19 +136,19 @@ export async function POST(request: Request): Promise<Response> {
 
     // Validate required fields
     if (!body.name || !body.email || !body.subject || !body.message || !body.turnstileToken) {
-      return new Response(
-        JSON.stringify({ error: 'Missing required fields' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // Verify Turnstile token
     const isValidToken = await verifyTurnstileToken(body.turnstileToken);
     if (!isValidToken) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid security token' }),
-        { status: 403, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: "Invalid security token" }), {
+        status: 403,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // Create email transporter
@@ -163,15 +160,15 @@ export async function POST(request: Request): Promise<Response> {
       sendConfirmationEmail(transporter, body),
     ]);
 
-    return new Response(
-      JSON.stringify({ success: true, message: 'Emails sent successfully' }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ success: true, message: "Emails sent successfully" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
-    console.error('Contact form error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to send email' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    console.error("Contact form error:", error);
+    return new Response(JSON.stringify({ error: "Failed to send email" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }

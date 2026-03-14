@@ -31,6 +31,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "id": "user_123",
@@ -52,6 +53,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -91,6 +93,7 @@ Content-Type: application/json
 ```
 
 **Parameters:**
+
 - `text` (string): Note content
 - `visibility` (string): `public`, `home`, `followers`, `specified`
 - `fileIds` (array): Array of uploaded file IDs
@@ -99,6 +102,7 @@ Content-Type: application/json
 - `renoteId` (string, optional): ID of note to renote
 
 **Response:**
+
 ```json
 {
   "createdNote": {
@@ -126,11 +130,13 @@ Content-Type: application/json
 ```
 
 **Parameters:**
+
 - `limit` (number): Number of notes (max 100)
 - `sinceId` (string, optional): Get notes after this ID
 - `untilId` (string, optional): Get notes before this ID
 
 **Response:**
+
 ```json
 [
   {
@@ -201,6 +207,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "id": "user_123",
@@ -223,6 +230,7 @@ Authorization: Bearer {token}
 ```
 
 **Response:**
+
 ```json
 {
   "id": "user_123",
@@ -312,6 +320,7 @@ isSensitive: false
 ```
 
 **Response:**
+
 ```json
 {
   "id": "file_123",
@@ -345,6 +354,7 @@ GET /.well-known/webfinger?resource=acct:alice@your-domain.com
 ```
 
 **Response:**
+
 ```json
 {
   "subject": "acct:alice@your-domain.com",
@@ -366,6 +376,7 @@ Accept: application/activity+json
 ```
 
 **Response:**
+
 ```json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
@@ -384,6 +395,7 @@ Accept: application/activity+json
 - **Authenticated**: 200 requests per 15 minutes per user
 
 **Rate Limit Headers:**
+
 ```http
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95
@@ -483,21 +495,23 @@ Content-Type: application/json
 ### WebSocket Connection
 
 ```javascript
-const ws = new WebSocket('wss://api.your-domain.com/streaming');
+const ws = new WebSocket("wss://api.your-domain.com/streaming");
 
 ws.onopen = () => {
-  ws.send(JSON.stringify({
-    type: 'connect',
-    body: {
-      channel: 'homeTimeline',
-      token: 'your_token'
-    }
-  }));
+  ws.send(
+    JSON.stringify({
+      type: "connect",
+      body: {
+        channel: "homeTimeline",
+        token: "your_token",
+      },
+    }),
+  );
 };
 
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
-  console.log('New event:', data);
+  console.log("New event:", data);
 };
 ```
 
@@ -513,21 +527,21 @@ ws.onmessage = (event) => {
 ### JavaScript/TypeScript
 
 ```typescript
-import { RoxClient } from '@rox/sdk';
+import { RoxClient } from "@rox/sdk";
 
 const client = new RoxClient({
-  baseUrl: 'https://api.your-domain.com',
-  token: 'your_token'
+  baseUrl: "https://api.your-domain.com",
+  token: "your_token",
 });
 
 // Create note
 const note = await client.notes.create({
-  text: 'Hello from SDK!'
+  text: "Hello from SDK!",
 });
 
 // Get timeline
 const timeline = await client.notes.timeline({
-  limit: 20
+  limit: 20,
 });
 ```
 

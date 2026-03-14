@@ -1,4 +1,4 @@
-import { VersionBadge } from './version-badge';
+import { VersionBadge } from "./version-badge";
 
 interface HeroProps {
   aboveLink: string;
@@ -24,8 +24,8 @@ export const Hero = ({
   getStartedUrl,
   learnMore,
   learnMoreUrl,
-  stableLabel = 'Stable',
-  prereleaseLabel = 'Prerelease',
+  stableLabel = "Stable",
+  prereleaseLabel = "Prerelease",
 }: HeroProps) => {
   return (
     <div>
@@ -33,19 +33,14 @@ export const Hero = ({
         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 dark:text-gray-400 ring-1 ring-gray-900/10 dark:ring-gray-100/10 hover:ring-gray-900/20 dark:hover:ring-gray-100/20">
             {aboveLink}{" "}
-            <a
-              href={linkUrl}
-              className="font-semibold text-primary-600 dark:text-primary-400"
-            >
+            <a href={linkUrl} className="font-semibold text-primary-600 dark:text-primary-400">
               <span aria-hidden="true" className="absolute inset-0" />
               {link} <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>
         <div className="text-center">
-          <h1 className="text-5xl font-bold tracking-tight text-balance sm:text-7xl">
-            {heading}
-          </h1>
+          <h1 className="text-5xl font-bold tracking-tight text-balance sm:text-7xl">{heading}</h1>
           <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
             {description}
           </p>

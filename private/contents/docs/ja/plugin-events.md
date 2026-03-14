@@ -18,10 +18,10 @@ EventBusは、プラグインがアプリケーションイベントを購読す
 
 Roxには2種類のイベントがあります：
 
-| 種類 | 説明 | 実行方法 |
-|-----|------|---------|
-| **before** | 操作の前に発火。キャンセルや変更が可能 | 順次実行 |
-| **after** | 操作の後に発火。通知のみ（fire-and-forget） | 並列実行 |
+| 種類       | 説明                                        | 実行方法 |
+| ---------- | ------------------------------------------- | -------- |
+| **before** | 操作の前に発火。キャンセルや変更が可能      | 順次実行 |
+| **after**  | 操作の後に発火。通知のみ（fire-and-forget） | 並列実行 |
 
 ### イベント命名規則
 
@@ -63,9 +63,9 @@ events.onBefore("note:beforeCreate", (data) => {
 ```typescript
 events.onBefore("note:beforeCreate", (data) => {
   if (data.content.includes("禁止ワード")) {
-    return { 
-      cancel: true, 
-      reason: "禁止ワードが含まれています" 
+    return {
+      cancel: true,
+      reason: "禁止ワードが含まれています",
     };
   }
   return {};
@@ -77,11 +77,11 @@ events.onBefore("note:beforeCreate", (data) => {
 ```typescript
 events.onBefore("note:beforeCreate", (data) => {
   // コンテンツをサニタイズ
-  return { 
-    modified: { 
-      ...data, 
-      content: sanitize(data.content) 
-    } 
+  return {
+    modified: {
+      ...data,
+      content: sanitize(data.content),
+    },
   };
 });
 ```
@@ -112,16 +112,16 @@ interface NoteBeforeCreateData {
 ```typescript
 events.onBefore("note:beforeCreate", ({ content, cw }) => {
   const blockedWords = ["スパム", "広告"];
-  
-  if (blockedWords.some(word => content.includes(word))) {
+
+  if (blockedWords.some((word) => content.includes(word))) {
     return { cancel: true, reason: "禁止ワードが含まれています" };
   }
-  
+
   // コンテンツ警告がある場合はNSFWをつける
   if (content.includes("NSFW") && !cw) {
     return { modified: { content, cw: "閲覧注意" } };
   }
-  
+
   return {};
 });
 ```
@@ -143,12 +143,12 @@ interface NoteBeforeDeleteData {
 
 ```typescript
 events.onBefore("note:beforeDelete", async ({ noteId, userId }) => {
-  const protectedNotes = await config.get<string[]>("protectedNotes") ?? [];
-  
+  const protectedNotes = (await config.get<string[]>("protectedNotes")) ?? [];
+
   if (protectedNotes.includes(noteId)) {
     return { cancel: true, reason: "このノートは保護されています" };
   }
-  
+
   return {};
 });
 ```
@@ -171,11 +171,11 @@ interface UserBeforeRegisterData {
 ```typescript
 events.onBefore("user:beforeRegister", ({ username }) => {
   const reservedNames = ["admin", "root", "system"];
-  
+
   if (reservedNames.includes(username.toLowerCase())) {
     return { cancel: true, reason: "このユーザー名は予約されています" };
   }
-  
+
   return {};
 });
 ```
@@ -209,11 +209,14 @@ interface NoteAfterCreateData {
 
 ```typescript
 events.on("note:afterCreate", ({ note }) => {
-  logger.info({ 
-    noteId: note.id, 
-    userId: note.userId,
-    visibility: note.visibility 
-  }, "新しいノートが作成されました");
+  logger.info(
+    {
+      noteId: note.id,
+      userId: note.userId,
+      visibility: note.visibility,
+    },
+    "新しいノートが作成されました",
+  );
 });
 ```
 
@@ -256,7 +259,7 @@ interface UserAfterRegisterData {
 ```typescript
 events.on("user:afterRegister", async ({ userId, username }) => {
   logger.info({ userId, username }, "新規ユーザーが登録されました");
-  
+
   // ウェルカムメッセージの送信など
   await sendWelcomeNotification(userId);
 });
@@ -271,7 +274,7 @@ onLoad({ events }) {
   const unsubscribe = events.on("note:afterCreate", ({ note }) => {
     console.log("ノート作成:", note.id);
   });
-  
+
   // 必要に応じて購読解除
   unsubscribe();
 }
@@ -315,8 +318,8 @@ const moderationPlugin: RoxPlugin = {
   version: "1.0.0",
 
   async onLoad({ events, config, logger }) {
-    const blockedWords = await config.get<string[]>("blockedWords") ?? [];
-    const blockedPatterns = await config.get<string[]>("blockedPatterns") ?? [];
+    const blockedWords = (await config.get<string[]>("blockedWords")) ?? [];
+    const blockedPatterns = (await config.get<string[]>("blockedPatterns")) ?? [];
 
     // コンテンツフィルタリング
     events.onBefore("note:beforeCreate", ({ content }) => {
@@ -365,10 +368,13 @@ const analyticsPlugin: RoxPlugin = {
 
     events.on("note:afterCreate", ({ note }) => {
       noteCount++;
-      logger.info({ 
-        total: noteCount, 
-        noteId: note.id 
-      }, "ノート作成統計");
+      logger.info(
+        {
+          total: noteCount,
+          noteId: note.id,
+        },
+        "ノート作成統計",
+      );
     });
 
     events.on("note:afterDelete", ({ noteId }) => {
@@ -378,11 +384,14 @@ const analyticsPlugin: RoxPlugin = {
 
     events.on("user:afterRegister", ({ userId, username }) => {
       userCount++;
-      logger.info({ 
-        total: userCount, 
-        userId, 
-        username 
-      }, "ユーザー登録統計");
+      logger.info(
+        {
+          total: userCount,
+          userId,
+          username,
+        },
+        "ユーザー登録統計",
+      );
     });
   },
 };
@@ -392,18 +401,18 @@ export default analyticsPlugin;
 
 ## イベント一覧
 
-| イベント | 種類 | 説明 |
-|---------|-----|------|
-| `note:beforeCreate` | before | ノート作成前 |
-| `note:afterCreate` | after | ノート作成後 |
-| `note:beforeDelete` | before | ノート削除前 |
-| `note:afterDelete` | after | ノート削除後 |
-| `user:beforeRegister` | before | ユーザー登録前 |
-| `user:afterRegister` | after | ユーザー登録後 |
-| `user:beforeLogin` | before | ユーザーログイン前 |
-| `user:afterLogin` | after | ユーザーログイン後 |
-| `follow:afterCreate` | after | フォロー作成後 |
-| `follow:afterDelete` | after | フォロー削除後 |
+| イベント              | 種類   | 説明               |
+| --------------------- | ------ | ------------------ |
+| `note:beforeCreate`   | before | ノート作成前       |
+| `note:afterCreate`    | after  | ノート作成後       |
+| `note:beforeDelete`   | before | ノート削除前       |
+| `note:afterDelete`    | after  | ノート削除後       |
+| `user:beforeRegister` | before | ユーザー登録前     |
+| `user:afterRegister`  | after  | ユーザー登録後     |
+| `user:beforeLogin`    | before | ユーザーログイン前 |
+| `user:afterLogin`     | after  | ユーザーログイン後 |
+| `follow:afterCreate`  | after  | フォロー作成後     |
+| `follow:afterDelete`  | after  | フォロー削除後     |
 
 ## 追加イベント詳細
 
@@ -422,12 +431,12 @@ interface UserBeforeLoginData {
 
 ```typescript
 events.onBefore("user:beforeLogin", async ({ identifier }) => {
-  const blockedUsers = await config.get<string[]>("blockedUsers") ?? [];
-  
+  const blockedUsers = (await config.get<string[]>("blockedUsers")) ?? [];
+
   if (blockedUsers.includes(identifier.toLowerCase())) {
     return { cancel: true, reason: "このアカウントはログインが制限されています" };
   }
-  
+
   return {};
 });
 ```
@@ -500,4 +509,3 @@ events.on("follow:afterDelete", ({ followerId, followeeId }) => {
 - [プラグイン開発入門](plugin-getting-started) - 入門ガイド
 - [プラグインアーキテクチャ](plugin-architecture) - アーキテクチャの詳細
 - [プラグインマニフェスト](plugin-manifest) - plugin.json リファレンス
-

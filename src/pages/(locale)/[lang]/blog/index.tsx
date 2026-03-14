@@ -16,27 +16,27 @@ const blogIndexData = {
   },
 };
 
-export default async function BlogIndexPage({
-  lang,
-}: PageProps<"/[lang]/blog">) {
-  const locale = (lang as 'en' | 'ja') || 'en';
+export default async function BlogIndexPage({ lang }: PageProps<"/[lang]/blog">) {
+  const locale = (lang as "en" | "ja") || "en";
   const indexData = blogIndexData[locale];
 
   // Get all blog post slugs
-  const slugs = await getAllSlugs('blog', locale);
+  const slugs = await getAllSlugs("blog", locale);
 
   // Load metadata for all posts
   const posts = await Promise.all(
     slugs.map(async (slug) => {
-      const content = await loadMarkdownBySlug('blog', slug, locale);
-      return content ? {
-        slug,
-        title: content.metadata.title,
-        excerpt: content.metadata.excerpt || content.metadata.description || '',
-        date: content.metadata.date || '',
-        author: content.metadata.author || 'Rox Team',
-      } : null;
-    })
+      const content = await loadMarkdownBySlug("blog", slug, locale);
+      return content
+        ? {
+            slug,
+            title: content.metadata.title,
+            excerpt: content.metadata.excerpt || content.metadata.description || "",
+            date: content.metadata.date || "",
+            author: content.metadata.author || "Rox Team",
+          }
+        : null;
+    }),
   );
 
   // Filter out null values, filter future posts, and sort by date
@@ -59,7 +59,7 @@ export default async function BlogIndexPage({
       return postDateInJST <= now;
     });
   const sortedPosts = validPosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
   return (
@@ -71,7 +71,12 @@ export default async function BlogIndexPage({
         url={`/${locale}/blog`}
         lang={locale}
       />
-      <BreadcrumbSchema items={generateBreadcrumbItems([{ label: indexData.title, href: `/${locale}/blog` }], locale)} />
+      <BreadcrumbSchema
+        items={generateBreadcrumbItems(
+          [{ label: indexData.title, href: `/${locale}/blog` }],
+          locale,
+        )}
+      />
 
       <Breadcrumbs items={[{ label: indexData.title }]} lang={locale} />
 
@@ -79,9 +84,7 @@ export default async function BlogIndexPage({
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
           {indexData.title}
         </h1>
-        <p className="text-xl text-slate-600 dark:text-slate-300">
-          {indexData.description}
-        </p>
+        <p className="text-xl text-slate-600 dark:text-slate-300">{indexData.description}</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -93,20 +96,16 @@ export default async function BlogIndexPage({
           >
             <time className="text-sm text-slate-500 dark:text-slate-400">
               {new Date(post.date).toLocaleDateString(locale, {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </time>
             <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-2 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
               {post.title}
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 mb-4">
-              {post.excerpt}
-            </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              By {post.author}
-            </p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{post.excerpt}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">By {post.author}</p>
           </Link>
         ))}
       </div>

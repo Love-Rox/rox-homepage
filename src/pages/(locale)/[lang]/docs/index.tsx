@@ -13,7 +13,7 @@ const docsLangData = {
 };
 
 export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">) {
-  const locale = (lang as keyof typeof docsLangData) || 'en';
+  const locale = (lang as keyof typeof docsLangData) || "en";
   const content = docsLangData[locale];
 
   return (
@@ -25,7 +25,9 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
         url={`/${locale}/docs`}
         lang={locale}
       />
-      <BreadcrumbSchema items={generateBreadcrumbItems([{ label: content.title, href: `/${locale}/docs` }], locale)} />
+      <BreadcrumbSchema
+        items={generateBreadcrumbItems([{ label: content.title, href: `/${locale}/docs` }], locale)}
+      />
 
       <div className="max-w-4xl mx-auto">
         <Breadcrumbs items={[{ label: content.title }]} lang={locale} />
@@ -33,9 +35,7 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-4 break-words">
           {content.title}
         </h1>
-        <p className="text-xl text-slate-600 dark:text-slate-300 mb-12">
-          {content.subtitle}
-        </p>
+        <p className="text-xl text-slate-600 dark:text-slate-300 mb-12">{content.subtitle}</p>
 
         <div className="space-y-12">
           {content.categories.map((category) => (
@@ -43,9 +43,7 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
               <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">
                 {category.category}
               </h2>
-              <p className="text-slate-600 dark:text-slate-300 mb-6">
-                {category.description}
-              </p>
+              <p className="text-slate-600 dark:text-slate-300 mb-6">{category.description}</p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {category.items.map((item) => (
@@ -57,9 +55,7 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
                     <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-300">
-                      {item.description}
-                    </p>
+                    <p className="text-slate-600 dark:text-slate-300">{item.description}</p>
                   </Link>
                 ))}
               </div>

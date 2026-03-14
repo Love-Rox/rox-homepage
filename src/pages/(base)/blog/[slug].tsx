@@ -1,11 +1,11 @@
-import { LanguageRedirect } from '@/components/common/LanguageRedirect';
+import { LanguageRedirect } from "@/components/common/LanguageRedirect";
 
 interface BlogSlugRedirectPageProps {
   slug?: string;
 }
 
 export default function BlogSlugRedirectPage({ slug }: BlogSlugRedirectPageProps) {
-  const targetPath = slug ? `/blog/${slug}` : '/blog';
+  const targetPath = slug ? `/blog/${slug}` : "/blog";
 
   return (
     <LanguageRedirect
@@ -19,6 +19,6 @@ export default function BlogSlugRedirectPage({ slug }: BlogSlugRedirectPageProps
 
 export const getConfig = async () => {
   return {
-    render: 'dynamic',
+    render: "dynamic",
   } as const;
 };

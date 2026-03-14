@@ -192,11 +192,11 @@ const contentFilter: RoxPlugin = {
 
   async onLoad({ events, config, logger }) {
     // 禁止ワードを設定から取得
-    const blockedWords = await config.get<string[]>("blockedWords") ?? [];
+    const blockedWords = (await config.get<string[]>("blockedWords")) ?? [];
 
     events.onBefore("note:beforeCreate", ({ content }) => {
-      const hasBlocked = blockedWords.some(word =>
-        content.toLowerCase().includes(word.toLowerCase())
+      const hasBlocked = blockedWords.some((word) =>
+        content.toLowerCase().includes(word.toLowerCase()),
       );
 
       if (hasBlocked) {

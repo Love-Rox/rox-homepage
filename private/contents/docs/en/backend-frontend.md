@@ -23,11 +23,11 @@ rox/
 └── plugins/       # Plugin directory
 ```
 
-| Package | Runtime | Technology Stack |
-|---------|---------|------------------|
-| backend | Server (Bun) | Hono, Drizzle ORM, BullMQ |
+| Package  | Runtime         | Technology Stack               |
+| -------- | --------------- | ------------------------------ |
+| backend  | Server (Bun)    | Hono, Drizzle ORM, BullMQ      |
 | frontend | Browser (React) | Waku, React Aria, Tailwind CSS |
-| shared | Both | TypeScript type definitions |
+| shared   | Both            | TypeScript type definitions    |
 
 ## Backend (packages/backend)
 
@@ -35,13 +35,13 @@ The backend runs on the server side and handles Rox's core logic.
 
 ### Technology Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **Bun** | JavaScript runtime |
-| **Hono** | Web framework |
-| **Drizzle ORM** | Database access |
-| **BullMQ + Dragonfly** | Job queue |
-| **pino** | Logging |
+| Technology             | Purpose            |
+| ---------------------- | ------------------ |
+| **Bun**                | JavaScript runtime |
+| **Hono**               | Web framework      |
+| **Drizzle ORM**        | Database access    |
+| **BullMQ + Dragonfly** | Job queue          |
+| **pino**               | Logging            |
 
 ### Main Responsibilities
 
@@ -82,6 +82,7 @@ app.post("/api/notes/create", async (c) => {
 ```
 
 **Example Endpoints:**
+
 - `/api/notes/*` - Note operations
 - `/api/users/*` - User operations
 - `/api/drive/*` - File operations
@@ -116,6 +117,7 @@ class PgNoteRepository implements INoteRepository {
 ```
 
 **Supported Databases:**
+
 - PostgreSQL (recommended)
 - MySQL
 - SQLite
@@ -133,6 +135,7 @@ interface IStorageAdapter {
 ```
 
 **Supported Storage:**
+
 - Local filesystem
 - S3-compatible storage (AWS S3, Cloudflare R2, MinIO)
 
@@ -140,19 +143,19 @@ interface IStorageAdapter {
 
 What backend plugins can do:
 
-| Feature | Description |
-|---------|-------------|
-| Event hooks | Intercept note creation, user registration, etc. |
-| Custom API | Add endpoints under `/api/x/{plugin-id}/` |
-| Data processing | Modify or cancel data with before events |
-| Scheduled tasks | Register periodic tasks |
-| Config storage | Persist plugin-specific settings |
+| Feature         | Description                                      |
+| --------------- | ------------------------------------------------ |
+| Event hooks     | Intercept note creation, user registration, etc. |
+| Custom API      | Add endpoints under `/api/x/{plugin-id}/`        |
+| Data processing | Modify or cancel data with before events         |
+| Scheduled tasks | Register periodic tasks                          |
+| Config storage  | Persist plugin-specific settings                 |
 
 ```typescript
 // Backend plugin example
 const plugin: RoxPlugin = {
   id: "my-plugin",
-  
+
   onLoad({ events, logger }) {
     events.on("note:afterCreate", ({ note }) => {
       logger.info({ noteId: note.id }, "Note created");
@@ -171,14 +174,14 @@ The frontend runs in the browser and handles the user interface.
 
 ### Technology Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| **Waku** | React Server Components framework |
-| **React** | UI library |
-| **React Aria Components** | Accessible UI components |
-| **Tailwind CSS v4** | Styling |
-| **Jotai** | State management |
-| **Lingui** | Internationalization (i18n) |
+| Technology                | Purpose                           |
+| ------------------------- | --------------------------------- |
+| **Waku**                  | React Server Components framework |
+| **React**                 | UI library                        |
+| **React Aria Components** | Accessible UI components          |
+| **Tailwind CSS v4**       | Styling                           |
+| **Jotai**                 | State management                  |
+| **Lingui**                | Internationalization (i18n)       |
 
 ### Main Responsibilities
 
@@ -263,11 +266,16 @@ Multi-language support with Lingui.
 import { Trans } from "@lingui/macro";
 
 function Welcome() {
-  return <h1><Trans>Welcome to Rox!</Trans></h1>;
+  return (
+    <h1>
+      <Trans>Welcome to Rox!</Trans>
+    </h1>
+  );
 }
 ```
 
 **Supported Languages:**
+
 - Japanese (ja)
 - English (en)
 
@@ -275,11 +283,11 @@ function Welcome() {
 
 What frontend plugins can do:
 
-| Feature | Description |
-|---------|-------------|
-| Settings UI | Add plugin settings components to admin panel |
-| Note footer | Add custom display below notes |
-| Style extensions | Inject custom CSS |
+| Feature          | Description                                   |
+| ---------------- | --------------------------------------------- |
+| Settings UI      | Add plugin settings components to admin panel |
+| Note footer      | Add custom display below notes                |
+| Style extensions | Inject custom CSS                             |
 
 ```tsx
 // Frontend plugin example
@@ -355,15 +363,15 @@ export interface PluginManifest {
 
 ## Role Distribution by Feature
 
-| Feature | Backend | Frontend |
-|---------|---------|----------|
-| Note creation | Validation, DB save, federation delivery | Form UI, preview |
-| Authentication | Session management, Passkey verification | Login UI, biometric authentication |
-| File management | Upload, storage | File picker UI, preview |
-| Search | Full-text search, filtering | Search UI, result display |
-| Notifications | Notification generation, delivery | Notification list UI, real-time updates |
-| Settings | Settings storage, validation | Settings form UI |
-| Plugins | Event hooks, API provision | Settings UI, display extensions |
+| Feature         | Backend                                  | Frontend                                |
+| --------------- | ---------------------------------------- | --------------------------------------- |
+| Note creation   | Validation, DB save, federation delivery | Form UI, preview                        |
+| Authentication  | Session management, Passkey verification | Login UI, biometric authentication      |
+| File management | Upload, storage                          | File picker UI, preview                 |
+| Search          | Full-text search, filtering              | Search UI, result display               |
+| Notifications   | Notification generation, delivery        | Notification list UI, real-time updates |
+| Settings        | Settings storage, validation             | Settings form UI                        |
+| Plugins         | Event hooks, API provision               | Settings UI, display extensions         |
 
 ## Development Considerations
 

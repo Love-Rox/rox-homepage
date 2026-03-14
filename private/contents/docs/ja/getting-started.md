@@ -120,6 +120,7 @@ bun run frontend:dev
 ```
 
 サービスは以下で利用可能になります：
+
 - **バックエンドAPI**: http://localhost:3000
 - **フロントエンド**: http://localhost:3001
 
@@ -134,6 +135,7 @@ bun run frontend:dev
 ### データベース接続エラー
 
 データベース接続エラーが発生した場合：
+
 - Dockerサービスが実行中か確認（`docker compose ps`）
 - `.env`のデータベース認証情報が設定と一致しているか確認
 - PostgreSQLポート（5432）が既に使用されていないか確認
@@ -141,6 +143,7 @@ bun run frontend:dev
 ### ポート競合
 
 ポート3000または3001が既に使用されている場合、変更できます：
+
 - バックエンド: `packages/backend/.env` → `PORT`
 - フロントエンド: `packages/frontend/waku.config.ts` → `port`
 
@@ -148,6 +151,6 @@ bun run frontend:dev
 
 ## 更新履歴
 
-| 日付 | 変更内容 |
-|------|----------|
+| 日付       | 変更内容                     |
+| ---------- | ---------------------------- |
 | 2025-12-12 | DevContainerセクションを追加 |

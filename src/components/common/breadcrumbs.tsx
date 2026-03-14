@@ -1,4 +1,4 @@
-import { Link } from 'waku';
+import { Link } from "waku";
 
 interface BreadcrumbItem {
   label: string;
@@ -7,20 +7,17 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
-  lang: 'en' | 'ja';
+  lang: "en" | "ja";
 }
 
 const homeLabels = {
-  en: 'Home',
-  ja: 'ホーム',
+  en: "Home",
+  ja: "ホーム",
 };
 
 export const Breadcrumbs = ({ items, lang }: BreadcrumbsProps) => {
   // Prepend home
-  const allItems: BreadcrumbItem[] = [
-    { label: homeLabels[lang], href: `/${lang}` },
-    ...items,
-  ];
+  const allItems: BreadcrumbItem[] = [{ label: homeLabels[lang], href: `/${lang}` }, ...items];
 
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
@@ -37,8 +34,8 @@ export const Breadcrumbs = ({ items, lang }: BreadcrumbsProps) => {
               )}
               {isLast || !item.href ? (
                 <span
-                  className={isLast ? 'text-slate-900 dark:text-slate-100 font-medium' : ''}
-                  aria-current={isLast ? 'page' : undefined}
+                  className={isLast ? "text-slate-900 dark:text-slate-100 font-medium" : ""}
+                  aria-current={isLast ? "page" : undefined}
                 >
                   {item.label}
                 </span>
@@ -61,12 +58,12 @@ export const Breadcrumbs = ({ items, lang }: BreadcrumbsProps) => {
 // Helper function to generate breadcrumb schema items
 export const generateBreadcrumbItems = (
   items: BreadcrumbItem[],
-  lang: 'en' | 'ja'
+  lang: "en" | "ja",
 ): { name: string; url: string }[] => {
   const homeItem = { name: homeLabels[lang], url: `/${lang}` };
   const schemaItems = items.map((item) => ({
     name: item.label,
-    url: item.href || '',
+    url: item.href || "",
   }));
   return [homeItem, ...schemaItems];
 };

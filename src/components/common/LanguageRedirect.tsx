@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { Meta } from '@/components/global/meta';
+import { useEffect } from "react";
+import { Meta } from "@/components/global/meta";
 
 interface RedirectProps {
   targetPath: string;
@@ -12,13 +12,13 @@ interface RedirectProps {
 
 export function LanguageRedirect({ targetPath, title, description, ogTitle }: RedirectProps) {
   useEffect(() => {
-    const userLang = navigator.language || navigator.languages?.[0] || 'en';
-    const isJapanese = userLang.startsWith('ja');
+    const userLang = navigator.language || navigator.languages?.[0] || "en";
+    const isJapanese = userLang.startsWith("ja");
     window.location.href = isJapanese ? `/ja${targetPath}` : `/en${targetPath}`;
   }, [targetPath]);
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
       <Meta
         title={title}
         description={description}

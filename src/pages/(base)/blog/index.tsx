@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { Meta } from '@/components/global/meta';
+import { useEffect } from "react";
+import { Meta } from "@/components/global/meta";
 
 export default function BlogRedirectPage() {
   useEffect(() => {
-    const userLang = navigator.language || navigator.languages?.[0] || 'en';
-    const isJapanese = userLang.startsWith('ja');
-    window.location.href = isJapanese ? '/ja/blog' : '/en/blog';
+    const userLang = navigator.language || navigator.languages?.[0] || "en";
+    const isJapanese = userLang.startsWith("ja");
+    window.location.href = isJapanese ? "/ja/blog" : "/en/blog";
   }, []);
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
       <Meta
         title="Blog - Rox"
         description="Latest updates and insights from the Rox team"

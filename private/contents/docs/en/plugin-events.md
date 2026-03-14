@@ -18,10 +18,10 @@ EventBus provides a pub/sub mechanism for plugins to subscribe to application ev
 
 Rox has two types of events:
 
-| Type | Description | Execution |
-|------|-------------|-----------|
-| **before** | Fired before an operation. Can cancel or modify | Sequential |
-| **after** | Fired after an operation. Notification only (fire-and-forget) | Parallel |
+| Type       | Description                                                   | Execution  |
+| ---------- | ------------------------------------------------------------- | ---------- |
+| **before** | Fired before an operation. Can cancel or modify               | Sequential |
+| **after**  | Fired after an operation. Notification only (fire-and-forget) | Parallel   |
 
 ### Event Naming Convention
 
@@ -63,9 +63,9 @@ events.onBefore("note:beforeCreate", (data) => {
 ```typescript
 events.onBefore("note:beforeCreate", (data) => {
   if (data.content.includes("blocked word")) {
-    return { 
-      cancel: true, 
-      reason: "Content contains blocked words" 
+    return {
+      cancel: true,
+      reason: "Content contains blocked words",
     };
   }
   return {};
@@ -77,11 +77,11 @@ events.onBefore("note:beforeCreate", (data) => {
 ```typescript
 events.onBefore("note:beforeCreate", (data) => {
   // Sanitize content
-  return { 
-    modified: { 
-      ...data, 
-      content: sanitize(data.content) 
-    } 
+  return {
+    modified: {
+      ...data,
+      content: sanitize(data.content),
+    },
   };
 });
 ```
@@ -112,16 +112,16 @@ interface NoteBeforeCreateData {
 ```typescript
 events.onBefore("note:beforeCreate", ({ content, cw }) => {
   const blockedWords = ["spam", "advertisement"];
-  
-  if (blockedWords.some(word => content.includes(word))) {
+
+  if (blockedWords.some((word) => content.includes(word))) {
     return { cancel: true, reason: "Content contains blocked words" };
   }
-  
+
   // Add content warning for NSFW content
   if (content.includes("NSFW") && !cw) {
     return { modified: { content, cw: "Sensitive content" } };
   }
-  
+
   return {};
 });
 ```
@@ -143,12 +143,12 @@ interface NoteBeforeDeleteData {
 
 ```typescript
 events.onBefore("note:beforeDelete", async ({ noteId, userId }) => {
-  const protectedNotes = await config.get<string[]>("protectedNotes") ?? [];
-  
+  const protectedNotes = (await config.get<string[]>("protectedNotes")) ?? [];
+
   if (protectedNotes.includes(noteId)) {
     return { cancel: true, reason: "This note is protected" };
   }
-  
+
   return {};
 });
 ```
@@ -171,11 +171,11 @@ interface UserBeforeRegisterData {
 ```typescript
 events.onBefore("user:beforeRegister", ({ username }) => {
   const reservedNames = ["admin", "root", "system"];
-  
+
   if (reservedNames.includes(username.toLowerCase())) {
     return { cancel: true, reason: "This username is reserved" };
   }
-  
+
   return {};
 });
 ```
@@ -209,11 +209,14 @@ interface NoteAfterCreateData {
 
 ```typescript
 events.on("note:afterCreate", ({ note }) => {
-  logger.info({ 
-    noteId: note.id, 
-    userId: note.userId,
-    visibility: note.visibility 
-  }, "New note created");
+  logger.info(
+    {
+      noteId: note.id,
+      userId: note.userId,
+      visibility: note.visibility,
+    },
+    "New note created",
+  );
 });
 ```
 
@@ -256,7 +259,7 @@ interface UserAfterRegisterData {
 ```typescript
 events.on("user:afterRegister", async ({ userId, username }) => {
   logger.info({ userId, username }, "New user registered");
-  
+
   // Send welcome notification, etc.
   await sendWelcomeNotification(userId);
 });
@@ -271,7 +274,7 @@ onLoad({ events }) {
   const unsubscribe = events.on("note:afterCreate", ({ note }) => {
     console.log("Note created:", note.id);
   });
-  
+
   // Unsubscribe when needed
   unsubscribe();
 }
@@ -315,8 +318,8 @@ const moderationPlugin: RoxPlugin = {
   version: "1.0.0",
 
   async onLoad({ events, config, logger }) {
-    const blockedWords = await config.get<string[]>("blockedWords") ?? [];
-    const blockedPatterns = await config.get<string[]>("blockedPatterns") ?? [];
+    const blockedWords = (await config.get<string[]>("blockedWords")) ?? [];
+    const blockedPatterns = (await config.get<string[]>("blockedPatterns")) ?? [];
 
     // Content filtering
     events.onBefore("note:beforeCreate", ({ content }) => {
@@ -365,10 +368,13 @@ const analyticsPlugin: RoxPlugin = {
 
     events.on("note:afterCreate", ({ note }) => {
       noteCount++;
-      logger.info({ 
-        total: noteCount, 
-        noteId: note.id 
-      }, "Note creation stats");
+      logger.info(
+        {
+          total: noteCount,
+          noteId: note.id,
+        },
+        "Note creation stats",
+      );
     });
 
     events.on("note:afterDelete", ({ noteId }) => {
@@ -378,11 +384,14 @@ const analyticsPlugin: RoxPlugin = {
 
     events.on("user:afterRegister", ({ userId, username }) => {
       userCount++;
-      logger.info({ 
-        total: userCount, 
-        userId, 
-        username 
-      }, "User registration stats");
+      logger.info(
+        {
+          total: userCount,
+          userId,
+          username,
+        },
+        "User registration stats",
+      );
     });
   },
 };
@@ -392,18 +401,18 @@ export default analyticsPlugin;
 
 ## Event Summary
 
-| Event | Type | Description |
-|-------|------|-------------|
-| `note:beforeCreate` | before | Before note creation |
-| `note:afterCreate` | after | After note creation |
-| `note:beforeDelete` | before | Before note deletion |
-| `note:afterDelete` | after | After note deletion |
+| Event                 | Type   | Description              |
+| --------------------- | ------ | ------------------------ |
+| `note:beforeCreate`   | before | Before note creation     |
+| `note:afterCreate`    | after  | After note creation      |
+| `note:beforeDelete`   | before | Before note deletion     |
+| `note:afterDelete`    | after  | After note deletion      |
 | `user:beforeRegister` | before | Before user registration |
-| `user:afterRegister` | after | After user registration |
-| `user:beforeLogin` | before | Before user login |
-| `user:afterLogin` | after | After user login |
-| `follow:afterCreate` | after | After follow creation |
-| `follow:afterDelete` | after | After follow deletion |
+| `user:afterRegister`  | after  | After user registration  |
+| `user:beforeLogin`    | before | Before user login        |
+| `user:afterLogin`     | after  | After user login         |
+| `follow:afterCreate`  | after  | After follow creation    |
+| `follow:afterDelete`  | after  | After follow deletion    |
 
 ## Additional Event Details
 
@@ -422,12 +431,12 @@ interface UserBeforeLoginData {
 
 ```typescript
 events.onBefore("user:beforeLogin", async ({ identifier }) => {
-  const blockedUsers = await config.get<string[]>("blockedUsers") ?? [];
-  
+  const blockedUsers = (await config.get<string[]>("blockedUsers")) ?? [];
+
   if (blockedUsers.includes(identifier.toLowerCase())) {
     return { cancel: true, reason: "This account is restricted from logging in" };
   }
-  
+
   return {};
 });
 ```
@@ -500,4 +509,3 @@ events.on("follow:afterDelete", ({ followerId, followeeId }) => {
 - [Plugin Getting Started](plugin-getting-started) - Introductory guide
 - [Plugin Architecture](plugin-architecture) - Architecture details
 - [Plugin Manifest](plugin-manifest) - plugin.json reference
-

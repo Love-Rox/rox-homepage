@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface MermaidRendererProps {
   content: string;
@@ -14,27 +14,27 @@ export const MermaidRenderer = ({ content }: MermaidRendererProps) => {
       if (!containerRef.current) return;
 
       // Find all mermaid code blocks
-      const codeBlocks = containerRef.current.querySelectorAll('pre code.language-mermaid');
+      const codeBlocks = containerRef.current.querySelectorAll("pre code.language-mermaid");
 
       if (codeBlocks.length === 0) return;
 
       // Dynamically import mermaid
-      const mermaid = (await import('mermaid')).default;
+      const mermaid = (await import("mermaid")).default;
 
       mermaid.initialize({
         startOnLoad: false,
-        theme: 'base',
+        theme: "base",
         themeVariables: {
-          primaryColor: '#ff5b11',
-          primaryTextColor: '#1e293b',
-          primaryBorderColor: '#ff5b11',
-          lineColor: '#64748b',
-          secondaryColor: '#f8fafc',
-          tertiaryColor: '#fff7ed',
-          nodeTextColor: '#1e293b',
-          clusterBkg: '#fff7ed',
-          clusterBorder: '#ff5b11',
-          edgeLabelBackground: '#ffffff',
+          primaryColor: "#ff5b11",
+          primaryTextColor: "#1e293b",
+          primaryBorderColor: "#ff5b11",
+          lineColor: "#64748b",
+          secondaryColor: "#f8fafc",
+          tertiaryColor: "#fff7ed",
+          nodeTextColor: "#1e293b",
+          clusterBkg: "#fff7ed",
+          clusterBorder: "#ff5b11",
+          edgeLabelBackground: "#ffffff",
         },
       });
 
@@ -46,16 +46,16 @@ export const MermaidRenderer = ({ content }: MermaidRendererProps) => {
         const pre = codeBlock.parentElement;
         if (!pre) continue;
 
-        const code = codeBlock.textContent || '';
+        const code = codeBlock.textContent || "";
 
         try {
           const { svg } = await mermaid.render(`mermaid-${i}`, code);
-          const wrapper = document.createElement('div');
-          wrapper.className = 'mermaid-diagram my-4 flex justify-center';
+          const wrapper = document.createElement("div");
+          wrapper.className = "mermaid-diagram my-4 flex justify-center";
           wrapper.innerHTML = svg;
           pre.replaceWith(wrapper);
         } catch (error) {
-          console.error('Mermaid rendering error:', error);
+          console.error("Mermaid rendering error:", error);
         }
       }
     };

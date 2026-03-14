@@ -13,12 +13,9 @@ const docsStructure = {
   ja: docs_ja,
 };
 
-export default async function DocsPage({
-  lang,
-  slug,
-}: PageProps<"/[lang]/docs/[slug]">) {
-  const locale = (lang as 'en' | 'ja') || 'en';
-  const content = await loadMarkdownBySlug('docs', slug || '', locale);
+export default async function DocsPage({ lang, slug }: PageProps<"/[lang]/docs/[slug]">) {
+  const locale = (lang as "en" | "ja") || "en";
+  const content = await loadMarkdownBySlug("docs", slug || "", locale);
   const structure = docsStructure[locale];
 
   if (!content) {
@@ -52,14 +49,17 @@ export default async function DocsPage({
         lang={locale}
       />
       <BreadcrumbSchema
-        items={generateBreadcrumbItems([
-          { label: structure.title, href: `/${locale}/docs` },
-          { label: content.metadata.title, href: `/${locale}/docs/${slug}` },
-        ], locale)}
+        items={generateBreadcrumbItems(
+          [
+            { label: structure.title, href: `/${locale}/docs` },
+            { label: content.metadata.title, href: `/${locale}/docs/${slug}` },
+          ],
+          locale,
+        )}
       />
       <TechArticleSchema
         title={content.metadata.title}
-        description={content.metadata.description || ''}
+        description={content.metadata.description || ""}
         url={`/${locale}/docs/${slug}`}
         {...(content.metadata.date && { dateModified: content.metadata.date })}
       />
@@ -73,19 +73,15 @@ export default async function DocsPage({
       />
 
       <div className="flex flex-col lg:flex-row gap-8">
-        <DocsSidebar
-          categories={structure.categories}
-          currentSlug={slug}
-          lang={locale}
-        />
+        <DocsSidebar categories={structure.categories} currentSlug={slug} lang={locale} />
 
         <article className="flex-1 prose prose-slate dark:prose-invert max-w-none min-w-0">
           {content.metadata.date && (
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
               {new Date(content.metadata.date).toLocaleDateString(locale, {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </p>
           )}

@@ -1,4 +1,3 @@
-
 interface Feature {
   icon: string;
   title: string;
@@ -13,7 +12,9 @@ interface FeaturesProps {
 export const Features = ({ title, features }: FeaturesProps) => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 className="text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-12 text-center">{title}</h2>
+      <h2 className="text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-12 text-center">
+        {title}
+      </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {features.map((feature, index) => (

@@ -19,10 +19,7 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
-      <nav
-        aria-label="Global"
-        className="flex items-center justify-between p-6 lg:px-8"
-      >
+      <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
           <a href={`/${lang}`} className="-m-1.5 p-1.5">
             <span className="sr-only">Rox</span>
@@ -119,11 +116,7 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
                   stroke="currentColor"
                   aria-hidden="true"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>

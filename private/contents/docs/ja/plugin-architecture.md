@@ -132,6 +132,7 @@ onLoad({ registerScheduledTask, logger }) {
 ```
 
 スケジュール形式：
+
 - `"30s"` - 30秒ごと
 - `"5m"` - 5分ごと
 - `"1h"` - 1時間ごと
@@ -153,7 +154,7 @@ const myPlugin: RoxPlugin = {
   async onLoad(context) {
     // 非同期初期化もサポート
     await initializeDatabase();
-    
+
     context.logger.info("プラグインを初期化しました");
   },
 };
@@ -245,6 +246,7 @@ bun run plugin reload <plugin-id>
 ```
 
 PluginLoaderは以下を処理します：
+
 1. プラグインのアンロード（`onUnload`呼び出し）
 2. イベント購読のクリーンアップ
 3. モジュールキャッシュのクリア
@@ -264,18 +266,18 @@ PluginLoaderは以下を処理します：
 
 ### パーミッション一覧
 
-| パーミッション | 説明 | リスクレベル |
-|--------------|------|------------|
-| `note:read` | ノートの読み取り | 低 |
-| `note:write` | ノートの作成/更新/削除 | 中 |
-| `user:read` | ユーザー情報の読み取り | 低 |
-| `user:write` | ユーザー情報の更新 | 高 |
-| `config:read` | 設定の読み取り | 低 |
-| `config:write` | 設定の書き込み | 中 |
-| `admin:read` | 管理機能の読み取り | 高 |
-| `admin:write` | 管理機能の書き込み | 高 |
-| `storage:read` | ストレージの読み取り | 低 |
-| `storage:write` | ストレージの書き込み | 中 |
+| パーミッション  | 説明                   | リスクレベル |
+| --------------- | ---------------------- | ------------ |
+| `note:read`     | ノートの読み取り       | 低           |
+| `note:write`    | ノートの作成/更新/削除 | 中           |
+| `user:read`     | ユーザー情報の読み取り | 低           |
+| `user:write`    | ユーザー情報の更新     | 高           |
+| `config:read`   | 設定の読み取り         | 低           |
+| `config:write`  | 設定の書き込み         | 中           |
+| `admin:read`    | 管理機能の読み取り     | 高           |
+| `admin:write`   | 管理機能の書き込み     | 高           |
+| `storage:read`  | ストレージの読み取り   | 低           |
+| `storage:write` | ストレージの書き込み   | 中           |
 
 ### セキュリティ監査
 

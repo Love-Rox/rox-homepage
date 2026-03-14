@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { Meta } from '@/components/global/meta';
+import { useEffect } from "react";
+import { Meta } from "@/components/global/meta";
 
 export default function AssetsRedirectPage() {
   useEffect(() => {
-    const userLang = navigator.language || navigator.languages?.[0] || 'en';
-    const isJapanese = userLang.startsWith('ja');
-    window.location.href = isJapanese ? '/ja/assets' : '/en/assets';
+    const userLang = navigator.language || navigator.languages?.[0] || "en";
+    const isJapanese = userLang.startsWith("ja");
+    window.location.href = isJapanese ? "/ja/assets" : "/en/assets";
   }, []);
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
       <Meta
         title="Brand Assets - Rox"
         description="Download Rox logos and brand assets"

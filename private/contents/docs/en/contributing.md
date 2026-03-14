@@ -102,6 +102,6 @@ By contributing, you agree that your contributions will be licensed under the pr
 
 ## Update History
 
-| Date | Changes |
-|------|---------|
+| Date       | Changes                                                  |
+| ---------- | -------------------------------------------------------- |
 | 2025-12-12 | Added DevContainer option, corrected license to AGPL-3.0 |

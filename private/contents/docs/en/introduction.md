@@ -22,32 +22,43 @@ Rox is a next-generation federated social media platform that combines:
 ## Key Features
 
 ### Lightweight & High Performance
+
 Built with Bun runtime and modern web standards for exceptional speed and efficiency. The entire backend is designed to be fast and resource-efficient.
 
 ### Infrastructure Agnostic
+
 Deploy Rox anywhere:
+
 - **Traditional VPS**: Use Docker Compose for easy deployment
 - **Bare Metal**: Direct installation for maximum performance
 
 ### Misskey API Compatible
+
 Full compatibility with the Misskey API means:
+
 - Existing Misskey clients work out of the box
 - Easy migration from Misskey instances
 - Familiar API for developers
 
 ### Multi-Database Support
+
 Choose the database that fits your deployment:
+
 - **PostgreSQL**: Recommended for production
 - **MySQL**: Alternative relational database
 - **SQLite**: For easy setup and personal instances
 
 ### Flexible Storage
+
 Store media files where you want:
+
 - **Local Filesystem**: Simple and fast for single-server deployments
 - **S3-Compatible Storage**: AWS S3, Cloudflare R2, MinIO for scalability
 
 ### Modern UI
+
 Beautiful, accessible interface built with:
+
 - **Waku**: React Server Components framework
 - **React Aria Components**: Accessible headless UI components
 - **Tailwind CSS v4**: Modern styling with OKLCH color space
@@ -58,18 +69,23 @@ Beautiful, accessible interface built with:
 Rox uses proven design patterns for maintainability and testability:
 
 ### Repository Pattern
+
 Database operations are abstracted through interfaces:
+
 - `INoteRepository` - Note/post operations
 - `IUserRepository` - User management
 - `IFileRepository` - File handling
 - And more...
 
 ### Adapter Pattern
+
 Storage operations use adapters for flexibility:
+
 - `LocalStorageAdapter` - Local filesystem storage
 - `S3StorageAdapter` - S3-compatible storage
 
 ### Dependency Injection
+
 Implementations are injected via Hono Context based on environment variables, making it easy to switch between different implementations without code changes.
 
 ## Project Structure
@@ -88,6 +104,7 @@ rox/
 ## Technology Stack
 
 ### Backend
+
 - **Runtime**: Bun 1.1.45+
 - **Language**: TypeScript 5.x
 - **Framework**: Hono 4.10.6
@@ -96,6 +113,7 @@ rox/
 - **Code Quality**: oxc
 
 ### Frontend
+
 - **Framework**: Waku 0.27.1
 - **State Management**: Jotai 2.15.1
 - **UI Components**: React Aria Components 1.6.3
@@ -144,7 +162,7 @@ Rox is open source software licensed under the AGPL-3.0 (GNU Affero General Publ
 
 ## Update History
 
-| Date | Changes |
-|------|---------|
-| 2025-12-12 | Corrected license information from MIT to AGPL-3.0 |
+| Date       | Changes                                                                          |
+| ---------- | -------------------------------------------------------------------------------- |
+| 2025-12-12 | Corrected license information from MIT to AGPL-3.0                               |
 | 2025-12-10 | Removed Cloudflare Workers/edge deployment references (development discontinued) |

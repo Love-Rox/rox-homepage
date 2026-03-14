@@ -120,6 +120,7 @@ bun run frontend:dev
 ```
 
 The services will be available at:
+
 - **Backend API**: http://localhost:3000
 - **Frontend**: http://localhost:3001
 
@@ -134,6 +135,7 @@ The services will be available at:
 ### Database Connection Issues
 
 If you encounter database connection errors, make sure:
+
 - Docker services are running (`docker compose ps`)
 - Database credentials in `.env` match your setup
 - PostgreSQL port (5432) is not already in use
@@ -141,6 +143,7 @@ If you encounter database connection errors, make sure:
 ### Port Conflicts
 
 If ports 3000 or 3001 are already in use, you can change them in:
+
 - Backend: `packages/backend/.env` → `PORT`
 - Frontend: `packages/frontend/waku.config.ts` → `port`
 
@@ -148,6 +151,6 @@ If ports 3000 or 3001 are already in use, you can change them in:
 
 ## Update History
 
-| Date | Changes |
-|------|---------|
+| Date       | Changes                    |
+| ---------- | -------------------------- |
 | 2025-12-12 | Added DevContainer section |

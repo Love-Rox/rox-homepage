@@ -72,16 +72,19 @@ Endpoint: `/.well-known/nodeinfo`
 ## Troubleshooting Federation
 
 ### "Remote user not found"
+
 - Verify the handle format: `@username@domain.com`.
 - Check if the remote instance is online.
 - Ensure your server can make outbound HTTPS requests.
 
 ### "Posts not arriving"
+
 - Check your background job queue (BullMQ/Dragonfly). Federation delivery is asynchronous.
 - Verify that your `SHARED_INBOX` is accessible from the internet.
 - Check for signature verification errors in the logs.
 
 ### "Signature verification failed"
+
 - Ensure your system time is accurate (NTP).
 - Check if your SSL certificate is valid.
 - Verify that your instance keys were generated correctly during setup.

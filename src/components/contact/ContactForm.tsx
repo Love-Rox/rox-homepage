@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useRef } from 'react';
-import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
-import './contact-form.css';
+import { useState, useRef } from "react";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
+import "./contact-form.css";
 
 interface ContactFormProps {
   lang: {
@@ -54,16 +54,16 @@ interface FormErrors {
 
 export function ContactForm({ lang }: ContactFormProps) {
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [turnstileToken, setTurnstileToken] = useState<string>('');
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
   const turnstileRef = useRef<TurnstileInstance>(null);
 
   const validateEmail = (email: string): boolean => {
@@ -100,9 +100,7 @@ export function ContactForm({ lang }: ContactFormProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear error for this field when user starts typing
@@ -119,13 +117,13 @@ export function ContactForm({ lang }: ContactFormProps) {
     }
 
     setIsSubmitting(true);
-    setSubmitStatus('idle');
+    setSubmitStatus("idle");
 
     try {
-      const response = await fetch('/api/submit', {
-        method: 'POST',
+      const response = await fetch("/api/submit", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...formData,
@@ -134,45 +132,45 @@ export function ContactForm({ lang }: ContactFormProps) {
       });
 
       if (response.ok) {
-        setSubmitStatus('success');
+        setSubmitStatus("success");
         setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
         });
-        setTurnstileToken('');
+        setTurnstileToken("");
         turnstileRef.current?.reset();
       } else {
-        setSubmitStatus('error');
+        setSubmitStatus("error");
       }
     } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('error');
+      console.error("Form submission error:", error);
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || "";
 
   return (
     <div className="contact-form-container">
-      {submitStatus === 'success' && (
+      {submitStatus === "success" && (
         <div className="alert alert-success">
           <div className="alert-title">{lang.success.title}</div>
           <div className="alert-message">{lang.success.message}</div>
         </div>
       )}
 
-      {submitStatus === 'error' && (
+      {submitStatus === "error" && (
         <div className="alert alert-error">
           <div className="alert-title">{lang.error.title}</div>
           <div className="alert-message">{lang.error.message}</div>
         </div>
       )}
 
-      {submitStatus !== 'success' && (
+      {submitStatus !== "success" && (
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name" className="form-label">
@@ -185,7 +183,7 @@ export function ContactForm({ lang }: ContactFormProps) {
               value={formData.name}
               onChange={handleChange}
               placeholder={lang.form.namePlaceholder}
-              className={`form-input ${errors.name ? 'error' : ''}`}
+              className={`form-input ${errors.name ? "error" : ""}`}
             />
             {errors.name && <span className="form-error">{errors.name}</span>}
           </div>
@@ -201,7 +199,7 @@ export function ContactForm({ lang }: ContactFormProps) {
               value={formData.email}
               onChange={handleChange}
               placeholder={lang.form.emailPlaceholder}
-              className={`form-input ${errors.email ? 'error' : ''}`}
+              className={`form-input ${errors.email ? "error" : ""}`}
             />
             {errors.email && <span className="form-error">{errors.email}</span>}
           </div>
@@ -217,11 +215,9 @@ export function ContactForm({ lang }: ContactFormProps) {
               value={formData.subject}
               onChange={handleChange}
               placeholder={lang.form.subjectPlaceholder}
-              className={`form-input ${errors.subject ? 'error' : ''}`}
+              className={`form-input ${errors.subject ? "error" : ""}`}
             />
-            {errors.subject && (
-              <span className="form-error">{errors.subject}</span>
-            )}
+            {errors.subject && <span className="form-error">{errors.subject}</span>}
           </div>
 
           <div className="form-group">
@@ -234,11 +230,9 @@ export function ContactForm({ lang }: ContactFormProps) {
               value={formData.message}
               onChange={handleChange}
               placeholder={lang.form.messagePlaceholder}
-              className={`form-textarea ${errors.message ? 'error' : ''}`}
+              className={`form-textarea ${errors.message ? "error" : ""}`}
             />
-            {errors.message && (
-              <span className="form-error">{errors.message}</span>
-            )}
+            {errors.message && <span className="form-error">{errors.message}</span>}
           </div>
 
           <div className="turnstile-container">
@@ -253,24 +247,20 @@ export function ContactForm({ lang }: ContactFormProps) {
                 });
               }}
               onError={() => {
-                setTurnstileToken('');
+                setTurnstileToken("");
               }}
               onExpire={() => {
-                setTurnstileToken('');
+                setTurnstileToken("");
               }}
             />
           </div>
           {errors.turnstile && (
-            <div className="form-error" style={{ textAlign: 'center', marginTop: '-0.5rem' }}>
+            <div className="form-error" style={{ textAlign: "center", marginTop: "-0.5rem" }}>
               {errors.turnstile}
             </div>
           )}
 
-          <button
-            type="submit"
-            className="submit-button"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="submit-button" disabled={isSubmitting}>
             {isSubmitting ? lang.form.sending : lang.form.submit}
           </button>
         </form>

@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { Meta } from '@/components/global/meta';
+import { useEffect } from "react";
+import { Meta } from "@/components/global/meta";
 
 export default function ContactRedirectPage() {
   useEffect(() => {
-    const userLang = navigator.language || navigator.languages?.[0] || 'en';
-    const isJapanese = userLang.startsWith('ja');
-    window.location.href = isJapanese ? '/ja/contact' : '/en/contact';
+    const userLang = navigator.language || navigator.languages?.[0] || "en";
+    const isJapanese = userLang.startsWith("ja");
+    window.location.href = isJapanese ? "/ja/contact" : "/en/contact";
   }, []);
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
       <Meta
         title="Contact - Rox"
         description="Get in touch with the Rox team"

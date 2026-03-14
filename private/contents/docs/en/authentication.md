@@ -26,12 +26,14 @@ Authentication in Rox is handled by the backend API and integrated seamlessly in
 Passkeys provide the highest level of security and convenience. Users can sign in using their device's biometric authentication (FaceID, TouchID) or hardware security keys.
 
 #### Registration Flow
+
 1. User enters username.
 2. Server generates a challenge.
 3. Browser prompts user for biometric/device auth.
 4. Public key is sent to server and stored.
 
 #### Login Flow
+
 1. User enters username.
 2. Server sends challenge.
 3. Browser signs challenge with private key.
@@ -54,7 +56,7 @@ The Rox frontend (Waku) uses a dedicated `auth` store (Jotai atom) to manage aut
 const [user] = useAtom(currentUserAtom);
 
 if (user) {
-  console.log('Logged in as:', user.username);
+  console.log("Logged in as:", user.username);
 }
 ```
 
@@ -94,11 +96,13 @@ RATE_LIMIT_LOGIN_MAX=5
 ## Troubleshooting
 
 ### "Authentication Failed"
+
 - Check if cookies are enabled in your browser.
 - Ensure your system clock is synchronized (for TOTP/WebAuthn).
 - Verify that `JWT_SECRET` matches between backend and frontend (if separate).
 
 ### Passkey Issues
+
 - Ensure your device supports WebAuthn.
 - Try using a different browser or device.
 - Check if the domain is served over HTTPS (required for WebAuthn).

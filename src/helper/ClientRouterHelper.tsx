@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { useRouter } from "waku/router/client";
-import { LanguageSelector } from '@/components/global/language-selector';
+import { LanguageSelector } from "@/components/global/language-selector";
 
 export function ClientRouterHelper({ currentLang: initialLang }: { currentLang: string }) {
   const router = useRouter();
@@ -13,8 +13,8 @@ export function ClientRouterHelper({ currentLang: initialLang }: { currentLang: 
   useEffect(() => {
     const updateLangFromPath = () => {
       const path = window.location.pathname;
-      const parts = path.split('/');
-      if (parts[1] === 'en' || parts[1] === 'ja') {
+      const parts = path.split("/");
+      if (parts[1] === "en" || parts[1] === "ja") {
         setCurrentLang(parts[1]);
       }
     };
@@ -23,30 +23,29 @@ export function ClientRouterHelper({ currentLang: initialLang }: { currentLang: 
     updateLangFromPath();
 
     // Listen for navigation events
-    window.addEventListener('popstate', updateLangFromPath);
+    window.addEventListener("popstate", updateLangFromPath);
 
     return () => {
-      window.removeEventListener('popstate', updateLangFromPath);
+      window.removeEventListener("popstate", updateLangFromPath);
     };
   }, []);
-
 
   const handleLangChange = (newLang: string) => {
     const currentPath = window.location.pathname;
     let newPath = currentPath;
-    if (currentPath === '/' || currentPath === `/${currentLang}`) {
+    if (currentPath === "/" || currentPath === `/${currentLang}`) {
       newPath = `/${newLang}`;
     } else if (currentPath.startsWith(`/${currentLang}/`)) {
       newPath = currentPath.replace(`/${currentLang}/`, `/${newLang}/`);
     } else {
       // Fallback if currentLang state doesn't match path (e.g. /ja but state is en)
       // Try to detect from path again or just prepend
-      if (currentPath.startsWith('/en/') || currentPath === '/en') {
-        newPath = currentPath.replace('/en', '/' + newLang);
-      } else if (currentPath.startsWith('/ja/') || currentPath === '/ja') {
-        newPath = currentPath.replace('/ja', '/' + newLang);
+      if (currentPath.startsWith("/en/") || currentPath === "/en") {
+        newPath = currentPath.replace("/en", "/" + newLang);
+      } else if (currentPath.startsWith("/ja/") || currentPath === "/ja") {
+        newPath = currentPath.replace("/ja", "/" + newLang);
       } else {
-        newPath = `/${newLang}${currentPath === '/' ? '' : currentPath}`;
+        newPath = `/${newLang}${currentPath === "/" ? "" : currentPath}`;
       }
     }
 
@@ -56,10 +55,5 @@ export function ClientRouterHelper({ currentLang: initialLang }: { currentLang: 
     setCurrentLang(newLang);
   };
 
-  return (
-    <LanguageSelector
-      currentLang={currentLang}
-      onLanguageChange={handleLangChange}
-    />
-  );
+  return <LanguageSelector currentLang={currentLang} onLanguageChange={handleLangChange} />;
 }

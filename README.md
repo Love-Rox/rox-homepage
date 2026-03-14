@@ -69,12 +69,14 @@ The site will be available at `http://localhost:3000`.
 You can specify a custom port using the `PORT` environment variable:
 
 **Using .env file** (recommended):
+
 ```bash
 # .env
 PORT=8080
 ```
 
 **Using command line**:
+
 ```bash
 # Run on port 8080
 PORT=8080 bun run dev
@@ -102,6 +104,7 @@ bun run generate-seo
 ```
 
 These files are automatically generated before each build (`prebuild` script). The generator:
+
 - Scans all blog posts in `private/contents/blog/`
 - Scans all documentation pages in `private/contents/docs/`
 - Creates sitemap with hreflang tags for multi-language support
@@ -112,10 +115,12 @@ These files are automatically generated before each build (`prebuild` script). T
 ### Blog Posts
 
 Blog posts are written in Markdown with frontmatter and stored in:
+
 - Japanese: `private/contents/blog/ja/`
 - English: `private/contents/blog/en/`
 
 Example frontmatter:
+
 ```markdown
 ---
 title: Post Title
@@ -130,6 +135,7 @@ excerpt: Brief excerpt
 ### Documentation
 
 Documentation is organized in:
+
 - Japanese: `private/contents/docs/ja/`
 - English: `private/contents/docs/en/`
 
@@ -140,6 +146,7 @@ UI translations are stored in `private/lang/` as JSON files, organized by compon
 ## 🌐 Localization
 
 The site supports:
+
 - 🇯🇵 Japanese (ja) - Primary language
 - 🇬🇧 English (en)
 
@@ -148,6 +155,7 @@ Japanese is the primary development language, with English also supported for br
 ## 📧 Contact Form
 
 The contact form uses:
+
 - Cloudflare Turnstile for bot protection
 - Nodemailer for sending emails
 - Environment variables for configuration
@@ -173,6 +181,7 @@ CONTACT_EMAIL=dev@example.com
 ## 🤝 Contributing
 
 We welcome contributions! Whether you're:
+
 - Fixing typos or improving documentation
 - Adding new features
 - Translating content
@@ -200,6 +209,7 @@ This project is part of the Rox ecosystem. Please see the main [Rox repository](
 ## 💝 Acknowledgments
 
 Built with love using wonderful Japanese technologies:
+
 - [Waku](https://waku.gg/) by Daishi Kato
 - Inspired by the Japanese developer community
 

@@ -21,9 +21,7 @@ const notFoundData = {
   },
 };
 
-export default async function NotFoundPage({
-  lang,
-}: PageProps<"/[lang]/404">) {
+export default async function NotFoundPage({ lang }: PageProps<"/[lang]/404">) {
   const locale = (lang as "en" | "ja") || "en";
   const data = notFoundData[locale];
 
@@ -36,17 +34,13 @@ export default async function NotFoundPage({
         lang={locale}
       />
 
-      <h1 className="text-9xl font-bold text-primary-500 mb-4">
-        {data.heading}
-      </h1>
+      <h1 className="text-9xl font-bold text-primary-500 mb-4">{data.heading}</h1>
 
       <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
         {data.message}
       </h2>
 
-      <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-md">
-        {data.description}
-      </p>
+      <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-md">{data.description}</p>
 
       <div className="flex flex-col sm:flex-row gap-4">
         <Link

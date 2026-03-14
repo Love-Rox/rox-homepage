@@ -67,7 +67,9 @@ const communityLangData = {
 
 export default async function LangHomePage({ lang }: PageProps<"/[lang]">) {
   const supportedLocales = ["en", "ja"] as const;
-  const locale = supportedLocales.includes(lang as any) ? (lang as typeof supportedLocales[number]) : "en";
+  const locale = supportedLocales.includes(lang as any)
+    ? (lang as (typeof supportedLocales)[number])
+    : "en";
 
   return (
     <div>

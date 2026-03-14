@@ -17,6 +17,7 @@ Rox is built with proven design patterns to ensure maintainability, testability,
 The Repository Pattern abstracts database operations through interfaces, decoupling business logic from data access implementation.
 
 #### Benefits
+
 - **Testability**: Easy to mock repositories for unit testing
 - **Flexibility**: Switch database implementations without changing business logic
 - **Maintainability**: Clear separation of concerns
@@ -56,10 +57,7 @@ export class DrizzleNoteRepository implements INoteRepository {
   constructor(private db: DrizzleDatabase) {}
 
   async create(note: Note): Promise<Note> {
-    const [created] = await this.db
-      .insert(notes)
-      .values(note)
-      .returning();
+    const [created] = await this.db.insert(notes).values(note).returning();
     return created;
   }
 
@@ -108,7 +106,7 @@ export class LocalStorageAdapter implements IStorageAdapter {
 export class S3StorageAdapter implements IStorageAdapter {
   constructor(
     private s3Client: S3Client,
-    private bucketName: string
+    private bucketName: string,
   ) {}
 
   async upload(file: Buffer, key: string): Promise<string> {
@@ -117,7 +115,7 @@ export class S3StorageAdapter implements IStorageAdapter {
         Bucket: this.bucketName,
         Key: key,
         Body: file,
-      })
+      }),
     );
     return key;
   }
@@ -138,18 +136,18 @@ Rox uses Hono's context to inject dependencies based on environment variables.
 
 ```typescript
 // Setup in middleware
-app.use('*', async (c, next) => {
+app.use("*", async (c, next) => {
   // Database
   const db = createDatabase(c.env.DB_TYPE);
-  c.set('db', db);
+  c.set("db", db);
 
   // Repositories
-  c.set('noteRepository', new DrizzleNoteRepository(db));
-  c.set('userRepository', new DrizzleUserRepository(db));
+  c.set("noteRepository", new DrizzleNoteRepository(db));
+  c.set("userRepository", new DrizzleUserRepository(db));
 
   // Storage
   const storage = createStorageAdapter(c.env.STORAGE_TYPE);
-  c.set('storage', storage);
+  c.set("storage", storage);
 
   await next();
 });
@@ -158,8 +156,8 @@ app.use('*', async (c, next) => {
 #### Usage in Routes
 
 ```typescript
-app.post('/api/notes', async (c) => {
-  const noteRepository = c.get('noteRepository');
+app.post("/api/notes", async (c) => {
+  const noteRepository = c.get("noteRepository");
   const note = await noteRepository.create(data);
   return c.json(note);
 });
@@ -202,21 +200,21 @@ Rox uses Drizzle ORM for type-safe database operations.
 #### Schema Definition
 
 ```typescript
-export const users = pgTable('users', {
-  id: text('id').primaryKey(),
-  username: text('username').notNull().unique(),
-  displayName: text('display_name'),
-  bio: text('bio'),
-  avatarUrl: text('avatar_url'),
-  createdAt: timestamp('created_at').defaultNow(),
+export const users = pgTable("users", {
+  id: text("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  displayName: text("display_name"),
+  bio: text("bio"),
+  avatarUrl: text("avatar_url"),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const notes = pgTable('notes', {
-  id: text('id').primaryKey(),
-  userId: text('user_id').references(() => users.id),
-  text: text('text'),
-  visibility: text('visibility'),
-  createdAt: timestamp('created_at').defaultNow(),
+export const notes = pgTable("notes", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").references(() => users.id),
+  text: text("text"),
+  visibility: text("visibility"),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 ```
 
@@ -252,14 +250,14 @@ Rox uses Hono for its lightweight and fast API server.
 ```typescript
 const app = new Hono();
 
-app.get('/api/notes/:id', async (c) => {
-  const noteRepository = c.get('noteRepository');
-  const note = await noteRepository.findById(c.req.param('id'));
-  
+app.get("/api/notes/:id", async (c) => {
+  const noteRepository = c.get("noteRepository");
+  const note = await noteRepository.findById(c.req.param("id"));
+
   if (!note) {
-    return c.json({ error: 'Not found' }, 404);
+    return c.json({ error: "Not found" }, 404);
   }
-  
+
   return c.json(note);
 });
 ```
@@ -269,17 +267,17 @@ app.get('/api/notes/:id', async (c) => {
 ```typescript
 // Authentication middleware
 const requireAuth = async (c, next) => {
-  const token = c.req.header('Authorization');
+  const token = c.req.header("Authorization");
   if (!token) {
-    return c.json({ error: 'Unauthorized' }, 401);
+    return c.json({ error: "Unauthorized" }, 401);
   }
-  
+
   const user = await verifyToken(token);
-  c.set('user', user);
+  c.set("user", user);
   await next();
 };
 
-app.use('/api/notes/*', requireAuth);
+app.use("/api/notes/*", requireAuth);
 ```
 
 ## Frontend Architecture
@@ -294,7 +292,7 @@ Rox frontend uses Waku for server-side rendering and React Server Components.
 // Server Component
 export default async function NotePage({ id }: { id: string }) {
   const note = await fetchNote(id);
-  
+
   return (
     <div>
       <NoteContent note={note} />
@@ -319,11 +317,9 @@ const [user, setUser] = useAtom(currentUserAtom);
 Accessible UI components without styling:
 
 ```tsx
-import { Button } from 'react-aria-components';
+import { Button } from "react-aria-components";
 
-<Button onPress={() => handleSubmit()}>
-  Submit
-</Button>
+<Button onPress={() => handleSubmit()}>Submit</Button>;
 ```
 
 ## Testing Strategy
@@ -331,15 +327,15 @@ import { Button } from 'react-aria-components';
 ### Unit Tests
 
 ```typescript
-describe('NoteRepository', () => {
-  it('should create a note', async () => {
+describe("NoteRepository", () => {
+  it("should create a note", async () => {
     const repo = new DrizzleNoteRepository(mockDb);
     const note = await repo.create({
-      text: 'Hello, world!',
-      userId: 'user1',
+      text: "Hello, world!",
+      userId: "user1",
     });
-    
-    expect(note.text).toBe('Hello, world!');
+
+    expect(note.text).toBe("Hello, world!");
   });
 });
 ```
@@ -347,14 +343,14 @@ describe('NoteRepository', () => {
 ### Integration Tests
 
 ```typescript
-describe('POST /api/notes', () => {
-  it('should create a note', async () => {
-    const res = await app.request('/api/notes', {
-      method: 'POST',
-      body: JSON.stringify({ text: 'Hello!' }),
-      headers: { 'Content-Type': 'application/json' },
+describe("POST /api/notes", () => {
+  it("should create a note", async () => {
+    const res = await app.request("/api/notes", {
+      method: "POST",
+      body: JSON.stringify({ text: "Hello!" }),
+      headers: { "Content-Type": "application/json" },
     });
-    
+
     expect(res.status).toBe(201);
   });
 });
@@ -388,13 +384,13 @@ const optimized = await imageProcessor.toWebP(buffer);
 Background jobs use BullMQ with Dragonfly:
 
 ```typescript
-const deliveryQueue = new Queue('delivery', {
+const deliveryQueue = new Queue("delivery", {
   connection: dragonfly,
 });
 
-await deliveryQueue.add('deliver-activity', {
-  activityId: '123',
-  inboxUrl: 'https://example.com/inbox',
+await deliveryQueue.add("deliver-activity", {
+  activityId: "123",
+  inboxUrl: "https://example.com/inbox",
 });
 ```
 
@@ -407,7 +403,7 @@ All inputs are validated using Zod:
 ```typescript
 const createNoteSchema = z.object({
   text: z.string().min(1).max(3000),
-  visibility: z.enum(['public', 'unlisted', 'followers', 'direct']),
+  visibility: z.enum(["public", "unlisted", "followers", "direct"]),
 });
 
 const data = createNoteSchema.parse(req.body);
@@ -416,10 +412,13 @@ const data = createNoteSchema.parse(req.body);
 ### Rate Limiting
 
 ```typescript
-app.use('/api/*', rateLimiter({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-}));
+app.use(
+  "/api/*",
+  rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  }),
+);
 ```
 
 ## Next Steps
@@ -432,6 +431,6 @@ app.use('/api/*', rateLimiter({
 
 ## Update History
 
-| Date | Changes |
-|------|---------|
+| Date       | Changes                                                             |
+| ---------- | ------------------------------------------------------------------- |
 | 2025-12-10 | Removed Cloudflare D1 database reference (development discontinued) |

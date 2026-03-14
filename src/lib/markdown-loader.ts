@@ -1,11 +1,10 @@
-import fs from 'fs/promises';
-import path from 'path';
-import matter from 'gray-matter';
-import { remark } from 'remark';
-import remarkHtml from 'remark-html';
-import remarkGfm from 'remark-gfm';
-import { remarkAlert } from 'remark-github-blockquote-alert';
-
+import fs from "fs/promises";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import remarkHtml from "remark-html";
+import remarkGfm from "remark-gfm";
+import { remarkAlert } from "remark-github-blockquote-alert";
 
 export interface MarkdownMetadata {
   title: string;
@@ -28,7 +27,7 @@ export interface MarkdownContent {
  * @returns Parsed Markdown content with metadata and HTML
  */
 export async function loadMarkdown(filePath: string): Promise<MarkdownContent> {
-  const fileContent = await fs.readFile(filePath, 'utf-8');
+  const fileContent = await fs.readFile(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
   // Convert Markdown to HTML
@@ -55,9 +54,7 @@ export async function loadMarkdown(filePath: string): Promise<MarkdownContent> {
 export async function getMarkdownFiles(dirPath: string): Promise<string[]> {
   try {
     const files = await fs.readdir(dirPath);
-    return files
-      .filter((file) => file.endsWith('.md'))
-      .map((file) => file.replace(/\.md$/, ''));
+    return files.filter((file) => file.endsWith(".md")).map((file) => file.replace(/\.md$/, ""));
   } catch {
     return [];
   }
@@ -71,18 +68,11 @@ export async function getMarkdownFiles(dirPath: string): Promise<string[]> {
  * @returns Parsed Markdown content
  */
 export async function loadMarkdownBySlug(
-  type: 'docs' | 'blog',
+  type: "docs" | "blog",
   slug: string,
-  locale: 'en' | 'ja'
+  locale: "en" | "ja",
 ): Promise<MarkdownContent | null> {
-  const filePath = path.join(
-    process.cwd(),
-    'private',
-    'contents',
-    type,
-    locale,
-    `${slug}.md`
-  );
+  const filePath = path.join(process.cwd(), "private", "contents", type, locale, `${slug}.md`);
 
   try {
     return await loadMarkdown(filePath);
@@ -97,10 +87,7 @@ export async function loadMarkdownBySlug(
  * @param locale - Locale ('en' or 'ja')
  * @returns Array of slugs
  */
-export async function getAllSlugs(
-  type: 'docs' | 'blog',
-  locale: 'en' | 'ja'
-): Promise<string[]> {
-  const dirPath = path.join(process.cwd(), 'private', 'contents', type, locale);
+export async function getAllSlugs(type: "docs" | "blog", locale: "en" | "ja"): Promise<string[]> {
+  const dirPath = path.join(process.cwd(), "private", "contents", type, locale);
   return await getMarkdownFiles(dirPath);
 }

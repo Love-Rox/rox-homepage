@@ -4,7 +4,11 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/global/footer";
 import { Header } from "@/components/global/header";
 import { unstable_getContext } from "waku/server";
-import { WebSiteSchema, OrganizationSchema, SoftwareApplicationSchema } from "@/components/seo/structured-data";
+import {
+  WebSiteSchema,
+  OrganizationSchema,
+  SoftwareApplicationSchema,
+} from "@/components/seo/structured-data";
 
 import nav_en from "@private/lang/components/global/en/nav.json";
 import nav_ja from "@private/lang/components/global/ja/nav.json";
@@ -28,12 +32,8 @@ export default async function RootLayout(props: LayoutProps) {
   const req = context?.req as { url?: string } | undefined;
   const url = req?.url || "";
   const urlParts = url.split("/");
-  const langFromUrl = urlParts.find(
-    (part: string) => part === "en" || part === "ja",
-  );
-  const currentLang = (langFromUrl ||
-    props.params?.lang ||
-    "en") as keyof typeof navData;
+  const langFromUrl = urlParts.find((part: string) => part === "en" || part === "ja");
+  const currentLang = (langFromUrl || props.params?.lang || "en") as keyof typeof navData;
   const navItems = navData[currentLang]?.items || navData.en.items;
 
   return (
@@ -42,12 +42,8 @@ export default async function RootLayout(props: LayoutProps) {
         <meta name="description" content={data.description} />
         <link rel="icon" type="image/png" href={data.icon} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <WebSiteSchema lang={currentLang as 'en' | 'ja'} />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <WebSiteSchema lang={currentLang as "en" | "ja"} />
         <OrganizationSchema />
         <SoftwareApplicationSchema />
       </head>

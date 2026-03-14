@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { Meta } from '@/components/global/meta';
+import { useEffect } from "react";
+import { Meta } from "@/components/global/meta";
 
 export default function DocsRedirectPage() {
   useEffect(() => {
-    const userLang = navigator.language || navigator.languages?.[0] || 'en';
-    const isJapanese = userLang.startsWith('ja');
-    window.location.href = isJapanese ? '/ja/docs' : '/en/docs';
+    const userLang = navigator.language || navigator.languages?.[0] || "en";
+    const isJapanese = userLang.startsWith("ja");
+    window.location.href = isJapanese ? "/ja/docs" : "/en/docs";
   }, []);
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div style={{ padding: "2rem", textAlign: "center" }}>
       <Meta
         title="Documentation - Rox"
         description="Everything you need to know about Rox"

@@ -15,6 +15,7 @@ assets/
 ## ロゴファイルの命名規則
 
 推奨される命名規則：
+
 - `rox-logo-horizontal.svg` - 横型ロゴ（カラー）
 - `rox-logo-horizontal-white.svg` - 横型ロゴ（白）
 - `rox-logo-horizontal-black.svg` - 横型ロゴ（黒）
@@ -22,6 +23,7 @@ assets/
 - `rox-logo-vertical.svg` - 縦型ロゴ（必要に応じて）
 
 PNG形式の場合：
+
 - `rox-logo-horizontal-512.png` - 512x512px
 - `rox-logo-horizontal-1024.png` - 1024x1024px
 - など

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Meta } from "@/components/global/meta";
 import { Link } from "waku";
@@ -60,9 +60,7 @@ export default function ErrorPage({ lang = "en", error, reset }: ErrorPageProps)
         {data.message}
       </h2>
 
-      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-md">
-        {data.description}
-      </p>
+      <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-md">{data.description}</p>
 
       {error && (
         <pre className="mb-8 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg text-sm text-left overflow-auto max-w-full">

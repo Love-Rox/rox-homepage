@@ -279,7 +279,6 @@ docker compose -f docker/compose.yml exec backend bun run db:migrate
 docker compose -f docker/compose.yml exec backend bun run create-admin
 ```
 
-
 ## Database Backup
 
 ### PostgreSQL Backup
@@ -379,6 +378,7 @@ CACHE_TTL=3600
 ### CDN Configuration
 
 Use Cloudflare or similar CDN for:
+
 - Static assets
 - Media files
 - API responses (with appropriate cache headers)
@@ -451,7 +451,7 @@ server {
 
 ## Update History
 
-| Date | Changes |
-|------|---------|
-| 2025-12-12 | Fixed Docker Compose command paths to `docker/compose.yml` |
+| Date       | Changes                                                                 |
+| ---------- | ----------------------------------------------------------------------- |
+| 2025-12-12 | Fixed Docker Compose command paths to `docker/compose.yml`              |
 | 2025-12-10 | Removed Cloudflare Workers deployment option (development discontinued) |

@@ -11,21 +11,14 @@ interface GettingStartedProps {
   note: string;
 }
 
-export const GettingStarted = ({
-  title,
-  subtitle,
-  steps,
-  note,
-}: GettingStartedProps) => {
+export const GettingStarted = ({ title, subtitle, steps, note }: GettingStartedProps) => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50 dark:bg-slate-900/50">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-4 text-center">
           {title}
         </h2>
-        <p className="text-xl text-slate-600 dark:text-slate-300 mb-12 text-center">
-          {subtitle}
-        </p>
+        <p className="text-xl text-slate-600 dark:text-slate-300 mb-12 text-center">{subtitle}</p>
 
         <div className="space-y-2">
           {steps.map((step, index) => (
@@ -50,9 +43,7 @@ export const GettingStarted = ({
                 </div>
               )}
 
-              <div
-                className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 border border-slate-200 dark:border-slate-700 relative z-10"
-              >
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 border border-slate-200 dark:border-slate-700 relative z-10">
                 <div className="flex items-start gap-4">
                   <div className="shrink-0 w-10 h-10 bg-primary-500 dark:bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                     {step.number}
@@ -71,9 +62,7 @@ export const GettingStarted = ({
           ))}
         </div>
 
-        <p className="text-center text-slate-600 dark:text-slate-400 mt-8 italic">
-          {note}
-        </p>
+        <p className="text-center text-slate-600 dark:text-slate-400 mt-8 italic">{note}</p>
       </div>
     </div>
   );

@@ -41,13 +41,14 @@ tags: [plugin, manifest, plugin.json, reference]
 
 Unique identifier for the plugin.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | Yes |
-| Format | Lowercase alphanumeric and hyphens, 3-50 characters |
+| Attribute | Value                                               |
+| --------- | --------------------------------------------------- |
+| Type      | `string`                                            |
+| Required  | Yes                                                 |
+| Format    | Lowercase alphanumeric and hyphens, 3-50 characters |
 
 **Rules:**
+
 - Must start with a lowercase letter
 - Must end with a lowercase letter or digit
 - Middle characters can be lowercase letters, digits, or hyphens
@@ -64,10 +65,10 @@ Unique identifier for the plugin.
 
 Display name for the plugin.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | Yes |
+| Attribute  | Value          |
+| ---------- | -------------- |
+| Type       | `string`       |
+| Required   | Yes            |
 | Max Length | 100 characters |
 
 ```json
@@ -80,11 +81,11 @@ Display name for the plugin.
 
 Version number in semantic versioning format.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | Yes |
-| Format | Semantic Versioning (e.g., `1.0.0`, `2.1.0-beta.1`) |
+| Attribute | Value                                               |
+| --------- | --------------------------------------------------- |
+| Type      | `string`                                            |
+| Required  | Yes                                                 |
+| Format    | Semantic Versioning (e.g., `1.0.0`, `2.1.0-beta.1`) |
 
 ```json
 {
@@ -98,10 +99,10 @@ Version number in semantic versioning format.
 
 Description of the plugin.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
+| Attribute  | Value          |
+| ---------- | -------------- |
+| Type       | `string`       |
+| Required   | No             |
 | Max Length | 500 characters |
 
 ```json
@@ -114,10 +115,10 @@ Description of the plugin.
 
 Author name or organization.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
+| Attribute | Value    |
+| --------- | -------- |
+| Type      | `string` |
+| Required  | No       |
 
 ```json
 {
@@ -129,10 +130,10 @@ Author name or organization.
 
 Plugin license (SPDX identifier recommended).
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
+| Attribute | Value    |
+| --------- | -------- |
+| Type      | `string` |
+| Required  | No       |
 
 ```json
 {
@@ -144,11 +145,11 @@ Plugin license (SPDX identifier recommended).
 
 Homepage URL for the plugin.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
-| Format | Valid HTTP/HTTPS URL |
+| Attribute | Value                |
+| --------- | -------------------- |
+| Type      | `string`             |
+| Required  | No                   |
+| Format    | Valid HTTP/HTTPS URL |
 
 ```json
 {
@@ -160,11 +161,11 @@ Homepage URL for the plugin.
 
 Git repository URL.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
-| Format | Valid HTTP/HTTPS URL |
+| Attribute | Value                |
+| --------- | -------------------- |
+| Type      | `string`             |
+| Required  | No                   |
+| Format    | Valid HTTP/HTTPS URL |
 
 ```json
 {
@@ -176,11 +177,11 @@ Git repository URL.
 
 Minimum required Rox version (CalVer format).
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
-| Format | CalVer (e.g., `2026.1.0`, `2025.12.1-beta.1`) |
+| Attribute | Value                                         |
+| --------- | --------------------------------------------- |
+| Type      | `string`                                      |
+| Required  | No                                            |
+| Format    | CalVer (e.g., `2026.1.0`, `2025.12.1-beta.1`) |
 
 ```json
 {
@@ -192,11 +193,11 @@ Minimum required Rox version (CalVer format).
 
 Maximum supported Rox version (CalVer format).
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
-| Format | CalVer |
+| Attribute | Value    |
+| --------- | -------- |
+| Type      | `string` |
+| Required  | No       |
+| Format    | CalVer   |
 
 ```json
 {
@@ -208,25 +209,25 @@ Maximum supported Rox version (CalVer format).
 
 Array of permissions required by the plugin.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `PluginPermission[]` |
-| Required | No |
+| Attribute | Value                |
+| --------- | -------------------- |
+| Type      | `PluginPermission[]` |
+| Required  | No                   |
 
 **Available Permissions:**
 
-| Permission | Description |
-|-----------|-------------|
-| `note:read` | Read notes |
-| `note:write` | Create/update/delete notes |
-| `user:read` | Read user information |
-| `user:write` | Update user information |
-| `config:read` | Read configuration |
-| `config:write` | Write configuration |
-| `admin:read` | Read admin functions |
-| `admin:write` | Write admin functions |
-| `storage:read` | Read storage |
-| `storage:write` | Write storage |
+| Permission      | Description                |
+| --------------- | -------------------------- |
+| `note:read`     | Read notes                 |
+| `note:write`    | Create/update/delete notes |
+| `user:read`     | Read user information      |
+| `user:write`    | Update user information    |
+| `config:read`   | Read configuration         |
+| `config:write`  | Write configuration        |
+| `admin:read`    | Read admin functions       |
+| `admin:write`   | Write admin functions      |
+| `storage:read`  | Read storage               |
+| `storage:write` | Write storage              |
 
 ```json
 {
@@ -241,10 +242,10 @@ Array of permissions required by the plugin.
 
 Array of other plugin IDs this plugin depends on.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string[]` |
-| Required | No |
+| Attribute | Value      |
+| --------- | ---------- |
+| Type      | `string[]` |
+| Required  | No         |
 
 ```json
 {
@@ -258,11 +259,11 @@ If a dependency plugin is not loaded, the plugin load will fail.
 
 Relative path to the backend entry point.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
-| Default | `index.ts` or `index.js` |
+| Attribute | Value                    |
+| --------- | ------------------------ |
+| Type      | `string`                 |
+| Required  | No                       |
+| Default   | `index.ts` or `index.js` |
 
 ```json
 {
@@ -274,10 +275,10 @@ Relative path to the backend entry point.
 
 Relative path to the frontend entry point.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
+| Attribute | Value    |
+| --------- | -------- |
+| Type      | `string` |
+| Required  | No       |
 
 ```json
 {
@@ -292,10 +293,10 @@ Relative path to the frontend entry point.
 
 JSON Schema for plugin configuration.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `object` |
-| Required | No |
+| Attribute | Value    |
+| --------- | -------- |
+| Type      | `object` |
+| Required  | No       |
 
 ```json
 {
@@ -321,10 +322,10 @@ JSON Schema for plugin configuration.
 
 Array of keywords for search.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string[]` |
-| Required | No |
+| Attribute | Value      |
+| --------- | ---------- |
+| Type      | `string[]` |
+| Required  | No         |
 
 ```json
 {
@@ -336,10 +337,10 @@ Array of keywords for search.
 
 Path or URL to the plugin icon.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string` |
-| Required | No |
+| Attribute | Value    |
+| --------- | -------- |
+| Type      | `string` |
+| Required  | No       |
 
 ```json
 {
@@ -351,17 +352,14 @@ Path or URL to the plugin icon.
 
 Array of screenshot paths for plugin listing.
 
-| Attribute | Value |
-|-----------|-------|
-| Type | `string[]` |
-| Required | No |
+| Attribute | Value      |
+| --------- | ---------- |
+| Type      | `string[]` |
+| Required  | No         |
 
 ```json
 {
-  "screenshots": [
-    "assets/screenshot-1.png",
-    "assets/screenshot-2.png"
-  ]
+  "screenshots": ["assets/screenshot-1.png", "assets/screenshot-2.png"]
 }
 ```
 
@@ -393,13 +391,7 @@ Array of screenshot paths for plugin listing.
   "homepage": "https://example.com/advanced-moderation",
   "repository": "https://github.com/example/advanced-moderation",
   "minRoxVersion": "2026.1.0",
-  "permissions": [
-    "note:read",
-    "note:write",
-    "user:read",
-    "config:read",
-    "config:write"
-  ],
+  "permissions": ["note:read", "note:write", "user:read", "config:read", "config:write"],
   "dependencies": ["base-moderation"],
   "backend": "src/backend/index.ts",
   "frontend": "src/frontend/index.ts",
@@ -424,10 +416,7 @@ Array of screenshot paths for plugin listing.
   },
   "keywords": ["moderation", "filter", "content", "safety", "admin"],
   "icon": "assets/icon.svg",
-  "screenshots": [
-    "assets/screenshot-dashboard.png",
-    "assets/screenshot-config.png"
-  ]
+  "screenshots": ["assets/screenshot-dashboard.png", "assets/screenshot-config.png"]
 }
 ```
 
@@ -437,13 +426,13 @@ Manifest files are automatically validated on load. If there are validation erro
 
 ### Common Validation Errors
 
-| Error | Cause |
-|-------|-------|
-| `id is required` | Missing `id` field |
-| `id must be lowercase alphanumeric...` | Invalid ID format |
-| `version must be in semantic versioning format` | Invalid version format |
-| `invalid permission` | Invalid permission specified |
-| `minRoxVersion must be in CalVer format` | Invalid version format |
+| Error                                           | Cause                        |
+| ----------------------------------------------- | ---------------------------- |
+| `id is required`                                | Missing `id` field           |
+| `id must be lowercase alphanumeric...`          | Invalid ID format            |
+| `version must be in semantic versioning format` | Invalid version format       |
+| `invalid permission`                            | Invalid permission specified |
+| `minRoxVersion must be in CalVer format`        | Invalid version format       |
 
 ## Related Documentation
 

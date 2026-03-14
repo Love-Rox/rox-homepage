@@ -132,6 +132,7 @@ onLoad({ registerScheduledTask, logger }) {
 ```
 
 Schedule formats:
+
 - `"30s"` - Every 30 seconds
 - `"5m"` - Every 5 minutes
 - `"1h"` - Every hour
@@ -153,7 +154,7 @@ const myPlugin: RoxPlugin = {
   async onLoad(context) {
     // Async initialization is also supported
     await initializeDatabase();
-    
+
     context.logger.info("Plugin initialized");
   },
 };
@@ -245,6 +246,7 @@ bun run plugin reload <plugin-id>
 ```
 
 PluginLoader handles the following:
+
 1. Unload the plugin (calls `onUnload`)
 2. Clean up event subscriptions
 3. Clear module cache
@@ -264,18 +266,18 @@ Plugins must declare required permissions in their manifest. Plugins without dec
 
 ### Permission List
 
-| Permission | Description | Risk Level |
-|-----------|-------------|------------|
-| `note:read` | Read notes | Low |
-| `note:write` | Create/update/delete notes | Medium |
-| `user:read` | Read user information | Low |
-| `user:write` | Update user information | High |
-| `config:read` | Read configuration | Low |
-| `config:write` | Write configuration | Medium |
-| `admin:read` | Read admin functions | High |
-| `admin:write` | Write admin functions | High |
-| `storage:read` | Read storage | Low |
-| `storage:write` | Write storage | Medium |
+| Permission      | Description                | Risk Level |
+| --------------- | -------------------------- | ---------- |
+| `note:read`     | Read notes                 | Low        |
+| `note:write`    | Create/update/delete notes | Medium     |
+| `user:read`     | Read user information      | Low        |
+| `user:write`    | Update user information    | High       |
+| `config:read`   | Read configuration         | Low        |
+| `config:write`  | Write configuration        | Medium     |
+| `admin:read`    | Read admin functions       | High       |
+| `admin:write`   | Write admin functions      | High       |
+| `storage:read`  | Read storage               | Low        |
+| `storage:write` | Write storage              | Medium     |
 
 ### Security Auditing
 

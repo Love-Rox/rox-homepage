@@ -32,6 +32,7 @@ URL=https://your-domain.com
 ```
 
 **オプション:**
+
 - `PORT`: バックエンドサーバーポート（デフォルト: `3000`）
 - `FRONTEND_PORT`: フロントエンドサーバーポート（デフォルト: `3001`）
 - `NODE_ENV`: 環境（`development`または`production`）
@@ -104,6 +105,7 @@ S3_PUBLIC_URL=https://media.your-domain.com
 > **間違った例:** `https://rox-media.your-account.r2.cloudflarestorage.com`
 
 **対応プロバイダー:**
+
 - AWS S3
 - Cloudflare R2
 - MinIO
@@ -211,6 +213,7 @@ ADMIN_EMAIL=admin@your-domain.com
 ```
 
 **オプション:**
+
 - `INSTANCE_NAME`: インスタンス名（NodeInfoに表示）
 - `INSTANCE_DESCRIPTION`: インスタンス情報に表示される説明
 - `ADMIN_EMAIL`: 管理者連絡先メール（NodeInfoに表示）
@@ -267,6 +270,7 @@ LOG_LEVEL=info
 ```
 
 **オプション:**
+
 - `LOG_LEVEL`: ログレベル（`debug`, `info`, `warn`, `error`）
   - デフォルト: 開発環境では`debug`、本番環境では`info`
 
@@ -275,7 +279,7 @@ LOG_LEVEL=info
 ### docker-compose.yml
 
 ```yaml
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
@@ -397,6 +401,6 @@ redis-cli -u $REDIS_URL ping
 
 ## 更新履歴
 
-| 日付 | 変更内容 |
-|------|----------|
+| 日付       | 変更内容                                                                                                    |
+| ---------- | ----------------------------------------------------------------------------------------------------------- |
 | 2025-12-10 | 現在の.env.exampleに合わせて更新: OAuthプロバイダー、VAPID、ファイルアップロード設定、URL設定の簡素化を追加 |

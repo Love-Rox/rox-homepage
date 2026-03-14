@@ -1,14 +1,16 @@
 {
   "name": "rox-homepage",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "waku dev",
     "build": "waku build",
     "start": "waku start",
     "generate-seo": "bun run scripts/generate-seo-files.ts",
-    "prebuild": "bun run generate-seo"
+    "prebuild": "bun run generate-seo",
+    "lint": "vp check",
+    "fmt": "vp fmt"
   },
   "dependencies": {
     "@fontsource/m-plus-rounded-1c": "^5.2.10",
@@ -30,7 +32,7 @@
     "remark-html": "^16.0.1",
     "satori": "^0.18.4",
     "tailwindcss-react-aria-components": "^2.0.1",
-    "waku": "1.0.0-alpha.3"
+    "waku": "1.0.0-alpha.5"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -40,9 +42,18 @@
     "@vitejs/plugin-react": "5.1.1",
     "babel-plugin-react-compiler": "1.0.0",
     "baseline-browser-mapping": "^2.9.19",
-    "oxfmt": "^0.14.0",
-    "oxlint": "^1.42.0",
     "tailwindcss": "^4.1.18",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vite": "8.0.0",
+    "vite-plus": "^0.1.11"
+  },
+  "overrides": {
+    "vite": "8.0.0",
+    "waku": {
+      "vite": "8.0.0",
+      "@vitejs/plugin-rsc": {
+        "vite": "8.0.0"
+      }
+    }
   }
 }

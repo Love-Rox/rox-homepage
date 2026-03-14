@@ -31,6 +31,7 @@ Content-Type: application/json
 ```
 
 **レスポンス:**
+
 ```json
 {
   "id": "user_123",
@@ -52,6 +53,7 @@ Content-Type: application/json
 ```
 
 **レスポンス:**
+
 ```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -91,6 +93,7 @@ Content-Type: application/json
 ```
 
 **パラメータ:**
+
 - `text` (string): ノート内容
 - `visibility` (string): `public`, `home`, `followers`, `specified`
 - `fileIds` (array): アップロードされたファイルIDの配列
@@ -99,6 +102,7 @@ Content-Type: application/json
 - `renoteId` (string, オプション): リノート元ノートのID
 
 **レスポンス:**
+
 ```json
 {
   "createdNote": {
@@ -126,11 +130,13 @@ Content-Type: application/json
 ```
 
 **パラメータ:**
+
 - `limit` (number): ノート数（最大100）
 - `sinceId` (string, オプション): このID以降のノートを取得
 - `untilId` (string, オプション): このID以前のノートを取得
 
 **レスポンス:**
+
 ```json
 [
   {
@@ -201,6 +207,7 @@ Content-Type: application/json
 ```
 
 **レスポンス:**
+
 ```json
 {
   "id": "user_123",
@@ -278,6 +285,7 @@ isSensitive: false
 ```
 
 **レスポンス:**
+
 ```json
 {
   "id": "file_123",
@@ -296,6 +304,7 @@ isSensitive: false
 - **認証済み**: 15分あたり200リクエスト（ユーザー単位）
 
 **レート制限ヘッダー:**
+
 ```http
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95
