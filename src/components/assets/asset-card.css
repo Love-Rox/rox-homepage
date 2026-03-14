@@ -11,12 +11,12 @@
   box-shadow: 0 4px 12px oklch(0 0 0 / 0.1);
 }
 
-:global(.dark) .asset-card {
+.dark .asset-card {
   background: oklch(0.2 0 0);
   border-color: oklch(0.3 0 0);
 }
 
-:global(.dark) .asset-card:hover {
+.dark .asset-card:hover {
   border-color: oklch(0.4 0 0);
 }
 
@@ -31,7 +31,7 @@
   margin: 0;
 }
 
-:global(.dark) .asset-card-title {
+.dark .asset-card-title {
   color: oklch(0.95 0 0);
 }
 
@@ -78,7 +78,7 @@
   font-weight: 500;
 }
 
-:global(.dark) .asset-card-bg-label {
+.dark .asset-card-bg-label {
   color: oklch(0.6 0 0);
 }
 
@@ -104,18 +104,18 @@
   border-color: oklch(0.45 0.15 25);
 }
 
-:global(.dark) .asset-card-bg-btn {
+.dark .asset-card-bg-btn {
   background: oklch(0.25 0 0);
   border-color: oklch(0.35 0 0);
   color: oklch(0.7 0 0);
 }
 
-:global(.dark) .asset-card-bg-btn:hover {
+.dark .asset-card-bg-btn:hover {
   background: oklch(0.3 0 0);
   border-color: oklch(0.45 0 0);
 }
 
-:global(.dark) .asset-card-bg-btn.active {
+.dark .asset-card-bg-btn.active {
   background: oklch(0.45 0.15 25);
   color: white;
   border-color: oklch(0.45 0.15 25);
