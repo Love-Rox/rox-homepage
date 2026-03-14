@@ -22,9 +22,9 @@ export const Stacks = ({ title, tech }: StacksProps) => {
             key={stack.name}
             className="grid grid-cols-1 items-center bg-slate-950/15 dark:bg-slate-200/15 p-6 rounded-lg shadow-sm"
           >
-            <h3 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 text-center">
+            <div className="text-2xl font-semibold text-slate-800 dark:text-slate-100 text-center mb-4">
               {stack.name}
-            </h3>
+            </div>
             <img
               src={stack.src}
               alt={stack.name}

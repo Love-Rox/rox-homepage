@@ -22,6 +22,8 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
         title={`${content.title} - Rox`}
         description={content.subtitle}
         image={`/api/og?title=${encodeURIComponent(content.title)}`}
+        url={`/${locale}/docs`}
+        lang={locale}
       />
       <BreadcrumbSchema items={generateBreadcrumbItems([{ label: content.title, href: `/${locale}/docs` }], locale)} />
 

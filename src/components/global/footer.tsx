@@ -23,12 +23,12 @@ export const Footer = ({ lang = 'en' }: FooterProps) => {
             <div className="flex items-center mb-4">
               <img
                 src="/images/rox-horizontal.svg"
-                alt="Rox"
+                alt="Rox Logo"
                 className="h-8 w-auto dark:hidden"
               />
               <img
                 src="/images/rox-horizontal-white.svg"
-                alt="Rox"
+                alt="Rox Logo White"
                 className="h-8 w-auto hidden dark:block"
               />
             </div>

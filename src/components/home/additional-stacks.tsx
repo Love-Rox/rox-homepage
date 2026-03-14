@@ -33,9 +33,9 @@ export const AdditionalStacks = ({ title, tech }: AdditionalStacksProps) => {
               alt={stack.name}
               className="h-16 w-16 object-contain mb-3 group-hover:scale-110 transition-transform"
             />
-            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 text-center whitespace-nowrap">
+            <div className="text-sm font-semibold text-slate-800 dark:text-slate-100 text-center whitespace-nowrap">
               {stack.name}
-            </h3>
+            </div>
           </a>
         ))}
         {/* Duplicate set for seamless loop */}
@@ -54,9 +54,9 @@ export const AdditionalStacks = ({ title, tech }: AdditionalStacksProps) => {
               alt={stack.name}
               className="h-16 w-16 object-contain mb-3 group-hover:scale-110 transition-transform"
             />
-            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 text-center whitespace-nowrap">
+            <div className="text-sm font-semibold text-slate-800 dark:text-slate-100 text-center whitespace-nowrap">
               {stack.name}
-            </h3>
+            </div>
           </a>
         ))}
       </>

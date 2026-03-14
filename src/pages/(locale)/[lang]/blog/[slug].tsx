@@ -31,6 +31,8 @@ export default async function BlogPostPage({
         <Meta
           title="Not Found - Rox"
           description="The requested blog post could not be found."
+          url={`/${locale}/blog/${slug}`}
+          lang={locale}
         />
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
           Post Not Found
@@ -50,6 +52,8 @@ export default async function BlogPostPage({
         title={`${content.metadata.title} - ${indexData.title} - Rox`}
         description={content.metadata.excerpt || content.metadata.description}
         image={ogUrl}
+        url={`/${locale}/blog/${slug}`}
+        lang={locale}
       />
       <BreadcrumbSchema
         items={generateBreadcrumbItems([

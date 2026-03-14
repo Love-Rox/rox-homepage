@@ -26,11 +26,11 @@ import type { getConfig as File_LocaleLangDocsIndex_getConfig } from './pages/(l
 // prettier-ignore
 import type { getConfig as File_LocaleLangIndex_getConfig } from './pages/(locale)/[lang]/index';
 // prettier-ignore
-import type { getConfig as File_ApiOg_getConfig } from './pages/_api/og';
+import type { getConfig as File_ApiApiOg_getConfig } from './pages/_api/api/og';
 // prettier-ignore
-import type { getConfig as File_ApiReleases_getConfig } from './pages/_api/releases';
+import type { getConfig as File_ApiApiReleases_getConfig } from './pages/_api/api/releases';
 // prettier-ignore
-import type { getConfig as File_ApiSubmit_getConfig } from './pages/_api/submit';
+import type { getConfig as File_ApiApiSubmit_getConfig } from './pages/_api/api/submit';
 
 // prettier-ignore
 type Page =
@@ -50,9 +50,9 @@ type Page =
 | ({ path: '/[lang]/docs/[slug]' } & GetConfigResponse<typeof File_LocaleLangDocsSlug_getConfig>)
 | ({ path: '/[lang]/docs' } & GetConfigResponse<typeof File_LocaleLangDocsIndex_getConfig>)
 | ({ path: '/[lang]' } & GetConfigResponse<typeof File_LocaleLangIndex_getConfig>)
-| ({ path: '/_api/og' } & GetConfigResponse<typeof File_ApiOg_getConfig>)
-| ({ path: '/_api/releases' } & GetConfigResponse<typeof File_ApiReleases_getConfig>)
-| ({ path: '/_api/submit' } & GetConfigResponse<typeof File_ApiSubmit_getConfig>);
+| ({ path: '/_api/api/og' } & GetConfigResponse<typeof File_ApiApiOg_getConfig>)
+| ({ path: '/_api/api/releases' } & GetConfigResponse<typeof File_ApiApiReleases_getConfig>)
+| ({ path: '/_api/api/submit' } & GetConfigResponse<typeof File_ApiApiSubmit_getConfig>);
 
 // prettier-ignore
 declare module 'waku/router' {

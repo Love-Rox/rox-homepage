@@ -4,7 +4,7 @@
     "link": "Read more",
     "linkUrl": "/en/blog/rox-v2026-2-0-event-bus",
     "heading": "The Love Rocks. Rox.",
-    "description": "Rox is a ActivityPub server focused on performance and usability.  Compatible with Misskey clients and services.",
+    "description": "Rox is a lightweight, high-performance ActivityPub server and client built in Rust. It is fully compatible with Misskey clients and services, ensuring an optimized decentralized experience.",
     "getStarted": "Get started",
     "getStartedUrl": "/en/docs",
     "learnMore": "Learn more",

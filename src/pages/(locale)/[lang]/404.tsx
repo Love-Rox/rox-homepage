@@ -29,7 +29,12 @@ export default async function NotFoundPage({
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24 min-h-[60vh] flex flex-col items-center justify-center text-center">
-      <Meta title={`${data.title} - Rox`} description={data.description} />
+      <Meta
+        title={`${data.title} - Rox`}
+        description={data.description}
+        url={`/${locale}/404`}
+        lang={locale}
+      />
 
       <h1 className="text-9xl font-bold text-primary-500 mb-4">
         {data.heading}

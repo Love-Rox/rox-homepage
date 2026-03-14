@@ -4,7 +4,7 @@
     "link": "詳細を見る",
     "linkUrl": "/ja/blog/rox-v2026-2-0-event-bus",
     "heading": "愛がロックする。Rox.",
-    "description": "Roxは、パフォーマンスと使いやすさに重点を置いたActivityPubサーバーです。Misskeyのクライアントやサービスと互換性を持てるよう設計されています。",
+    "description": "RoxはRustで構築された軽量かつ高パフォーマンスなActivityPubサーバーおよびクライアントです。Misskeyのクライアントや各種サービスと完全に互換性を持ち、最適化された分散型ネットワーク体験を提供します。",
     "getStarted": "さぁ始めよう",
     "getStartedUrl": "/ja/docs",
     "learnMore": "詳細を見る",

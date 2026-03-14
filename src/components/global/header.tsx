@@ -27,12 +27,12 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
           <a href={`/${lang}`} className="-m-1.5 p-1.5">
             <span className="sr-only">Rox</span>
             <img
-              alt=""
+              alt="Rox Logo"
               src="/images/rox-horizontal.svg"
               className="block h-10 w-auto dark:hidden"
             />
             <img
-              alt=""
+              alt="Rox Logo White"
               src="/images/rox-horizontal-white.svg"
               className="hidden h-10 w-auto dark:block"
             />
@@ -95,12 +95,12 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
               <a href={`/${lang}`} className="-m-1.5 p-1.5">
                 <span className="sr-only">Rox</span>
                 <img
-                  alt=""
+                  alt="Rox Logo"
                   src="/images/rox-horizontal.svg"
                   className="block h-8 w-auto dark:hidden"
                 />
                 <img
-                  alt=""
+                  alt="Rox Logo White"
                   src="/images/rox-horizontal-white.svg"
                   className="hidden h-8 w-auto dark:block"
                 />

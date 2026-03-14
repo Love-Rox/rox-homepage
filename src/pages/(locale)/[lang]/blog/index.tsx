@@ -68,6 +68,8 @@ export default async function BlogIndexPage({
         title={`${indexData.title} - Rox`}
         description={indexData.description}
         image={`/api/og?title=${encodeURIComponent(indexData.title)}`}
+        url={`/${locale}/blog`}
+        lang={locale}
       />
       <BreadcrumbSchema items={generateBreadcrumbItems([{ label: indexData.title, href: `/${locale}/blog` }], locale)} />
 

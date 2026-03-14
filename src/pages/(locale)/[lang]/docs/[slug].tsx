@@ -27,6 +27,8 @@ export default async function DocsPage({
         <Meta
           title="Not Found - Rox"
           description="The requested documentation page could not be found."
+          url={`/${locale}/docs/${slug}`}
+          lang={locale}
         />
         <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
           Page Not Found
@@ -46,6 +48,8 @@ export default async function DocsPage({
         title={`${content.metadata.title} - ${structure.title} - Rox`}
         description={content.metadata.description || ""}
         image={ogUrl}
+        url={`/${locale}/docs/${slug}`}
+        lang={locale}
       />
       <BreadcrumbSchema
         items={generateBreadcrumbItems([
