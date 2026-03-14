@@ -3,9 +3,24 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "waku/config";
 import path from "path";
 import { fileURLToPath } from "url";
+import { generateSEOFiles } from "./scripts/generate-seo-files.js"; // Use .js for TS resolution in Vite dev if needed, or .ts
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Simple Vite plugin for SEO file generation
+const seoPlugin = () => ({
+  name: "generate-seo",
+  buildStart() {
+    generateSEOFiles();
+  },
+  handleHotUpdate({ file }: { file: string }) {
+    if (file.includes("private/contents")) {
+      console.log("Markdown change detected, regenerating SEO files...");
+      generateSEOFiles();
+    }
+  },
+});
 
 export default defineConfig({
   vite: {
@@ -16,6 +31,7 @@ export default defineConfig({
           plugins: ["babel-plugin-react-compiler"],
         },
       }),
+      seoPlugin(),
     ],
     resolve: {
       alias: {

@@ -120,8 +120,13 @@ Sitemap: ${SITE_URL}/sitemap.xml
 }
 
 // Main execution
-function main() {
+export function generateSEOFiles() {
   const publicDir = path.join(PROJECT_ROOT, "public");
+
+  // Ensure public directory exists
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
 
   // Generate sitemap.xml
   const sitemap = generateSitemap();
@@ -136,4 +141,13 @@ function main() {
   console.log("\nSEO files generated successfully!");
 }
 
-main();
+// Run if this script is executed directly
+const isMain = process.argv[1] && (
+  process.argv[1].endsWith('generate-seo-files.ts') || 
+  process.argv[1].endsWith('generate-seo-files.js')
+);
+
+if (isMain) {
+  generateSEOFiles();
+}
+

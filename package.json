@@ -8,7 +8,6 @@
     "build": "waku build",
     "start": "waku start",
     "generate-seo": "bun run scripts/generate-seo-files.ts",
-    "prebuild": "bun run generate-seo",
     "lint": "vp check",
     "fmt": "vp fmt"
   },
