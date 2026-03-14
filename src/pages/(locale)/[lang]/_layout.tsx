@@ -60,7 +60,7 @@ export default async function RootLayout(props: LayoutProps) {
 
 const getData = async () => {
   const data = {
-    description: "Rox Homepage. A lightweight, high-performance ActivityPub server and client built in Rust. It is fully compatible with Misskey clients and services, ensuring an optimized decentralized experience.",
+    description: "Rox Homepage. A lightweight, high-performance ActivityPub server and client built in Rust.",
     icon: "/images/favicon.png",
   };
 
