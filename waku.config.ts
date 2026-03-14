@@ -9,18 +9,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Simple Vite plugin for SEO file generation
-const seoPlugin = () => ({
-  name: "generate-seo",
-  buildStart() {
-    generateSEOFiles();
-  },
-  handleHotUpdate({ file }: { file: string }) {
-    if (file.includes("private/contents")) {
-      console.log("Markdown change detected, regenerating SEO files...");
-      generateSEOFiles();
-    }
-  },
-});
+const seoPlugin = () => {
+  let generated = false;
+  return {
+    name: "generate-seo",
+    buildStart() {
+      if (!generated) {
+        generateSEOFiles();
+        generated = true;
+      }
+    },
+    handleHotUpdate({ file }: { file: string }) {
+      if (file.includes("private/contents")) {
+        console.log("Markdown change detected, regenerating SEO files...");
+        generateSEOFiles();
+      }
+    },
+  };
+};
+
 
 export default defineConfig({
   vite: {
