@@ -2,6 +2,7 @@
 title: Roxの紹介
 description: Misskey API互換の軽量ActivityPubサーバー・クライアント、Roxについて学ぶ
 date: 2025-12-10
+updated: 2025-12-12
 author: Roxチーム
 tags: [紹介, 概要, activitypub, misskey]
 ---

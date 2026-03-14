@@ -2,8 +2,30 @@
 title: はじめに
 description: Roxをローカル環境でセットアップして実行する方法を学ぶ
 date: 2025-01-01
+updated: 2025-12-12
 author: Roxチーム
 tags: [セットアップ, インストール, チュートリアル]
+howto:
+  name: Roxのセットアップ
+  description: ローカル環境でRoxをセットアップして実行する手順
+  step:
+    - name: リポジトリのクローン
+      text: git clone https://github.com/Love-rox/rox.git
+    - name: 依存関係のインストール
+      text: bun install
+    - name: 環境変数の設定
+      text: cp .env.example .env を実行し、.envファイルを編集します
+    - name: 開発サービスの起動
+      text: docker compose up -d を実行してデータベース等を起動します
+    - name: マイグレーションの実行
+      text: bun run db:migrate を実行してテーブルを作成します
+    - name: サーバーの起動
+      text: bun run dev を実行して開発サーバーを起動します
+faq:
+  - question: データベース接続エラーが発生した場合はどうすればよいですか？
+    answer: Dockerサービスが実行中か確認し、.envの認証情報が正しいか、ポート5432が重なっていないか確認してください。
+  - question: ポート3000や3001が使用中の場合はどうすればよいですか？
+    answer: バックエンドはpackages/backend/.envのPORT、フロントエンドはpackages/frontend/waku.config.tsのportを変更してください。
 ---
 
 # Roxをはじめる

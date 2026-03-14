@@ -2,6 +2,7 @@
 title: デプロイメントガイド
 description: Roxを本番環境にデプロイする
 date: 2025-12-10
+updated: 2026-02-10
 author: Roxチーム
 tags: [デプロイメント, docker, 本番環境, cloudflare]
 ---

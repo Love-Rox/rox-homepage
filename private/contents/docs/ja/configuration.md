@@ -2,6 +2,7 @@
 title: 設定ガイド
 description: Roxのデプロイメント設定
 date: 2025-12-10
+updated: 2026-01-15
 author: Roxチーム
 tags: [設定, 環境変数, セットアップ]
 ---

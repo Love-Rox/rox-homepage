@@ -2,6 +2,7 @@
 title: Roxへようこそ
 description: Misskey API互換の軽量ActivityPubサーバー、Roxの紹介
 date: 2025-11-27
+updated: 2026-03-14
 author: Roxチーム
 tags: [お知らせ, 紹介, activitypub]
 excerpt: Misskey API互換の軽量ActivityPubサーバー・クライアント、Roxをご紹介します。モダンなデプロイメントシナリオ向けに設計されています。
