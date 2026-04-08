@@ -42,6 +42,18 @@
       "src": "/images/stacks/dragonfly-logo.svg",
       "href": "https://www.dragonflydb.io/",
       "description": "Dragonfly is a modern in-memory datastore, fully compatible with Redis and Memcached APIs, designed for high performance and efficiency."
+    },
+    {
+      "name": "Vite 8",
+      "src": "/images/stacks/vite-logo.svg",
+      "href": "https://vite.dev/",
+      "description": "Vite 8 is the latest frontend build tool powered by Rolldown, offering lightning-fast build performance and a highly flexible Environment API."
+    },
+    {
+      "name": "Vite Plus",
+      "src": "/images/stacks/vite-plus-logo.svg",
+      "href": "https://viteplus.dev/",
+      "description": "Vite Plus is a modern toolchain extending Vite. It seamlessly integrates powerful utilities like blazingly fast formatting and linting for an enhanced developer experience."
     }
   ]
 }

@@ -42,6 +42,18 @@
       "src": "/images/stacks/dragonfly-logo.svg",
       "href": "https://www.dragonflydb.io/",
       "description": "Dragonflyは、RedisとMemcached APIと完全互換性のある、高性能で効率的なモダンインメモリデータストアです。"
+    },
+    {
+      "name": "Vite 8",
+      "src": "/images/stacks/vite-logo.svg",
+      "href": "https://vite.dev/",
+      "description": "Vite 8は最新のフロントエンドビルドツールです。内部バンドラにRust製のRolldownを採用し、飛躍的なビルドパフォーマンスの向上と高度なEnvironment APIを実現しています。"
+    },
+    {
+      "name": "Vite Plus",
+      "src": "/images/stacks/vite-plus-logo.svg",
+      "href": "https://viteplus.dev/",
+      "description": "Vite PlusはViteを拡張した次世代ツールチェーンです。静的解析(oxlint)やコード整形を統合し、シームレスな開発環境(DX)を提供します。"
     }
   ]
 }
