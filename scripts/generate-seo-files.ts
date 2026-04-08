@@ -142,12 +142,11 @@ export function generateSEOFiles() {
 }
 
 // Run if this script is executed directly
-const isMain = process.argv[1] && (
-  process.argv[1].endsWith('generate-seo-files.ts') || 
-  process.argv[1].endsWith('generate-seo-files.js')
-);
+const isMain =
+  process.argv[1] &&
+  (process.argv[1].endsWith("generate-seo-files.ts") ||
+    process.argv[1].endsWith("generate-seo-files.js"));
 
 if (isMain) {
   generateSEOFiles();
 }
-

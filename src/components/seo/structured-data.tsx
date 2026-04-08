@@ -98,19 +98,21 @@ export const ArticleSchema = ({
   author = "Rox Team",
 }: ArticleSchemaProps) => {
   const isRoxTeam = author === "Rox Team" || author === "sasapiyo" || author === "Rox";
-  const authorSchema = isRoxTeam ? {
-    "@type": "Person",
-    name: author,
-    url: "https://github.com/sasapiyo",
-    jobTitle: "Main Developer",
-    worksFor: {
-      "@type": "Organization",
-      name: "Rox",
-    }
-  } : {
-    "@type": "Person",
-    name: author,
-  };
+  const authorSchema = isRoxTeam
+    ? {
+        "@type": "Person",
+        name: author,
+        url: "https://github.com/sasapiyo",
+        jobTitle: "Main Developer",
+        worksFor: {
+          "@type": "Organization",
+          name: "Rox",
+        },
+      }
+    : {
+        "@type": "Person",
+        name: author,
+      };
 
   const schema = {
     "@context": "https://schema.org",
@@ -171,7 +173,7 @@ export const TechArticleSchema = ({
       worksFor: {
         "@type": "Organization",
         name: "Rox",
-      }
+      },
     },
     publisher: {
       "@type": "Organization",

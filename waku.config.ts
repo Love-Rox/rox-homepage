@@ -28,7 +28,6 @@ const seoPlugin = () => {
   };
 };
 
-
 export default defineConfig({
   vite: {
     plugins: [

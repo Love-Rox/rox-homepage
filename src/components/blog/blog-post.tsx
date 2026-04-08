@@ -10,7 +10,14 @@ interface BlogPostProps {
   backLabel: string;
 }
 
-export const BlogPost = ({ content, date, updatedDate, author, lang, backLabel }: BlogPostProps) => {
+export const BlogPost = ({
+  content,
+  date,
+  updatedDate,
+  author,
+  lang,
+  backLabel,
+}: BlogPostProps) => {
   return (
     <article className="max-w-3xl mx-auto">
       <Link
