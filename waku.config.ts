@@ -1,5 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react";
+import { reactCompilerPreset } from "@vitejs/plugin-react";
+import babel from "@rolldown/plugin-babel";
 import { defineConfig } from "waku/config";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -32,11 +33,7 @@ export default defineConfig({
   vite: {
     plugins: [
       tailwindcss(),
-      react({
-        babel: {
-          plugins: ["babel-plugin-react-compiler"],
-        },
-      }),
+      babel({ presets: [reactCompilerPreset()] }),
       seoPlugin(),
     ],
     resolve: {
