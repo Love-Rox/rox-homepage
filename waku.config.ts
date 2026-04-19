@@ -31,11 +31,7 @@ const seoPlugin = () => {
 
 export default defineConfig({
   vite: {
-    plugins: [
-      tailwindcss(),
-      babel({ presets: [reactCompilerPreset()] }),
-      seoPlugin(),
-    ],
+    plugins: [tailwindcss(), babel({ presets: [reactCompilerPreset()] }), seoPlugin()],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
