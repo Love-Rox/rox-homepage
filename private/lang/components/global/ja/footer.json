@@ -5,6 +5,7 @@
   },
   "sections": {
     "quickLinks": "クイックリンク",
+    "packages": "パッケージ",
     "community": "コミュニティ",
     "project": "プロジェクト"
   },
@@ -14,7 +15,9 @@
     "assets": "ブランドアセット",
     "contact": "お問い合わせ",
     "github": "GitHub",
-    "twitter": "X (Twitter)"
+    "twitter": "X (Twitter)",
+    "tateChuYoko": "tate-chu-yoko",
+    "tateChuYokoDemo": "tate-chu-yoko デモ"
   },
   "copyright": "© 2025 Rox Developers. All rights reserved.",
   "madeWith": "Built with ❤️ for 🇯🇵 by the Rox Developers",

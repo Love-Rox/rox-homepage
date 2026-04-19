@@ -1,0 +1,129 @@
+{
+  "title": "tate-chu-yoko - 縦中横を自動で組版するnpmパッケージ",
+  "hero": {
+    "eyebrow": "npm パッケージ",
+    "heading": "tate-chu-yoko",
+    "tagline": "日本語の縦組み本文で、半角英数字を自動的に「縦中横」として組版する軽量ライブラリ。書き手はプレーンテキストのままで、組版はライブラリに任せましょう。",
+    "ctaDemo": "デモを触る",
+    "ctaNpm": "npm で見る",
+    "ctaGithub": "GitHub",
+    "badges": {
+      "version": "v0.1.2",
+      "license": "MIT",
+      "ssr": "SSR-safe"
+    }
+  },
+  "problem": {
+    "heading": "解決したいこと",
+    "body": "新聞や書籍の縦組みでは、半角英数字を横並びのまま正立させる「縦中横」が当たり前に使われてきました。CSS には `text-combine-upright: all` があるものの、どの文字をまとめるかは開発者が明示しなければなりません。結果として、書き手が原稿の中で `<span class=\"tcy\">` を毎回書く羽目になりがちです。tate-chu-yoko はこの組版処理を自動化し、書き手を組版の都合から解放します。"
+  },
+  "packages": {
+    "heading": "3つの配布物",
+    "description": "用途に合わせて必要なパッケージを選べます。コアは framework-agnostic なトークナイザー、React / Vue は公式アダプタです。",
+    "items": [
+      {
+        "name": "@love-rox/tcy-core",
+        "role": "Framework-agnostic トークナイザー",
+        "description": "文字列を走査し、縦中横にすべき箇所を構造化されたトークン列として返します。独自の UI フレームワークやビルド時変換に組み込めます。"
+      },
+      {
+        "name": "@love-rox/tcy-react",
+        "role": "React コンポーネント",
+        "description": "子要素を再帰的に走査し、縦中横対象の runs を `<span class=\"tcy\">` で包む `<Tcy>` コンポーネントを提供。React 17+ 対応、SSR で決定性のある出力を保証します。"
+      },
+      {
+        "name": "@love-rox/tcy-vue",
+        "role": "Vue 3 コンポーネント",
+        "description": "Vue 3 向けの `<Tcy>` コンポーネント。React 版と同じオプション・挙動で、Vue アプリケーションにそのまま組み込めます。"
+      }
+    ]
+  },
+  "install": {
+    "heading": "インストール",
+    "description": "使いたいアダプタ（React / Vue）だけ入れれば、`@love-rox/tcy-core` は依存で自動的に引き込まれます。"
+  },
+  "usage": {
+    "heading": "使い方",
+    "description": "`writing-mode: vertical-rl` を当てた親要素の中で、縦中横対象にしたい範囲を `<Tcy>` で包むだけです。",
+    "reactLabel": "React",
+    "vueLabel": "Vue 3",
+    "coreLabel": "Core (string tokenizer)",
+    "css": {
+      "heading": "推奨CSS",
+      "description": "生成される `<span class=\"tcy\">` に以下を当ててください。"
+    }
+  },
+  "options": {
+    "heading": "オプション",
+    "description": "React / Vue の `<Tcy>` と `tokenize()` で共通のオプションです。",
+    "sharedLabel": "共通オプション",
+    "componentLabel": "コンポーネント専用プロパティ",
+    "columns": {
+      "name": "オプション",
+      "type": "型",
+      "default": "既定値",
+      "description": "説明"
+    },
+    "shared": [
+      {
+        "name": "target",
+        "type": "'alphanumeric' | 'alpha' | 'digit' | 'ascii' | RegExp",
+        "default": "'alphanumeric'",
+        "description": "縦中横対象として扱う文字種。`alphanumeric` は `[0-9A-Za-z]`、`ascii` は印字可能な ASCII 全般。任意の RegExp も指定可能。"
+      },
+      {
+        "name": "combine",
+        "type": "boolean",
+        "default": "true",
+        "description": "連続した対象文字を1つのスパンにまとめるか。`false` にすると1文字ずつ別々のスパンで包みます。"
+      },
+      {
+        "name": "include",
+        "type": "string | string[]",
+        "default": "undefined",
+        "description": "`target` に含まれなくても対象として扱う追加の文字。"
+      },
+      {
+        "name": "exclude",
+        "type": "string | string[]",
+        "default": "undefined",
+        "description": "対象から外したい文字。`include` より優先されます。"
+      }
+    ],
+    "component": [
+      {
+        "name": "className",
+        "type": "string",
+        "default": "'tcy'",
+        "description": "生成される span に付与するクラス名。"
+      },
+      {
+        "name": "as",
+        "type": "keyof JSX.IntrinsicElements",
+        "default": "'span'",
+        "description": "ラップに使用するタグ名。"
+      }
+    ]
+  },
+  "behavior": {
+    "heading": "挙動の注記",
+    "items": [
+      "`<em>12</em>34` のように要素境界をまたぐ文字列は連結されず、別々のスパンになります。",
+      "全角英数字（`Ａ〜Ｚ` / `０〜９`）は既定で対象外。縦組みでも既に正立して表示されるためです。",
+      "React / Vue のアダプタはどちらも SSR-safe で、サーバーとクライアントで同じ DOM を生成します。"
+    ]
+  },
+  "browser": {
+    "heading": "ブラウザ対応",
+    "body": "`writing-mode: vertical-rl` と `text-combine-upright: all` は主要なモダンブラウザで動作します。Safari では歴史的に `-webkit-text-combine: horizontal` を併記しておくと安心です。"
+  },
+  "license": {
+    "heading": "ライセンス",
+    "body": "MIT License。個人・法人問わず自由に利用できます。"
+  },
+  "cta": {
+    "heading": "触ってみる",
+    "body": "設定を変えながらブラウザ上で挙動を確認できるデモを用意しました。",
+    "button": "デモページを開く"
+  }
+}
