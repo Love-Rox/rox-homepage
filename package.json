@@ -21,10 +21,10 @@
     "gray-matter": "^4.0.3",
     "mermaid": "^11.14.0",
     "nodemailer": "^8.0.5",
-    "react": "^19.2.4",
-    "react-aria-components": "^1.16.0",
-    "react-dom": "^19.2.4",
-    "react-server-dom-webpack": "^19.2.4",
+    "react": "^19.2.5",
+    "react-aria-components": "^1.17.0",
+    "react-dom": "^19.2.5",
+    "react-server-dom-webpack": "^19.2.5",
     "rehype-highlight": "^7.0.2",
     "remark": "^15.0.1",
     "remark-deflist": "^1.0.0",
@@ -32,20 +32,20 @@
     "remark-github-blockquote-alert": "^2.1.0",
     "remark-html": "^16.0.1",
     "satori": "^0.26.0",
-    "tailwindcss-react-aria-components": "^2.0.1",
+    "tailwindcss-react-aria-components": "^2.1.0",
     "waku": "^1.0.0-alpha.7"
   },
   "devDependencies": {
-    "@rolldown/plugin-babel": "^0.2.2",
+    "@rolldown/plugin-babel": "^0.2.3",
     "@tailwindcss/vite": "^4.2.2",
     "@types/nodemailer": "^8.0.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "babel-plugin-react-compiler": "1.0.0",
-    "baseline-browser-mapping": "^2.10.16",
+    "baseline-browser-mapping": "^2.10.20",
     "tailwindcss": "^4.2.2",
-    "typescript": "6.0.2",
-    "vite": "^8.0.0",
-    "vite-plus": "^0.1.16"
+    "typescript": "6.0.3",
+    "vite": "^8.0.8",
+    "vite-plus": "^0.1.18"
   }
 }
