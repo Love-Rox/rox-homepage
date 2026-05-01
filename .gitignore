@@ -6,3 +6,8 @@ dist
 .DS_Store
 *.pem
 public/sitemap.xml
+
+# Cloudflare / Wrangler
+.wrangler
+worker-configuration.d.ts
+.dev.vars

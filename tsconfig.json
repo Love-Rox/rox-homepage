@@ -13,6 +13,7 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "jsx": "react-jsx",
+    "types": ["./worker-configuration.d.ts"],
     "paths": {
       "@/*": ["./src/*"],
       "@private/*": ["./private/*"],

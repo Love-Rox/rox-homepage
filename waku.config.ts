@@ -1,15 +1,15 @@
+import { cloudflare } from "@cloudflare/vite-plugin";
+import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { reactCompilerPreset } from "@vitejs/plugin-react";
-import babel from "@rolldown/plugin-babel";
 import { defineConfig } from "waku/config";
 import path from "path";
 import { fileURLToPath } from "url";
-import { generateSEOFiles } from "./scripts/generate-seo-files.js"; // Use .js for TS resolution in Vite dev if needed, or .ts
+import { generateSEOFiles } from "./scripts/generate-seo-files.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Simple Vite plugin for SEO file generation
 const seoPlugin = () => {
   let generated = false;
   return {
@@ -31,7 +31,37 @@ const seoPlugin = () => {
 
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss(), babel({ presets: [reactCompilerPreset()] }), seoPlugin()],
+    environments: {
+      rsc: {
+        optimizeDeps: {
+          include: ["hono/tiny"],
+        },
+        build: {
+          rolldownOptions: {
+            platform: "neutral",
+          } as never,
+        },
+      },
+      ssr: {
+        optimizeDeps: {
+          include: ["waku > rsc-html-stream/server"],
+        },
+        build: {
+          rolldownOptions: {
+            platform: "neutral",
+          } as never,
+        },
+      },
+    },
+    plugins: [
+      tailwindcss(),
+      babel({ presets: [reactCompilerPreset()] }),
+      seoPlugin(),
+      cloudflare({
+        viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
+        inspectorPort: false,
+      }),
+    ],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),

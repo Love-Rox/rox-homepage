@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "rox-homepage",
+  "main": "./src/waku.server",
+  // - nodejs_als: required for Waku's server-side request context (AsyncLocalStorage).
+  // - nodejs_compat: enables Node-style imports pulled in by mermaid → vscode-jsonrpc
+  //   (path/net/crypto/os/util). Mermaid runs client-side, but the bundle still
+  //   needs these symbols to import without throwing.
+  "compatibility_flags": ["nodejs_als", "nodejs_compat"],
+  // https://developers.cloudflare.com/workers/platform/compatibility-dates
+  "compatibility_date": "2025-11-17",
+  "assets": {
+    // https://developers.cloudflare.com/workers/static-assets/binding/
+    "binding": "ASSETS",
+    "directory": "./dist/public",
+    "html_handling": "drop-trailing-slash",
+  },
+  "rules": [
+    {
+      "type": "ESModule",
+      "globs": ["**/*.js", "**/*.mjs"],
+    },
+  ],
+  "no_bundle": true,
+  // Secrets (set via `wrangler secret put <NAME>`):
+  //   - TURNSTILE_SECRET_KEY        Cloudflare Turnstile secret
+  //   - DISCORD_CONTACT_WEBHOOK_URL Discord webhook for contact form delivery
+  // Build-time public env (set in Cloudflare dashboard or via `.dev.vars`):
+  //   - VITE_TURNSTILE_SITE_KEY     Turnstile site key (baked into the client bundle)
+}

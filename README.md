@@ -89,9 +89,11 @@ The `.env` file is automatically loaded by Waku. Command line variables override
 
 ### Available Scripts
 
-- `bun run dev` - Start development server
-- `bun run build` - Build for production
-- `bun run start` - Start production server
+- `bun run dev` - Start the Waku/Vite dev server
+- `bun run build` - Build for Cloudflare Workers (auto-invokes the Cloudflare adapter when `CLOUDFLARE=1` or in CI; otherwise emits the standard Node output)
+- `bun run start` - Run the built Worker locally with `wrangler dev`
+- `bun run deploy` - Deploy to Cloudflare Workers (`wrangler deploy`)
+- `bun run cf-typegen` - Regenerate `worker-configuration.d.ts` from `wrangler.jsonc`
 - `bun run generate-seo` - Generate sitemap.xml and robots.txt
 
 ### SEO Files
@@ -177,6 +179,46 @@ TURNSTILE_SECRET_KEY=your_secret_key
 # Discord webhook for contact-form delivery (Forum channel recommended)
 DISCORD_CONTACT_WEBHOOK_URL=https://discord.com/api/webhooks/your_id/your_token
 ```
+
+## ☁️ Deployment (Cloudflare Workers + Static Assets)
+
+The site is deployed to Cloudflare Workers using the [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/) architecture (Pages' successor). Waku's official `waku/adapters/cloudflare` builds a Hono-based Worker handler that fronts the static `dist/public/` bundle.
+
+### One-time setup
+
+1. Install dependencies: `bun install`
+2. Authenticate wrangler: `bunx wrangler login`
+3. Set runtime secrets (these are NOT in `.env` — they live in Cloudflare's secret store):
+   ```bash
+   bunx wrangler secret put TURNSTILE_SECRET_KEY
+   bunx wrangler secret put DISCORD_CONTACT_WEBHOOK_URL
+   ```
+4. Set the build-time public Turnstile site key (this is baked into the client bundle, so it's fine to keep in `.env` / Cloudflare environment variables):
+   ```
+   VITE_TURNSTILE_SITE_KEY=...
+   ```
+
+### Deploy
+
+```bash
+CLOUDFLARE=1 bun run build
+bun run deploy
+```
+
+`waku build` with `CLOUDFLARE=1` (or detected `WORKERS_CI`) emits `dist/server/index.js` (the Worker entry) and `dist/server/wrangler.json` (the deploy config). `wrangler deploy` reads those automatically.
+
+### Local testing of the built Worker
+
+```bash
+CLOUDFLARE=1 bun run build
+bun run start    # wraps `wrangler dev`
+```
+
+This runs the Worker against Miniflare (Cloudflare's local emulator), with the ASSETS binding wired to `dist/public/`. Routes that depend on secrets need a `.dev.vars` file at the project root.
+
+### Known limitations
+
+- **Dynamic OG image generation is currently disabled.** `src/pages/_api/api/og.tsx` previously used `satori` + `@resvg/resvg-wasm` to render per-title cards, but the wasm-bindgen-generated init path inside `@resvg/resvg-wasm` calls `WebAssembly.instantiate(bytes)` at runtime, which the Workers runtime blocks (CSP-style "Wasm code generation disallowed by embedder"). The route now serves the Rox horizontal logo as a static fallback. Re-enabling dynamic OG cards is tracked as a follow-up — `workers-og` is the most likely Workers-compatible replacement.
 
 ## 🤝 Contributing
 
