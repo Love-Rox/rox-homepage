@@ -50,10 +50,10 @@ jobs:
           VITE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_TURNSTILE_SITE_KEY }}
 
       - name: Deploy with wrangler
-        # `waku build` with CLOUDFLARE=1 emits dist/server/wrangler.json with the
-        # right `main` and `assets.directory` paths; running wrangler from there
-        # picks it up automatically.
-        working-directory: dist/server
+        # Run from the project root: `waku build --with-cloudflare` writes
+        # .wrangler/deploy/config.json which points at dist/server/wrangler.json,
+        # and wrangler resolves it automatically. cd-ing into dist/server makes
+        # wrangler see two configs with conflicting base paths and abort.
         run: bunx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
