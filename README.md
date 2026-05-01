@@ -216,9 +216,9 @@ bun run start    # wraps `wrangler dev`
 
 This runs the Worker against Miniflare (Cloudflare's local emulator), with the ASSETS binding wired to `dist/public/`. Routes that depend on secrets need a `.dev.vars` file at the project root.
 
-### Known limitations
+### OG image generation
 
-- **Dynamic OG image generation is currently disabled.** `src/pages/_api/api/og.tsx` previously used `satori` + `@resvg/resvg-wasm` to render per-title cards, but the wasm-bindgen-generated init path inside `@resvg/resvg-wasm` calls `WebAssembly.instantiate(bytes)` at runtime, which the Workers runtime blocks (CSP-style "Wasm code generation disallowed by embedder"). The route now serves the Rox horizontal logo as a static fallback. Re-enabling dynamic OG cards is tracked as a follow-up — `workers-og` is the most likely Workers-compatible replacement.
+`src/pages/_api/api/og.tsx` renders per-title social cards on demand using [`workers-og`](https://github.com/kvnang/workers-og), which wraps satori + resvg-wasm with WASM bundling that complies with the Workers runtime's pre-compiled-module requirement. (A direct `satori` + `@resvg/resvg-wasm` setup does not work on Workers — wasm-bindgen's init path calls `WebAssembly.instantiate(bytes)` at runtime, which the Workers embedder blocks.) The M PLUS Rounded 1c font and the Rox logo are loaded once per Worker isolate via the ASSETS binding and cached in module-level state.
 
 ## 🤝 Contributing
 
