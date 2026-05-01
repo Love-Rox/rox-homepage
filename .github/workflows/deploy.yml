@@ -29,6 +29,14 @@ jobs:
         with:
           bun-version: latest
 
+      # Wrangler requires Node.js >= 22 (the runner default is v20).
+      # We still install with Bun above; this only puts a recent Node on PATH
+      # so `bunx wrangler` works.
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
