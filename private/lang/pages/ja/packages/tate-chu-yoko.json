@@ -8,7 +8,7 @@
     "ctaNpm": "npm で見る",
     "ctaGithub": "GitHub",
     "badges": {
-      "version": "v0.1.2",
+      "version": "v0.2.0",
       "license": "MIT",
       "ssr": "SSR-safe"
     }
@@ -88,6 +88,18 @@
         "type": "string | string[]",
         "default": "undefined",
         "description": "対象から外したい文字。`include` より優先されます。"
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "default": "undefined",
+        "description": "縦中横セグメントの最大文字数。これを超える長さの英数字 run はプレーンテキストに戻ります。たとえば `maxLength: 2` にすると `2026` のような4桁年は寝かせ、`1` や `19` の短い run のみを縦中横にできます。v0.2.0 で追加。"
+      },
+      {
+        "name": "excludeWords",
+        "type": "string[]",
+        "default": "undefined",
+        "description": "縦中横にしたくない語を完全一致で指定（部分一致ではなくセグメント値全体のマッチ）。`URL` `API` のような固有の略号や、特定の年号だけを横倒しのまま残したいときに便利です。v0.2.0 で追加。"
       }
     ],
     "component": [
@@ -110,7 +122,8 @@
     "items": [
       "`<em>12</em>34` のように要素境界をまたぐ文字列は連結されず、別々のスパンになります。",
       "全角英数字（`Ａ〜Ｚ` / `０〜９`）は既定で対象外。縦組みでも既に正立して表示されるためです。",
-      "React / Vue のアダプタはどちらも SSR-safe で、サーバーとクライアントで同じ DOM を生成します。"
+      "React / Vue のアダプタはどちらも SSR-safe で、サーバーとクライアントで同じ DOM を生成します。",
+      "`maxLength` / `excludeWords` で対象外になった run はプレーンテキストに戻り、隣接するテキストと自動的にマージされます。"
     ]
   },
   "browser": {

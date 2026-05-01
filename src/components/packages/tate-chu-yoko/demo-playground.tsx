@@ -15,6 +15,10 @@ const copy = {
     includePlaceholder: "e.g. .",
     exclude: "Characters to exclude",
     excludePlaceholder: "e.g. -",
+    maxLength: "maxLength (demote longer runs to text)",
+    maxLengthPlaceholder: "e.g. 2",
+    excludeWords: "excludeWords (comma separated)",
+    excludeWordsPlaceholder: "e.g. 2026, URL",
     raw: "Without <Tcy> (plain vertical)",
     processed: "With <Tcy> (uprighted)",
     html: "Generated HTML",
@@ -34,6 +38,10 @@ const copy = {
     includePlaceholder: "例: .",
     exclude: "対象から外す文字 (exclude)",
     excludePlaceholder: "例: -",
+    maxLength: "maxLength（これより長い run は縦中横にしない）",
+    maxLengthPlaceholder: "例: 2",
+    excludeWords: "excludeWords（カンマ区切りで完全一致除外）",
+    excludeWordsPlaceholder: "例: 2026, URL",
     raw: "<Tcy> なし（素の縦組み）",
     processed: "<Tcy> あり（縦中横）",
     html: "生成されたHTML",
@@ -93,16 +101,26 @@ export function DemoPlayground({ lang }: { lang: Lang }) {
   const [combine, setCombine] = useState(true);
   const [include, setInclude] = useState("");
   const [exclude, setExclude] = useState("");
+  const [maxLengthInput, setMaxLengthInput] = useState("");
+  const [excludeWordsInput, setExcludeWordsInput] = useState("");
 
-  const options = useMemo(
-    () => ({
+  const options = useMemo(() => {
+    const maxLengthValue = maxLengthInput ? Number.parseInt(maxLengthInput, 10) : NaN;
+    const excludeWords = excludeWordsInput
+      .split(",")
+      .map((w) => w.trim())
+      .filter(Boolean);
+    return {
       target,
       combine,
       ...(include ? { include } : {}),
       ...(exclude ? { exclude } : {}),
-    }),
-    [target, combine, include, exclude],
-  );
+      ...(Number.isFinite(maxLengthValue) && maxLengthValue > 0
+        ? { maxLength: maxLengthValue }
+        : {}),
+      ...(excludeWords.length > 0 ? { excludeWords } : {}),
+    };
+  }, [target, combine, include, exclude, maxLengthInput, excludeWordsInput]);
 
   const html = useMemo(() => renderHtml(text, options), [text, options]);
 
@@ -187,6 +205,32 @@ export function DemoPlayground({ lang }: { lang: Lang }) {
             value={exclude}
             onChange={(e) => setExclude(e.target.value)}
             placeholder={t.excludePlaceholder}
+            className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-2 font-mono text-sm"
+          />
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+            {t.maxLength}
+          </span>
+          <input
+            type="number"
+            min={1}
+            value={maxLengthInput}
+            onChange={(e) => setMaxLengthInput(e.target.value)}
+            placeholder={t.maxLengthPlaceholder}
+            className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-2 font-mono text-sm"
+          />
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+            {t.excludeWords}
+          </span>
+          <input
+            value={excludeWordsInput}
+            onChange={(e) => setExcludeWordsInput(e.target.value)}
+            placeholder={t.excludeWordsPlaceholder}
             className="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-2 font-mono text-sm"
           />
         </label>

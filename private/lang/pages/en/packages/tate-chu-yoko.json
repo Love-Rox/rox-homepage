@@ -8,7 +8,7 @@
     "ctaNpm": "View on npm",
     "ctaGithub": "GitHub",
     "badges": {
-      "version": "v0.1.2",
+      "version": "v0.2.0",
       "license": "MIT",
       "ssr": "SSR-safe"
     }
@@ -88,6 +88,18 @@
         "type": "string | string[]",
         "default": "undefined",
         "description": "Characters to exclude. Takes precedence over `include`."
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "default": "undefined",
+        "description": "Maximum length for a tcy segment. Runs longer than this are demoted back to plain text — for example `maxLength: 2` keeps single digits and pairs uprighted while leaving four-digit years like `2026` lying on their side. Added in v0.2.0."
+      },
+      {
+        "name": "excludeWords",
+        "type": "string[]",
+        "default": "undefined",
+        "description": "Exact words to exclude from tcy wrapping. Matched against the whole segment value (not a substring), useful for keeping acronyms like `URL` / `API` or specific years out of the upright treatment. Added in v0.2.0."
       }
     ],
     "component": [
@@ -110,7 +122,8 @@
     "items": [
       "Runs are not joined across element boundaries — `<em>12</em>34` produces two separate spans.",
       "Full-width alphanumerics (`Ａ–Ｚ` / `０–９`) are left alone because they already render upright in vertical text.",
-      "Both React and Vue adapters are SSR-safe: the DOM emitted on the server matches the client."
+      "Both React and Vue adapters are SSR-safe: the DOM emitted on the server matches the client.",
+      "Runs filtered out by `maxLength` or `excludeWords` are demoted back to plain text and merged into the surrounding text segment automatically."
     ]
   },
   "browser": {
