@@ -17,7 +17,7 @@ This is the official homepage for the Rox project, built with modern web technol
 - **UI Components**: React Aria Components
 - **Content**: Markdown with frontmatter (gray-matter)
 - **Syntax Highlighting**: rehype-highlight
-- **Email**: Nodemailer (for contact form)
+- **Contact form delivery**: Discord webhook (Workers-runtime friendly)
 - **Bot Protection**: Cloudflare Turnstile
 
 ## 📁 Project Structure
@@ -154,28 +154,28 @@ Japanese is the primary development language, with English also supported for br
 
 ## 📧 Contact Form
 
-The contact form uses:
+The contact form delivers submissions to a Discord channel via webhook (no SMTP / no email-sending dependency, so it runs cleanly on Cloudflare Pages / Workers). The flow is:
 
-- Cloudflare Turnstile for bot protection
-- Nodemailer for sending emails
-- Environment variables for configuration
+- Cloudflare Turnstile verifies the submission server-side.
+- A main embed is posted to the configured webhook. If the target is a **Forum channel**, `thread_name` creates a new thread per submission; a copy-paste-ready reply template is then posted as a follow-up message inside that thread. A regular text channel also works — the reply template is posted as a follow-up top-level message instead.
+- The submitting user **does not receive an automatic confirmation email**. The success screen instead displays the submitted content so they can take a screenshot for their records.
+
+To set this up, create a webhook on the Discord channel (Server Settings → Integrations → Webhooks → New Webhook) and put the URL into `DISCORD_CONTACT_WEBHOOK_URL`.
 
 ## 🔧 Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory (see `env.example.txt`):
 
 ```bash
 # Server Configuration
 PORT=3000
 
-# Contact Form Settings
+# Cloudflare Turnstile
 VITE_TURNSTILE_SITE_KEY=your_site_key
 TURNSTILE_SECRET_KEY=your_secret_key
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=your_smtp_user
-SMTP_PASS=your_smtp_password
-CONTACT_EMAIL=dev@example.com
+
+# Discord webhook for contact-form delivery (Forum channel recommended)
+DISCORD_CONTACT_WEBHOOK_URL=https://discord.com/api/webhooks/your_id/your_token
 ```
 
 ## 🤝 Contributing

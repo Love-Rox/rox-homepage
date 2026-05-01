@@ -1,5 +1,3 @@
-import nodemailer from "nodemailer";
-
 interface ContactFormData {
   name: string;
   email: string;
@@ -8,10 +6,8 @@ interface ContactFormData {
   turnstileToken: string;
 }
 
-// Verify Turnstile token
 async function verifyTurnstileToken(token: string): Promise<boolean> {
   const secretKey = process.env.TURNSTILE_SECRET_KEY;
-
   if (!secretKey) {
     console.error("TURNSTILE_SECRET_KEY is not configured");
     return false;
@@ -20,16 +16,10 @@ async function verifyTurnstileToken(token: string): Promise<boolean> {
   try {
     const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        secret: secretKey,
-        response: token,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: secretKey, response: token }),
     });
-
-    const data = await response.json();
+    const data = (await response.json()) as { success?: boolean };
     return data.success === true;
   } catch (error) {
     console.error("Turnstile verification error:", error);
@@ -37,104 +27,118 @@ async function verifyTurnstileToken(token: string): Promise<boolean> {
   }
 }
 
-// Create email transporter
-function createTransporter() {
-  const gmailUser = process.env.GMAIL_USER;
-  const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+const truncate = (s: string, max: number) => (s.length > max ? `${s.slice(0, max - 1)}…` : s);
 
-  if (!gmailUser || !gmailAppPassword) {
-    throw new Error("Gmail credentials are not configured");
+function buildMainPayload(formData: ContactFormData) {
+  const threadName = truncate(`[Contact] ${formData.subject} — ${formData.name}`, 100);
+  return {
+    thread_name: threadName,
+    embeds: [
+      {
+        title: "📨 New contact form submission",
+        color: 0xff5b11,
+        fields: [
+          { name: "Name", value: truncate(formData.name, 1024), inline: true },
+          { name: "Email", value: truncate(formData.email, 1024), inline: true },
+          { name: "Subject", value: truncate(formData.subject, 1024), inline: false },
+          { name: "Message", value: truncate(formData.message, 1024), inline: false },
+        ],
+        timestamp: new Date().toISOString(),
+        footer: { text: "love-rox.cc / contact form" },
+      },
+    ],
+  };
+}
+
+function buildReplyTemplatePayload(formData: ContactFormData) {
+  const replySubject = `Re: ${formData.subject}`;
+  const quoted = formData.message
+    .split("\n")
+    .map((line) => `> ${line}`)
+    .join("\n");
+  const mailto = `mailto:${encodeURIComponent(formData.email)}?subject=${encodeURIComponent(replySubject)}`;
+
+  // Discord message content limit is 2000 chars; leave headroom for the wrapping text.
+  const template = [
+    `To: ${formData.email}`,
+    `Subject: ${replySubject}`,
+    "",
+    `Hi ${formData.name},`,
+    "",
+    "(your reply here)",
+    "",
+    "----",
+    quoted,
+  ].join("\n");
+
+  const codeBlock = `\`\`\`text\n${truncate(template, 1700)}\n\`\`\``;
+  const intro = `📋 Reply template (copy & paste into your mail client) — [Open in mail client](${mailto})`;
+  return { content: `${intro}\n${codeBlock}` };
+}
+
+interface DiscordMessageResponse {
+  id?: string;
+  channel_id?: string;
+}
+
+async function postToDiscord(formData: ContactFormData): Promise<void> {
+  const baseUrl = process.env.DISCORD_CONTACT_WEBHOOK_URL;
+  if (!baseUrl) throw new Error("DISCORD_CONTACT_WEBHOOK_URL is not configured");
+  const webhookUrl = `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}wait=true`;
+
+  // Try forum-channel posting first (thread_name creates a new thread).
+  const mainPayload = buildMainPayload(formData);
+  let mainResponse = await fetch(webhookUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(mainPayload),
+  });
+
+  // Fallback: regular text channel doesn't accept thread_name (400). Retry without it.
+  if (!mainResponse.ok && mainResponse.status === 400) {
+    const { thread_name: _omit, ...rest } = mainPayload;
+    mainResponse = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(rest),
+    });
   }
 
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: gmailUser,
-      pass: gmailAppPassword,
-    },
+  if (!mainResponse.ok) {
+    const text = await mainResponse.text().catch(() => "");
+    throw new Error(`Discord webhook failed (${mainResponse.status}): ${text}`);
+  }
+
+  const mainData = (await mainResponse.json().catch(() => ({}))) as DiscordMessageResponse;
+  const threadId = mainData.channel_id; // populated when forum thread was created
+
+  const replyPayload = buildReplyTemplatePayload(formData);
+  const followupUrl = threadId
+    ? `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}thread_id=${threadId}`
+    : baseUrl;
+
+  const followup = await fetch(followupUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(replyPayload),
   });
-}
 
-// Send email to admin
-async function sendAdminNotification(
-  transporter: nodemailer.Transporter,
-  formData: ContactFormData,
-) {
-  const senderEmail = process.env.SENDER_EMAIL || process.env.GMAIL_USER;
-  const mailOptions = {
-    from: senderEmail,
-    to: "dev@love-rox.cc",
-    replyTo: formData.email,
-    subject: `[Contact Form] ${formData.subject}`,
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #4f46e5;">New Contact Form Submission</h2>
-        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <p><strong>Name:</strong> ${formData.name}</p>
-          <p><strong>Email:</strong> ${formData.email}</p>
-          <p><strong>Subject:</strong> ${formData.subject}</p>
-        </div>
-        <div style="background: #ffffff; padding: 20px; border: 1px solid #e5e7eb; border-radius: 8px;">
-          <h3 style="margin-top: 0;">Message:</h3>
-          <p style="white-space: pre-wrap;">${formData.message}</p>
-        </div>
-        <p style="color: #6b7280; font-size: 12px; margin-top: 20px;">
-          This email was sent from the Rox contact form.
-        </p>
-      </div>
-    `,
-  };
-
-  await transporter.sendMail(mailOptions);
-}
-
-// Send confirmation email to sender
-async function sendConfirmationEmail(
-  transporter: nodemailer.Transporter,
-  formData: ContactFormData,
-) {
-  const senderEmail = process.env.SENDER_EMAIL || process.env.GMAIL_USER;
-  const mailOptions = {
-    from: senderEmail,
-    to: formData.email,
-    subject: "Thank you for contacting Rox",
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #4f46e5;">Thank you for contacting us!</h2>
-        <p>Dear ${formData.name},</p>
-        <p>We have received your message and will get back to you as soon as possible.</p>
-        
-        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="margin-top: 0;">Your message:</h3>
-          <p><strong>Subject:</strong> ${formData.subject}</p>
-          <p style="white-space: pre-wrap; margin-top: 10px;">${formData.message}</p>
-        </div>
-        
-        <p>Best regards,<br>The Rox Team</p>
-        
-        <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
-        
-        <p style="color: #6b7280; font-size: 12px;">
-          This is an automated confirmation email. Please do not reply to this email.
-        </p>
-      </div>
-    `,
-  };
-
-  await transporter.sendMail(mailOptions);
+  if (!followup.ok) {
+    const text = await followup.text().catch(() => "");
+    // The main notification already succeeded — don't fail the whole submission for the
+    // reply-template follow-up, but surface it in logs so we can investigate.
+    console.error(`Discord reply-template post failed (${followup.status}): ${text}`);
+  }
 }
 
 export const getConfig = async () => {
-  return {
-    render: "dynamic",
-  };
+  return { render: "dynamic" };
 };
 
 export async function POST(request: Request): Promise<Response> {
   try {
     const body: ContactFormData = await request.json();
 
-    // Validate required fields
     if (!body.name || !body.email || !body.subject || !body.message || !body.turnstileToken) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
         status: 400,
@@ -142,7 +146,6 @@ export async function POST(request: Request): Promise<Response> {
       });
     }
 
-    // Verify Turnstile token
     const isValidToken = await verifyTurnstileToken(body.turnstileToken);
     if (!isValidToken) {
       return new Response(JSON.stringify({ error: "Invalid security token" }), {
@@ -151,22 +154,15 @@ export async function POST(request: Request): Promise<Response> {
       });
     }
 
-    // Create email transporter
-    const transporter = createTransporter();
+    await postToDiscord(body);
 
-    // Send both emails
-    await Promise.all([
-      sendAdminNotification(transporter, body),
-      sendConfirmationEmail(transporter, body),
-    ]);
-
-    return new Response(JSON.stringify({ success: true, message: "Emails sent successfully" }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
     console.error("Contact form error:", error);
-    return new Response(JSON.stringify({ error: "Failed to send email" }), {
+    return new Response(JSON.stringify({ error: "Failed to deliver notification" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
