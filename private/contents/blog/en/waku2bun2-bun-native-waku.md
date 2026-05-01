@@ -4,7 +4,11 @@ description: A fork project aiming for Bun-native support in Waku
 date: 2026-01-14
 author: Rox Team
 tags: [Rox, Waku, Bun, Development, Infrastructure]
-excerpt: "If we're using Bun, why not make everything native?" — With this thought in mind, we started the waku2bun2 fork project aiming for Bun-native support in Waku. Due to current RSC support limitations in Bun, we are preparing while waiting for Bun's development to progress.
+excerpt: >-
+  "If we're using Bun, why not make everything native?" — With this thought in
+  mind, we started the waku2bun2 fork project aiming for Bun-native support in
+  Waku. Due to current RSC support limitations in Bun, we are preparing while
+  waiting for Bun's development to progress.
 ---
 
 # waku2bun2 - Working Toward Bun-Native Waku

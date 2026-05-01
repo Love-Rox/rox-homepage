@@ -1,5 +1,3 @@
-import fs from "fs/promises";
-import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import remarkHtml from "remark-html";
@@ -32,16 +30,33 @@ export interface MarkdownContent {
   html: string;
 }
 
-/**
- * Load and parse a Markdown file
- * @param filePath - Absolute path to the Markdown file
- * @returns Parsed Markdown content with metadata and HTML
- */
-export async function loadMarkdown(filePath: string): Promise<MarkdownContent> {
-  const fileContent = await fs.readFile(filePath, "utf-8");
-  const { data, content } = matter(fileContent);
+// Eagerly bundle all markdown content at build time so the runtime never
+// touches `fs` (which doesn't exist in the Cloudflare Workers runtime).
+// The keys are the file paths relative to this file, e.g.
+// "../../private/contents/blog/ja/welcome-to-rox.md".
+const blogModules = import.meta.glob("../../private/contents/blog/**/*.md", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+}) as Record<string, string>;
 
-  // Convert Markdown to HTML
+const docsModules = import.meta.glob("../../private/contents/docs/**/*.md", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+}) as Record<string, string>;
+
+function modulesFor(type: "blog" | "docs"): Record<string, string> {
+  return type === "blog" ? blogModules : docsModules;
+}
+
+function keyPrefix(type: "blog" | "docs", locale: "en" | "ja"): string {
+  return `../../private/contents/${type}/${locale}/`;
+}
+
+async function processMarkdown(raw: string): Promise<MarkdownContent> {
+  const { data, content } = matter(raw);
+
   const processedContent = await remark()
     .use(remarkGfm)
     .use(remarkAlert)
@@ -49,57 +64,44 @@ export async function loadMarkdown(filePath: string): Promise<MarkdownContent> {
     .use(remarkHtml, { sanitize: false })
     .process(content);
 
-  const html = processedContent.toString();
-
   return {
     metadata: data as MarkdownMetadata,
     content,
-    html,
+    html: processedContent.toString(),
   };
 }
 
 /**
- * Get all Markdown files in a directory
- * @param dirPath - Absolute path to the directory
- * @returns Array of file names (without extension)
- */
-export async function getMarkdownFiles(dirPath: string): Promise<string[]> {
-  try {
-    const files = await fs.readdir(dirPath);
-    return files.filter((file) => file.endsWith(".md")).map((file) => file.replace(/\.md$/, ""));
-  } catch {
-    return [];
-  }
-}
-
-/**
- * Load Markdown content by slug and locale
- * @param type - Content type ('docs' or 'blog')
- * @param slug - Content slug
- * @param locale - Locale ('en' or 'ja')
- * @returns Parsed Markdown content
+ * Load Markdown content by slug and locale.
+ *
+ * Returns null when the slug is unknown or when frontmatter parsing fails —
+ * a malformed entry should be silently skipped from the listing rather than
+ * tearing down the whole index page.
  */
 export async function loadMarkdownBySlug(
   type: "docs" | "blog",
   slug: string,
   locale: "en" | "ja",
 ): Promise<MarkdownContent | null> {
-  const filePath = path.join(process.cwd(), "private", "contents", type, locale, `${slug}.md`);
-
+  const modules = modulesFor(type);
+  const key = `${keyPrefix(type, locale)}${slug}.md`;
+  const raw = modules[key];
+  if (raw == null) return null;
   try {
-    return await loadMarkdown(filePath);
-  } catch {
+    return await processMarkdown(raw);
+  } catch (e) {
+    console.error(`Failed to parse markdown ${key}:`, e);
     return null;
   }
 }
 
 /**
- * Get all content slugs for a given type and locale
- * @param type - Content type ('docs' or 'blog')
- * @param locale - Locale ('en' or 'ja')
- * @returns Array of slugs
+ * Get all content slugs for a given type and locale.
  */
 export async function getAllSlugs(type: "docs" | "blog", locale: "en" | "ja"): Promise<string[]> {
-  const dirPath = path.join(process.cwd(), "private", "contents", type, locale);
-  return await getMarkdownFiles(dirPath);
+  const modules = modulesFor(type);
+  const prefix = keyPrefix(type, locale);
+  return Object.keys(modules)
+    .filter((k) => k.startsWith(prefix))
+    .map((k) => k.slice(prefix.length).replace(/\.md$/, ""));
 }
