@@ -200,6 +200,22 @@ The site is deployed to Cloudflare Workers using the [Workers Static Assets](htt
 
 ### Deploy
 
+#### Automatic (GitHub Actions, recommended)
+
+Every push to `main` runs `.github/workflows/deploy.yml`, which builds with the Cloudflare adapter and deploys with [`cloudflare/wrangler-action`](https://github.com/cloudflare/wrangler-action). The job is gated by GitHub's `production` environment, and a single `deploy-cloudflare` concurrency group ensures only one deploy runs at a time (newer commits cancel in-flight runs).
+
+Required GitHub repository secrets:
+
+| Secret                    | What it is                                                             | Where to get it                                                 |
+| ------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `CLOUDFLARE_API_TOKEN`    | API token with **Workers Scripts: Edit** + **Account Settings: Read**  | Cloudflare dashboard → My Profile → API Tokens                  |
+| `CLOUDFLARE_ACCOUNT_ID`   | Account ID hosting the Worker                                          | Cloudflare dashboard → Workers & Pages overview (right sidebar) |
+| `VITE_TURNSTILE_SITE_KEY` | Public Turnstile site key (baked into the client bundle at build time) | same key as in your local `.env`                                |
+
+Runtime secrets (`TURNSTILE_SECRET_KEY`, `DISCORD_CONTACT_WEBHOOK_URL`) are stored in **Cloudflare's secret store**, NOT in GitHub. Set them once with `bunx wrangler secret put <NAME>` (see "One-time setup" above) and they persist across deploys.
+
+#### Manual
+
 ```bash
 CLOUDFLARE=1 bun run build
 bun run deploy
