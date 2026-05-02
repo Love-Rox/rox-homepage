@@ -5,8 +5,8 @@ on:
     types: [opened, reopened, ready_for_review, synchronize]
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
 
 jobs:
   enable:
@@ -14,8 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+      # Use a PAT (not GITHUB_TOKEN) so the merge commit is authored by the
+      # owner — this lets the resulting push trigger deploy.yml. --admin
+      # bypasses the required-review rule for owner PRs while still waiting
+      # on required status checks via --auto.
       - name: Enable auto-merge (squash)
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTO_MERGE_PAT }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash "$PR_URL"
+        run: gh pr merge --auto --squash --admin "$PR_URL"
