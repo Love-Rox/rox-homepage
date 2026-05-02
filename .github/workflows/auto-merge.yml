@@ -24,10 +24,11 @@ jobs:
           app-id: ${{ secrets.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
 
-      # `--admin` bypasses the required-review rule for owner PRs while still
-      # waiting on required status checks via `--auto`.
+      # `gh` CLI no longer accepts `--auto` and `--admin` together. Required
+      # reviews are bypassed via the repository ruleset's bypass list (the App
+      # is registered there), so `--admin` is unnecessary.
       - name: Enable auto-merge (squash)
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash --admin "$PR_URL"
+        run: gh pr merge --auto --squash "$PR_URL"
