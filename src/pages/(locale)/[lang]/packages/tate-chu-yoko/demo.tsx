@@ -39,6 +39,7 @@ export default async function TateChuYokoDemoPage({
       <Meta
         title={`${content.metaTitle} - Rox`}
         description={content.description}
+        image={`/api/og?title=${encodeURIComponent(content.metaTitle)}&eyebrow=${encodeURIComponent(content.packageLabel + " · " + content.demoLabel)}`}
         url={url}
         lang={locale}
       />
