@@ -39,6 +39,22 @@ import { Tcy } from "@love-rox/tcy-vue";
   </p>
 </template>`;
 
+const rehypeSnippet = `import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import rehypeTcy from "@love-rox/tcy-rehype";
+
+const html = String(
+  await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeTcy)
+    .use(rehypeStringify)
+    .process("第1章 2026年4月"),
+);
+// <p>第<span class="tcy">1</span>章 <span class="tcy">2026</span>年<span class="tcy">4</span>月</p>`;
+
 const coreSnippet = `import { tokenize } from "@love-rox/tcy-core";
 
 tokenize("第1章 2026年4月");
@@ -204,6 +220,7 @@ export default async function TateChuYokoPackagePage({
 
           <SnippetBlock label={content.usage.reactLabel} code={reactSnippet} language="tsx" />
           <SnippetBlock label={content.usage.vueLabel} code={vueSnippet} language="vue" />
+          <SnippetBlock label={content.usage.rehypeLabel} code={rehypeSnippet} language="ts" />
           <SnippetBlock label={content.usage.coreLabel} code={coreSnippet} language="ts" />
 
           <div className="mt-8">
@@ -230,6 +247,11 @@ export default async function TateChuYokoPackagePage({
             {content.options.componentLabel}
           </h3>
           <OptionsTable columns={content.options.columns} rows={content.options.component} />
+
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">
+            {content.options.rehypeLabel}
+          </h3>
+          <OptionsTable columns={content.options.columns} rows={content.options.rehype} />
         </Section>
 
         {/* Behavior */}

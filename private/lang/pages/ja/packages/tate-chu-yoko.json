@@ -8,7 +8,7 @@
     "ctaNpm": "npm で見る",
     "ctaGithub": "GitHub",
     "badges": {
-      "version": "v0.2.0",
+      "version": "v0.2.2",
       "license": "MIT",
       "ssr": "SSR-safe"
     }
@@ -18,8 +18,8 @@
     "body": "新聞や書籍の縦組みでは、半角英数字を横並びのまま正立させる「縦中横」が当たり前に使われてきました。CSS には `text-combine-upright: all` があるものの、どの文字をまとめるかは開発者が明示しなければなりません。結果として、書き手が原稿の中で `<span class=\"tcy\">` を毎回書く羽目になりがちです。tate-chu-yoko はこの組版処理を自動化し、書き手を組版の都合から解放します。"
   },
   "packages": {
-    "heading": "3つの配布物",
-    "description": "用途に合わせて必要なパッケージを選べます。コアは framework-agnostic なトークナイザー、React / Vue は公式アダプタです。",
+    "heading": "4つの配布物",
+    "description": "用途に合わせて必要なパッケージを選べます。コアは framework-agnostic なトークナイザー、React / Vue / rehype はそれぞれ公式アダプタです。",
     "items": [
       {
         "name": "@love-rox/tcy-core",
@@ -35,18 +35,24 @@
         "name": "@love-rox/tcy-vue",
         "role": "Vue 3 コンポーネント",
         "description": "Vue 3 向けの `<Tcy>` コンポーネント。React 版と同じオプション・挙動で、Vue アプリケーションにそのまま組み込めます。"
+      },
+      {
+        "name": "@love-rox/tcy-rehype",
+        "role": "rehype プラグイン",
+        "description": "`unified` の HAST パイプラインに組み込めるプラグイン。Markdown → HTML 変換のついでに縦中横を適用できるので、Astro / eleventy / 静的サイトジェネレーターでビルド時に組版を済ませたい場合に最適です。クライアント側に React / Vue ランタイムを持ち込みません。"
       }
     ]
   },
   "install": {
     "heading": "インストール",
-    "description": "使いたいアダプタ（React / Vue）だけ入れれば、`@love-rox/tcy-core` は依存で自動的に引き込まれます。"
+    "description": "使いたいアダプタ（React / Vue / rehype）だけ入れれば、`@love-rox/tcy-core` は依存で自動的に引き込まれます。"
   },
   "usage": {
     "heading": "使い方",
-    "description": "`writing-mode: vertical-rl` を当てた親要素の中で、縦中横対象にしたい範囲を `<Tcy>` で包むだけです。",
+    "description": "`writing-mode: vertical-rl` を当てた親要素の中で、縦中横対象にしたい範囲を `<Tcy>` で包むだけです。Markdown / unified パイプラインを使っている場合は rehype プラグインで build 時に同等の処理ができます。",
     "reactLabel": "React",
     "vueLabel": "Vue 3",
+    "rehypeLabel": "rehype (unified pipeline)",
     "coreLabel": "Core (string tokenizer)",
     "css": {
       "heading": "推奨CSS",
@@ -115,6 +121,27 @@
         "default": "'span'",
         "description": "ラップに使用するタグ名。"
       }
+    ],
+    "rehypeLabel": "rehype プラグイン専用オプション",
+    "rehype": [
+      {
+        "name": "tagName",
+        "type": "string",
+        "default": "'span'",
+        "description": "ラップに使用するタグ名。"
+      },
+      {
+        "name": "className",
+        "type": "string | string[]",
+        "default": "'tcy'",
+        "description": "ラップ要素に付与するクラス名（配列で複数指定可）。"
+      },
+      {
+        "name": "skipTags",
+        "type": "string[]",
+        "default": "['code', 'pre', 'script', 'style']",
+        "description": "走査をスキップするタグ。`<code>` `<pre>` などコード表示中のテキストはデフォルトで処理されません。"
+      }
     ]
   },
   "behavior": {
@@ -123,6 +150,7 @@
       "`<em>12</em>34` のように要素境界をまたぐ文字列は連結されず、別々のスパンになります。",
       "全角英数字（`Ａ〜Ｚ` / `０〜９`）は既定で対象外。縦組みでも既に正立して表示されるためです。",
       "React / Vue のアダプタはどちらも SSR-safe で、サーバーとクライアントで同じ DOM を生成します。",
+      "rehype プラグインは冪等です。同じ HAST に2回適用しても出力は変わりません。",
       "`maxLength` / `excludeWords` で対象外になった run はプレーンテキストに戻り、隣接するテキストと自動的にマージされます。"
     ]
   },

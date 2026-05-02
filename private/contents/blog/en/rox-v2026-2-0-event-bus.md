@@ -115,4 +115,4 @@ With the enhanced EventBus foundation, plugin development has become even easier
 
 If you have any questions or feedback, please reach out via our [GitHub repository](https://github.com/Love-Rox/rox).
 
-**Love rocks. Rox.** 🚀
+**The Love Rocks. Rox.** 🚀

@@ -98,4 +98,4 @@ With the plugin system foundation in place, we're looking forward to plugin deve
 
 If you have any questions or feedback, please reach out via our [GitHub repository](https://github.com/Love-Rox/rox).
 
-**Love rocks. Rox.** 🚀
+**The Love Rocks. Rox.** 🚀

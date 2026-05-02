@@ -112,4 +112,4 @@ Vertical typesetting on the web gets noticeably better when authors, editors, ty
 
 [Open an issue](https://github.com/Love-Rox/tate-chu-yoko/issues) if you have one. We're listening.
 
-**Love rocks. Rox.**
+**The Love Rocks. Rox.**
