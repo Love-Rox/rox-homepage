@@ -1,34 +1,49 @@
 name: Auto-merge owner PRs
 
+# GitHub's auto-merge feature does NOT honor ruleset bypass actors — it
+# always waits for required reviews to be approved before firing. Our
+# ruleset requires 1 approving review, but for owner PRs we want to
+# bypass that requirement automatically. Bypass rights only apply to
+# direct (--admin) merges, so we wait for CI to finish on the PR head
+# commit and then admin-merge as the App, which is in the bypass list.
+
 on:
-  pull_request_target:
-    types: [opened, reopened, ready_for_review, synchronize]
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
 
 permissions:
   contents: read
   pull-requests: read
 
 jobs:
-  enable:
-    if: github.event.pull_request.user.login == 'sasagar' && github.event.pull_request.draft == false
+  merge:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      # Mint a token from a GitHub App installation so the merge commit is
-      # authored by the App (not GITHUB_TOKEN). The resulting push then
-      # triggers deploy.yml — GITHUB_TOKEN-authored pushes do not. App tokens
-      # auto-rotate hourly, so there is no PAT expiry to manage.
       - id: app-token
         uses: actions/create-github-app-token@v1
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
 
-      # `gh` CLI no longer accepts `--auto` and `--admin` together. Required
-      # reviews are bypassed via the repository ruleset's bypass list (the App
-      # is registered there), so `--admin` is unnecessary.
-      - name: Enable auto-merge (squash)
+      - name: Admin-merge owner PRs for this commit
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash "$PR_URL"
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          prs=$(gh api "repos/$REPO/commits/$HEAD_SHA/pulls" \
+                  --jq '.[] | select(.user.login == "sasagar" and .draft == false and .state == "open") | .number')
+          if [ -z "$prs" ]; then
+            echo "No matching open owner PR for $HEAD_SHA — nothing to do"
+            exit 0
+          fi
+          for pr in $prs; do
+            echo "Admin-merging PR #$pr"
+            gh pr merge --admin --squash --delete-branch "$pr" --repo "$REPO"
+          done
