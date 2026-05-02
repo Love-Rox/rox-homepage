@@ -1,13 +1,30 @@
-import { LanguageRedirect } from "@/components/common/LanguageRedirect";
+import { Meta } from "@/components/global/meta";
+import {
+  ClientLanguageRedirect,
+  LanguageRedirectFallback,
+} from "@/components/common/LanguageRedirect";
+import tcyLangEn from "@private/lang/pages/en/packages/tate-chu-yoko.json";
+
+const TARGET_PATH = "/packages/tate-chu-yoko";
 
 export default function TateChuYokoRedirectPage() {
+  const ogParams = new URLSearchParams({
+    title: tcyLangEn.hero.heading,
+    eyebrow: tcyLangEn.hero.eyebrow,
+  });
+  const ogImage = `/api/og?${ogParams.toString()}`;
+
   return (
-    <LanguageRedirect
-      targetPath="/packages/tate-chu-yoko"
-      title="tate-chu-yoko - Rox"
-      description="Automatic tate-chu-yoko (縦中横) wrapping for Japanese vertical text on the web"
-      ogTitle="tate-chu-yoko"
-    />
+    <>
+      <Meta
+        title={`${tcyLangEn.hero.heading} - ${tcyLangEn.hero.eyebrow} - Rox`}
+        description={tcyLangEn.hero.tagline}
+        image={ogImage}
+        url={TARGET_PATH}
+      />
+      <ClientLanguageRedirect targetPath={TARGET_PATH} />
+      <LanguageRedirectFallback targetPath={TARGET_PATH} />
+    </>
   );
 }
 
