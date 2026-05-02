@@ -6,18 +6,28 @@ interface MetaProps {
   lang?: "en" | "ja";
 }
 
+const SITE_ORIGIN = "https://love-rox.cc";
+
+// Strip the leading /en or /ja so we can build all locale variants and the
+// common (lang-less) URL from one normalized path. Works for both common URLs
+// like "/blog/foo" and locale URLs like "/en/blog/foo".
+function commonPathFromUrl(url: string): string {
+  return url.replace(/^\/(en|ja)(?=\/|$)/, "") || "/";
+}
+
+function localizedUrl(commonPath: string, locale: "en" | "ja"): string {
+  return commonPath === "/" ? `/${locale}` : `/${locale}${commonPath}`;
+}
+
 export const Meta = ({ title, description, image, url, lang = "en" }: MetaProps) => {
   const siteName = "Rox";
   const defaultImage = "/assets/logos/png/rox-horizontal@2x.png";
   const ogImage = image || defaultImage;
-  // Ensure absolute URL for image if it starts with /
-  const absoluteOgImage = ogImage.startsWith("http") ? ogImage : `https://love-rox.cc${ogImage}`; // Assuming domain, should be configurable or env var ideally
+  const absoluteOgImage = ogImage.startsWith("http") ? ogImage : `${SITE_ORIGIN}${ogImage}`;
 
-  const absoluteUrl = url
-    ? url.startsWith("http")
-      ? url
-      : `https://love-rox.cc${url}`
-    : undefined;
+  const absoluteUrl = url ? (url.startsWith("http") ? url : `${SITE_ORIGIN}${url}`) : undefined;
+
+  const commonPath = url ? commonPathFromUrl(url) : null;
 
   return (
     <>
@@ -26,24 +36,19 @@ export const Meta = ({ title, description, image, url, lang = "en" }: MetaProps)
       <meta name="robots" content="index, follow" />
       {absoluteUrl && <link rel="canonical" href={absoluteUrl} />}
 
-      {/* hreflang tags if we know the current URL path. Assuming url is the path like /ja/blog */}
-      {url && (
+      {commonPath && (
         <>
           <link
             rel="alternate"
             hrefLang="en"
-            href={`https://love-rox.cc${url.replace(/^\/(ja|en)/, "/en")}`}
+            href={`${SITE_ORIGIN}${localizedUrl(commonPath, "en")}`}
           />
           <link
             rel="alternate"
             hrefLang="ja"
-            href={`https://love-rox.cc${url.replace(/^\/(ja|en)/, "/ja")}`}
+            href={`${SITE_ORIGIN}${localizedUrl(commonPath, "ja")}`}
           />
-          <link
-            rel="alternate"
-            hrefLang="x-default"
-            href={`https://love-rox.cc${url.replace(/^\/(ja|en)/, "/en")}`}
-          />
+          <link rel="alternate" hrefLang="x-default" href={`${SITE_ORIGIN}${commonPath}`} />
         </>
       )}
 
