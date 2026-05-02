@@ -57,4 +57,4 @@ Once Bun's support progresses, waku2bun2 aims to achieve:
 
 As Bun evolves, this project will move forward too.
 
-**Love rocks. Rox.** 💜
+**The Love Rocks. Rox.** 💜

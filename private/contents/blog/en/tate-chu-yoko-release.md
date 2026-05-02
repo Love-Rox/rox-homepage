@@ -118,4 +118,4 @@ tate-chu-yoko is a 0.1-series release — young, and we want it to stay honest a
 
 If you typeset Japanese on the web — as a writer, an editor, a CMS maintainer, or a frontend engineer — we'd love to hear what works and what doesn't. [Open an issue](https://github.com/Love-Rox/tate-chu-yoko/issues). The web's vertical writing experience is going to improve fastest if the people who use it every day are part of the conversation.
 
-**Love rocks. Rox.**
+**The Love Rocks. Rox.**

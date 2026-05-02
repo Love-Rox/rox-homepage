@@ -8,7 +8,7 @@
     "ctaNpm": "View on npm",
     "ctaGithub": "GitHub",
     "badges": {
-      "version": "v0.2.0",
+      "version": "v0.2.2",
       "license": "MIT",
       "ssr": "SSR-safe"
     }
@@ -18,7 +18,7 @@
     "body": "Japanese vertical writing (`writing-mode: vertical-rl`) leaves half-width Latin letters and digits lying on their side. The fix — `text-combine-upright: all` — exists, but the developer still has to decide *which* runs to apply it to, usually by wrapping them in `<span class=\"tcy\">` by hand. That chore leaks into manuscripts, CMSes, and Markdown. tate-chu-yoko does the wrapping for you, so authors can keep writing plain text."
   },
   "packages": {
-    "heading": "Three packages",
+    "heading": "Four packages",
     "description": "Install only the adapter you need. The core tokenizer is pulled in automatically as a dependency.",
     "items": [
       {
@@ -35,18 +35,24 @@
         "name": "@love-rox/tcy-vue",
         "role": "Vue 3 component",
         "description": "The same `<Tcy>` API for Vue 3 apps. Identical options and behavior as the React version."
+      },
+      {
+        "name": "@love-rox/tcy-rehype",
+        "role": "rehype plugin",
+        "description": "Slots into a `unified` HAST pipeline, so you can apply tate-chu-yoko at the same time you turn Markdown into HTML. Ideal for Astro, eleventy, or any static-site generator that wants build-time wrapping with no React/Vue runtime on the client."
       }
     ]
   },
   "install": {
     "heading": "Install",
-    "description": "Pick the adapter (React or Vue) for your stack — `@love-rox/tcy-core` will be installed as a dependency."
+    "description": "Pick the adapter for your stack — React, Vue, or rehype for unified pipelines. `@love-rox/tcy-core` is installed automatically as a dependency."
   },
   "usage": {
     "heading": "Usage",
-    "description": "Wrap the vertical content with `<Tcy>` inside an element that has `writing-mode: vertical-rl`.",
+    "description": "Wrap the vertical content with `<Tcy>` inside an element that has `writing-mode: vertical-rl`. If you already have a Markdown / unified pipeline, the rehype plugin does the equivalent at build time.",
     "reactLabel": "React",
     "vueLabel": "Vue 3",
+    "rehypeLabel": "rehype (unified pipeline)",
     "coreLabel": "Core (string tokenizer)",
     "css": {
       "heading": "Recommended CSS",
@@ -115,6 +121,27 @@
         "default": "'span'",
         "description": "Tag name used for wrapping."
       }
+    ],
+    "rehypeLabel": "rehype plugin-only options",
+    "rehype": [
+      {
+        "name": "tagName",
+        "type": "string",
+        "default": "'span'",
+        "description": "Tag name used for wrapping."
+      },
+      {
+        "name": "className",
+        "type": "string | string[]",
+        "default": "'tcy'",
+        "description": "Class name(s) applied to the wrapping element. Pass an array for multiple classes."
+      },
+      {
+        "name": "skipTags",
+        "type": "string[]",
+        "default": "['code', 'pre', 'script', 'style']",
+        "description": "Tags whose subtrees are left untouched. Code/pre/script/style content is skipped by default."
+      }
     ]
   },
   "behavior": {
@@ -123,6 +150,7 @@
       "Runs are not joined across element boundaries — `<em>12</em>34` produces two separate spans.",
       "Full-width alphanumerics (`Ａ–Ｚ` / `０–９`) are left alone because they already render upright in vertical text.",
       "Both React and Vue adapters are SSR-safe: the DOM emitted on the server matches the client.",
+      "The rehype plugin is idempotent — running it twice on the same HAST gives the same output as running it once.",
       "Runs filtered out by `maxLength` or `excludeWords` are demoted back to plain text and merged into the surrounding text segment automatically."
     ]
   },
