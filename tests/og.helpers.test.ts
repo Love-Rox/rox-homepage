@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { extractParams, pickTitleFontSize } from "./og.helpers";
+import { extractParams, pickTitleFontSize } from "../src/pages/_api/api/og.helpers";
 
 describe("extractParams", () => {
   test("returns defaults when no input", () => {
