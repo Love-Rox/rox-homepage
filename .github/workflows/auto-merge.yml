@@ -14,12 +14,21 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      # Use a PAT (not GITHUB_TOKEN) so the merge commit is authored by the
-      # owner — this lets the resulting push trigger deploy.yml. --admin
-      # bypasses the required-review rule for owner PRs while still waiting
-      # on required status checks via --auto.
+      # Mint a token from a GitHub App installation so the merge commit is
+      # authored by the App (not GITHUB_TOKEN). The resulting push then
+      # triggers deploy.yml — GITHUB_TOKEN-authored pushes do not. App tokens
+      # auto-rotate hourly, so there is no PAT expiry to manage.
+      - id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      # `gh` CLI no longer accepts `--auto` and `--admin` together. Required
+      # reviews are bypassed via the repository ruleset's bypass list (the App
+      # is registered there), so `--admin` is unnecessary.
       - name: Enable auto-merge (squash)
         env:
-          GH_TOKEN: ${{ secrets.AUTO_MERGE_PAT }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge --auto --squash --admin "$PR_URL"
+        run: gh pr merge --auto --squash "$PR_URL"
