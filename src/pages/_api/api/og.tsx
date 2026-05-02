@@ -2,7 +2,7 @@ import { ImageResponse } from "workers-og";
 import { env } from "cloudflare:workers";
 import fontUrl from "../../../../public/assets/fonts/m-plus-rounded-1c-japanese-700-normal.woff?url";
 import logoUrl from "../../../../public/assets/logos/svg/rox-horizontal.svg?url";
-import { extractParams, pickTitleFontSize } from "./og.helpers";
+import { extractParams, pickTitleFontSize } from "@/lib/og-helpers";
 
 export const getConfig = async () => {
   return { render: "dynamic" };
