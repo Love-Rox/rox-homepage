@@ -42,7 +42,10 @@ export default async function DocsPage({ lang, slug }: PageProps<"/[lang]/docs/[
     );
   }
 
-  const ogUrl = `/api/og?title=${encodeURIComponent(content.metadata.title)}`;
+  const ogParams = new URLSearchParams({ title: content.metadata.title });
+  ogParams.set("eyebrow", `${structure.title} · ${locale.toUpperCase()}`);
+  if (content.metadata.author) ogParams.set("author", content.metadata.author);
+  const ogUrl = `/api/og?${ogParams.toString()}`;
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
