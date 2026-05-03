@@ -4,7 +4,6 @@ import { Stacks } from "@/components/home/stacks";
 import { AdditionalStacks } from "@/components/home/additional-stacks";
 import { Features } from "@/components/home/features";
 import { GettingStarted } from "@/components/home/getting-started";
-import { Roadmap } from "@/components/home/roadmap";
 import { Community } from "@/components/home/community";
 
 import hero_en from "@private/lang/components/home/en/hero.json";
@@ -21,9 +20,6 @@ import featuresData_ja from "@private/lang/components/home/ja/features.json";
 
 import gettingStartedData_en from "@private/lang/components/home/en/getting-started.json";
 import gettingStartedData_ja from "@private/lang/components/home/ja/getting-started.json";
-
-import roadmapData_en from "@private/lang/components/home/en/roadmap.json";
-import roadmapData_ja from "@private/lang/components/home/ja/roadmap.json";
 
 import communityData_en from "@private/lang/components/home/en/community.json";
 import communityData_ja from "@private/lang/components/home/ja/community.json";
@@ -56,11 +52,6 @@ const gettingStartedLangData = {
   ja: gettingStartedData_ja,
 };
 
-const roadmapLangData = {
-  en: roadmapData_en,
-  ja: roadmapData_ja,
-};
-
 const communityLangData = {
   en: communityData_en,
   ja: communityData_ja,
@@ -88,7 +79,6 @@ export default async function LangHomePage({ lang }: PageProps<"/[lang]">) {
       <AdditionalStacks {...additionalStacksLangData[locale]} />
       <Features {...featuresLangData[locale]} />
       <GettingStarted {...gettingStartedLangData[locale]} />
-      <Roadmap {...roadmapLangData[locale]} />
       <Community {...communityLangData[locale]} />
     </div>
   );

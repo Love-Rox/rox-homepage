@@ -81,8 +81,11 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
             </ul>
           </div>
 
-          {/* Packages — links to the separate tcy.love-rox.cc site */}
-          <div>
+          {/* Packages — links to the separate tcy.love-rox.cc site.
+              The lg:border-l + lg:pl-8 visually separates this column from
+              Quick Links so the external-site links don't blur into the
+              internal-site links above. */}
+          <div className="lg:border-l lg:border-slate-200/70 lg:dark:border-slate-700/70 lg:pl-8">
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">
               {content.sections.packages}
             </h3>
