@@ -26,7 +26,11 @@ export const Stacks = ({ title, tech }: StacksProps) => {
             <img
               src={stack.src}
               alt={stack.name}
-              className="h-16 w-16 object-contain mb-4 mx-auto"
+              className="h-24 w-24 sm:h-28 sm:w-28 object-contain mb-4 mx-auto"
+            />
+            <div
+              aria-hidden="true"
+              className="h-px w-12 bg-primary-500/40 dark:bg-primary-400/40 mx-auto mb-4"
             />
             <div>
               <p className="text-center text-slate-600 dark:text-slate-300">{stack.description}</p>

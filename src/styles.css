@@ -51,7 +51,9 @@
   --color-code-fg: var(--color-slate-100);
 }
 
-/* Infinite Scroll Animation */
+/* Infinite Scroll Animation. Used by AdditionalStacks marquee. The mask-image
+   on the parent container fades the edges so items don't pop at the boundary.
+   40s reads as a calmer pace than the original 30s — easier to read names. */
 @keyframes infinite-scroll {
   from {
     transform: translateX(0);
@@ -61,8 +63,9 @@
   }
 }
 
-.animate-infinite-scroll {
-  animation: infinite-scroll 30s linear infinite;
+.animate-infinite-scroll,
+.animate-marquee {
+  animation: infinite-scroll 40s linear infinite;
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
