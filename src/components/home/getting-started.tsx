@@ -1,3 +1,5 @@
+import { Card } from "@/components/common/card";
+
 interface Step {
   number: string;
   title: string;
@@ -43,21 +45,21 @@ export const GettingStarted = ({ title, subtitle, steps, note }: GettingStartedP
                 </div>
               )}
 
-              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-6 border border-slate-200 dark:border-slate-700 relative z-10">
+              <Card variant="default" className="p-6 relative z-10">
                 <div className="flex items-start gap-4">
-                  <div className="shrink-0 w-10 h-10 bg-primary-500 dark:bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
+                  <div className="shrink-0 w-10 h-10 bg-primary-600 dark:bg-primary-400 text-white dark:text-slate-800 rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                     {step.number}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-3">
                       {step.title}
                     </h3>
-                    <pre className="bg-slate-900 dark:bg-slate-950 text-slate-100 p-4 rounded-lg overflow-x-auto max-w-full border border-slate-700 dark:border-slate-800">
+                    <pre className="bg-code-bg text-code-fg p-4 rounded-lg overflow-x-auto max-w-full border border-slate-700 dark:border-slate-800">
                       <code className="text-sm font-mono">{step.code}</code>
                     </pre>
                   </div>
                 </div>
-              </div>
+              </Card>
             </div>
           ))}
         </div>

@@ -1,3 +1,5 @@
+import { Card } from "@/components/common/card";
+
 interface Feature {
   icon: string;
   title: string;
@@ -18,10 +20,7 @@ export const Features = ({ title, features }: FeaturesProps) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {features.map((feature, index) => (
-          <div
-            key={index}
-            className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-slate-200 dark:border-slate-700 group hover:border-primary-500 dark:hover:border-primary-400"
-          >
+          <Card key={index} variant="interactive" className="p-8">
             <div className="text-5xl mb-4 group-hover:scale-110 transition-transform inline-block">
               {feature.icon}
             </div>
@@ -31,7 +30,7 @@ export const Features = ({ title, features }: FeaturesProps) => {
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
               {feature.description}
             </p>
-          </div>
+          </Card>
         ))}
       </div>
     </div>

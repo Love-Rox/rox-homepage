@@ -1,3 +1,4 @@
+import { Button } from "@/components/common/button";
 import { VersionBadge } from "./version-badge";
 
 interface HeroProps {
@@ -48,15 +49,12 @@ export const Hero = ({
             <VersionBadge stableLabel={stableLabel} prereleaseLabel={prereleaseLabel} />
           </div>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <a
-              href={getStartedUrl}
-              className="rounded-md bg-primary-600 dark:bg-primary-400 px-3.5 py-2.5 text-sm font-semibold text-white dark:text-slate-800 shadow-xs hover:bg-primary-500 dark:hover:bg-primary-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-400"
-            >
+            <Button href={getStartedUrl} variant="primary" size="md">
               {getStarted}
-            </a>
-            <a href={learnMoreUrl} className="text-sm/6 font-semibold">
+            </Button>
+            <Button href={learnMoreUrl} variant="ghost" size="md">
               {learnMore} <span aria-hidden="true">→</span>
-            </a>
+            </Button>
           </div>
         </div>
       </div>

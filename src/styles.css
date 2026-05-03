@@ -22,6 +22,33 @@
   --color-primary-950: oklch(20% 0.04 40);
 
   --font-m-plus-rounded-1c: "M PLUS Rounded 1c", sans-serif;
+
+  /* —— semantic surface tokens ————————————————————————————————
+     Three opacities of "card surface" so sections can be ordered by visual
+     weight without each component picking its own ad-hoc rgba(white,0.5).
+     - card     opaque white card on the page (Features, Blog cards)
+     - elevated slightly raised opaque (called out blocks)
+     - muted    translucent over the cream page (Stacks containers, secondary)
+  */
+  --color-surface-card: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-surface-muted: rgba(255, 255, 255, 0.5);
+
+  /* —— code block ————————————————————————————————————————————
+     One ink token reused by Getting Started, prose <pre>, and any future
+     code surface. Was hardcoded as bg-slate-900 before. */
+  --color-code-bg: #0f172a;
+  --color-code-fg: #e2e8f0;
+}
+
+/* Dark-mode overrides for surface tokens. */
+.dark {
+  --color-surface-card: var(--color-slate-800);
+  --color-surface-elevated: var(--color-slate-700);
+  --color-surface-muted: rgba(15, 23, 42, 0.5);
+
+  --color-code-bg: #050a14;
+  --color-code-fg: var(--color-slate-100);
 }
 
 /* Infinite Scroll Animation */
