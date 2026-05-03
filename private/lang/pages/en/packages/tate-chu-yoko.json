@@ -8,7 +8,7 @@
     "ctaNpm": "View on npm",
     "ctaGithub": "GitHub",
     "badges": {
-      "version": "v0.2.2",
+      "version": "v0.3.0",
       "license": "MIT",
       "ssr": "SSR-safe"
     }
@@ -17,146 +17,71 @@
     "heading": "What it solves",
     "body": "Japanese vertical writing (`writing-mode: vertical-rl`) leaves half-width Latin letters and digits lying on their side. The fix — `text-combine-upright: all` — exists, but the developer still has to decide *which* runs to apply it to, usually by wrapping them in `<span class=\"tcy\">` by hand. That chore leaks into manuscripts, CMSes, and Markdown. tate-chu-yoko does the wrapping for you, so authors can keep writing plain text."
   },
-  "packages": {
-    "heading": "Four packages",
-    "description": "Install only the adapter you need. The core tokenizer is pulled in automatically as a dependency.",
-    "items": [
-      {
+  "family": {
+    "heading": "Five packages",
+    "description": "At the center is `@love-rox/tcy-core`, a framework-agnostic tokenizer. Pick whichever adapter (or adapters) suits your stack — `core` is pulled in automatically as a dependency.",
+    "coreLabel": "Core",
+    "adaptersLabel": "Adapters",
+    "items": {
+      "core": {
         "name": "@love-rox/tcy-core",
         "role": "Framework-agnostic tokenizer",
-        "description": "Scans a string and returns a structured token stream identifying the runs that should be uprighted. Use it directly in a custom pipeline or build-time transform."
+        "description": "The brain — decides which runs are tate-chu-yoko candidates. Used directly, it converts a string into a structured token stream. Every adapter wraps this core.",
+        "version": "v0.3.0"
       },
-      {
+      "react": {
         "name": "@love-rox/tcy-react",
         "role": "React component",
-        "description": "A `<Tcy>` component that walks children recursively and wraps eligible runs in `<span class=\"tcy\">`. Works with React 17+ and produces deterministic output on the server and the client."
+        "description": "A `<Tcy>` component for React 17+ that produces deterministic SSR-safe DOM.",
+        "tagline": "Wraps at runtime",
+        "version": "v0.3.0"
       },
-      {
+      "vue": {
         "name": "@love-rox/tcy-vue",
         "role": "Vue 3 component",
-        "description": "The same `<Tcy>` API for Vue 3 apps. Identical options and behavior as the React version."
+        "description": "The same `<Tcy>` API for Vue 3 — identical options and behavior.",
+        "tagline": "Wraps at runtime",
+        "version": "v0.3.0"
       },
-      {
+      "rehype": {
         "name": "@love-rox/tcy-rehype",
         "role": "rehype plugin",
-        "description": "Slots into a `unified` HAST pipeline, so you can apply tate-chu-yoko at the same time you turn Markdown into HTML. Ideal for Astro, eleventy, or any static-site generator that wants build-time wrapping with no React/Vue runtime on the client."
+        "description": "Slots into a `unified` HAST pipeline so the wrapping happens at build time. No client runtime required.",
+        "tagline": "Wraps at build time",
+        "version": "v0.3.0"
+      },
+      "astro": {
+        "name": "@love-rox/tcy-astro",
+        "role": "Astro integration + component",
+        "description": "Registers the rehype plugin on Astro 4+'s Markdown / MDX pipeline, and ships a `<Tcy>` component for `.astro` files.",
+        "tagline": "Astro-specific",
+        "version": "v0.3.0",
+        "isNew": true
       }
-    ]
-  },
-  "install": {
-    "heading": "Install",
-    "description": "Pick the adapter for your stack — React, Vue, or rehype for unified pipelines. `@love-rox/tcy-core` is installed automatically as a dependency."
-  },
-  "usage": {
-    "heading": "Usage",
-    "description": "Wrap the vertical content with `<Tcy>` inside an element that has `writing-mode: vertical-rl`. If you already have a Markdown / unified pipeline, the rehype plugin does the equivalent at build time.",
-    "reactLabel": "React",
-    "vueLabel": "Vue 3",
-    "rehypeLabel": "rehype (unified pipeline)",
-    "coreLabel": "Core (string tokenizer)",
-    "css": {
-      "heading": "Recommended CSS",
-      "description": "Apply the following to the generated `<span class=\"tcy\">` elements."
-    }
-  },
-  "options": {
-    "heading": "Options",
-    "description": "These options are shared by the React / Vue `<Tcy>` components and by `tokenize()`.",
-    "sharedLabel": "Shared options",
-    "componentLabel": "Component-only props",
-    "columns": {
-      "name": "Option",
-      "type": "Type",
-      "default": "Default",
-      "description": "Description"
     },
-    "shared": [
-      {
-        "name": "target",
-        "type": "'alphanumeric' | 'alpha' | 'digit' | 'ascii' | RegExp",
-        "default": "'alphanumeric'",
-        "description": "What counts as a tate-chu-yoko target. `alphanumeric` matches `[0-9A-Za-z]`; `ascii` covers printable ASCII. A custom RegExp is accepted."
-      },
-      {
-        "name": "combine",
-        "type": "boolean",
-        "default": "true",
-        "description": "Merge consecutive target characters into a single span. Set to `false` to wrap each character individually."
-      },
-      {
-        "name": "include",
-        "type": "string | string[]",
-        "default": "undefined",
-        "description": "Extra characters to treat as targets regardless of `target`."
-      },
-      {
-        "name": "exclude",
-        "type": "string | string[]",
-        "default": "undefined",
-        "description": "Characters to exclude. Takes precedence over `include`."
-      },
-      {
-        "name": "maxLength",
-        "type": "number",
-        "default": "undefined",
-        "description": "Maximum length for a tcy segment. Runs longer than this are demoted back to plain text — for example `maxLength: 2` keeps single digits and pairs uprighted while leaving four-digit years like `2026` lying on their side. Added in v0.2.0."
-      },
-      {
-        "name": "excludeWords",
-        "type": "string[]",
-        "default": "undefined",
-        "description": "Exact words to exclude from tcy wrapping. Matched against the whole segment value (not a substring), useful for keeping acronyms like `URL` / `API` or specific years out of the upright treatment. Added in v0.2.0."
-      }
-    ],
-    "component": [
-      {
-        "name": "className",
-        "type": "string",
-        "default": "'tcy'",
-        "description": "Class applied to each generated span."
-      },
-      {
-        "name": "as",
-        "type": "keyof JSX.IntrinsicElements",
-        "default": "'span'",
-        "description": "Tag name used for wrapping."
-      }
-    ],
-    "rehypeLabel": "rehype plugin-only options",
-    "rehype": [
-      {
-        "name": "tagName",
-        "type": "string",
-        "default": "'span'",
-        "description": "Tag name used for wrapping."
-      },
-      {
-        "name": "className",
-        "type": "string | string[]",
-        "default": "'tcy'",
-        "description": "Class name(s) applied to the wrapping element. Pass an array for multiple classes."
-      },
-      {
-        "name": "skipTags",
-        "type": "string[]",
-        "default": "['code', 'pre', 'script', 'style']",
-        "description": "Tags whose subtrees are left untouched. Code/pre/script/style content is skipped by default."
-      }
-    ]
+    "viewLabel": "Open the page"
+  },
+  "shared": {
+    "heading": "One CSS rule everywhere",
+    "description": "No matter which adapter you choose, the generated `<span class=\"tcy\">` elements need the same CSS. Including `-webkit-text-combine` keeps Safari happy."
   },
   "behavior": {
-    "heading": "Behavior notes",
+    "heading": "What's true across the board",
     "items": [
       "Runs are not joined across element boundaries — `<em>12</em>34` produces two separate spans.",
       "Full-width alphanumerics (`Ａ–Ｚ` / `０–９`) are left alone because they already render upright in vertical text.",
-      "Both React and Vue adapters are SSR-safe: the DOM emitted on the server matches the client.",
-      "The rehype plugin is idempotent — running it twice on the same HAST gives the same output as running it once.",
+      "React, Vue, and the Astro `<Tcy>` are SSR-safe: server and client emit the same DOM.",
+      "The rehype plugin (and the Astro integration that wraps it) is idempotent — running it twice on the same HAST gives the same output as running it once.",
       "Runs filtered out by `maxLength` or `excludeWords` are demoted back to plain text and merged into the surrounding text segment automatically."
     ]
   },
   "browser": {
     "heading": "Browser support",
     "body": "`writing-mode: vertical-rl` and `text-combine-upright: all` are supported in all modern browsers. For Safari it's still worth including `-webkit-text-combine: horizontal` alongside the standard property."
+  },
+  "versioning": {
+    "heading": "Shared version line",
+    "body": "All five packages release on the same shared version line, anchored to `@love-rox/tcy-core`. Whenever any one of them changes, the others move to the same number — so you never have to wonder whether `react@0.2.5` is compatible with `core@0.3.0`."
   },
   "license": {
     "heading": "License",
