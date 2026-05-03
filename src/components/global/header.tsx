@@ -63,15 +63,19 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
 
         {/* Desktop navigation */}
         <div className="hidden lg:flex lg:gap-x-8">
-          {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-            >
-              {item.name}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const external = item.href.startsWith("http");
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                className="text-sm font-semibold text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >
+                {item.name}
+              </a>
+            );
+          })}
         </div>
 
         {/* Desktop language switcher and dark mode toggle */}
@@ -123,16 +127,20 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-500/20">
                 <div className="space-y-2 py-6">
-                  {navItems.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </a>
-                  ))}
+                  {navItems.map((item) => {
+                    const external = item.href.startsWith("http");
+                    return (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.name}
+                      </a>
+                    );
+                  })}
                 </div>
                 <div className="py-6">
                   <div className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100">
