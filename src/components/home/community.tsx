@@ -16,6 +16,13 @@ interface CommunityProps {
   links: CommunityLink[];
 }
 
+// Community uses react-aria <Link> for keyboard / press-state behavior, so it
+// renders the Card visuals inline rather than wrapping with the <Card>
+// component (which renders a plain <div>). Keep the class chain identical to
+// the Card "interactive" variant so the visual stays unified.
+const cardCls =
+  "block bg-surface-card dark:bg-slate-800 p-6 rounded-xl shadow-lg hover:shadow-xl hover:border-primary-500 dark:hover:border-primary-400 border border-slate-200 dark:border-slate-700 transition-shadow transition-colors group";
+
 export const Community = ({ title, subtitle, links }: CommunityProps) => {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-slate-50 dark:bg-slate-900/50">
@@ -33,7 +40,7 @@ export const Community = ({ title, subtitle, links }: CommunityProps) => {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-all border border-slate-200 dark:border-slate-700 group hover:border-primary-500 dark:hover:border-primary-400"
+            className={cardCls}
           >
             <div className="flex items-start gap-4">
               <div className="text-4xl group-hover:scale-110 transition-transform">{link.icon}</div>
