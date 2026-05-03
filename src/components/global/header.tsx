@@ -21,7 +21,7 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
     <header className="absolute inset-x-0 top-0 z-50">
       <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href={`/${lang}`} className="-m-1.5 p-1.5">
+          <a href={`/${lang}`} className="-m-1.5 p-1.5 relative inline-block group">
             <span className="sr-only">Rox</span>
             <img
               alt="Rox Logo"
@@ -33,6 +33,15 @@ export const Header = ({ lang, navItems = [] }: HeaderProps) => {
               src="/images/rox-horizontal-white.svg"
               className="hidden h-10 w-auto dark:block"
             />
+            {/* Tiny ❤️ pixel that breathes in once every ~6s and lights up
+                immediately on logo hover. Sits just above the wordmark's
+                rightmost glyph. Decorative — hidden from screen readers. */}
+            <span
+              aria-hidden="true"
+              className="absolute -top-0.5 -right-2 text-[11px] leading-none text-primary-500 dark:text-primary-400 select-none rox-heart-pulse group-hover:!opacity-100 group-hover:!scale-110"
+            >
+              ♥
+            </span>
           </a>
         </div>
 

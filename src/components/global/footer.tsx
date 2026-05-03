@@ -191,6 +191,12 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
               </a>
             </p>
           </div>
+          {/* Engineer-facing colophon: a small ASCII signature that the
+              technical reader will smile at. Kept in mono and dimmed so it
+              reads as a comment, not as content. */}
+          <p className="mt-4 text-right text-[11px] font-mono text-slate-400 dark:text-slate-500 tracking-wide select-none">
+            <span aria-hidden="true">{`// built with ❤️ on cloudflare workers`}</span>
+          </p>
         </div>
       </div>
     </footer>

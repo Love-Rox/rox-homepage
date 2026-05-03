@@ -75,6 +75,41 @@
   animation-play-state: paused;
 }
 
+/* Header ❤️ pulse — breathes in once every 6s, otherwise transparent.
+   The Header sets group-hover overrides via Tailwind so the heart also
+   lights up on logo hover regardless of timing. Disabled under
+   prefers-reduced-motion so it doesn't strobe for sensitive users. */
+@keyframes rox-heart-pulse {
+  0%,
+  85%,
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  10%,
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.rox-heart-pulse {
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: center;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  animation: rox-heart-pulse 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rox-heart-pulse {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
 /* Code block responsiveness */
 .prose pre {
   overflow-x: auto;
