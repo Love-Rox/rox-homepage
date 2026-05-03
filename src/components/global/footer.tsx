@@ -81,7 +81,7 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
             </ul>
           </div>
 
-          {/* Packages */}
+          {/* Packages — links to the separate tcy.love-rox.cc site */}
           <div>
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">
               {content.sections.packages}
@@ -89,7 +89,9 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href={`/${locale}/packages/tate-chu-yoko`}
+                  href={locale === "ja" ? "https://tcy.love-rox.cc/" : "https://tcy.love-rox.cc/en"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
                   {content.links.tateChuYoko}
@@ -97,7 +99,13 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
               </li>
               <li>
                 <a
-                  href={`/${locale}/packages/tate-chu-yoko/demo`}
+                  href={
+                    locale === "ja"
+                      ? "https://tcy.love-rox.cc/demo"
+                      : "https://tcy.love-rox.cc/en/demo"
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                 >
                   {content.links.tateChuYokoDemo}

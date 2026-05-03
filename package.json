@@ -17,7 +17,6 @@
   "dependencies": {
     "@fontsource/m-plus-rounded-1c": "^5.2.10",
     "@fontsource/noto-sans-jp": "^5.2.9",
-    "@love-rox/tcy-react": "^0.2.0",
     "@marsidev/react-turnstile": "^1.5.1",
     "@tailwindcss/typography": "^0.5.19",
     "gray-matter": "^4.0.3",
