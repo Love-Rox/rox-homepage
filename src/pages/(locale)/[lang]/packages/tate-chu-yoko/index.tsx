@@ -4,84 +4,42 @@ import { Meta } from "@/components/global/meta";
 import { Breadcrumbs, generateBreadcrumbItems } from "@/components/common/breadcrumbs";
 import { BreadcrumbSchema } from "@/components/seo/structured-data";
 import { Tcy } from "@love-rox/tcy-react";
+import {
+  ADAPTERS,
+  Badge,
+  InlineMd,
+  NewBadge,
+  Prose,
+  RECOMMENDED_CSS,
+  Section,
+  SnippetBlock,
+  type Locale,
+} from "@/components/packages/tate-chu-yoko/shared";
 import tcyLangJa from "@private/lang/pages/ja/packages/tate-chu-yoko.json";
 import tcyLangEn from "@private/lang/pages/en/packages/tate-chu-yoko.json";
 
 const langData = { en: tcyLangEn, ja: tcyLangJa };
 
-const NPM_URL = "https://www.npmjs.com/package/@love-rox/tcy-react";
+const NPM_URL = "https://www.npmjs.com/package/@love-rox/tcy-core";
 const GITHUB_URL = "https://github.com/Love-Rox/tate-chu-yoko";
-
-const installCommands = [
-  { manager: "bun", command: "bun add @love-rox/tcy-react" },
-  { manager: "pnpm", command: "pnpm add @love-rox/tcy-react" },
-  { manager: "npm", command: "npm i @love-rox/tcy-react" },
-  { manager: "yarn", command: "yarn add @love-rox/tcy-react" },
-];
-
-const reactSnippet = `import { Tcy } from "@love-rox/tcy-react";
-
-export function Chapter() {
-  return (
-    <p style={{ writingMode: "vertical-rl" }}>
-      <Tcy>第1章 2026年4月、Webの縦書きは進化した。</Tcy>
-    </p>
-  );
-}`;
-
-const vueSnippet = `<script setup lang="ts">
-import { Tcy } from "@love-rox/tcy-vue";
-</script>
-
-<template>
-  <p style="writing-mode: vertical-rl">
-    <Tcy>第1章 2026年4月、Webの縦書きは進化した。</Tcy>
-  </p>
-</template>`;
-
-const rehypeSnippet = `import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import rehypeTcy from "@love-rox/tcy-rehype";
-
-const html = String(
-  await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypeTcy)
-    .use(rehypeStringify)
-    .process("第1章 2026年4月"),
-);
-// <p>第<span class="tcy">1</span>章 <span class="tcy">2026</span>年<span class="tcy">4</span>月</p>`;
-
-const coreSnippet = `import { tokenize } from "@love-rox/tcy-core";
-
-tokenize("第1章 2026年4月");
-// [
-//   { type: "text", value: "第" },
-//   { type: "tcy",  value: "1" },
-//   { type: "text", value: "章 " },
-//   { type: "tcy",  value: "2026" },
-//   { type: "text", value: "年" },
-//   { type: "tcy",  value: "4" },
-//   { type: "text", value: "月" },
-// ]`;
-
-const cssSnippet = `.tcy {
-  -webkit-text-combine: horizontal;
-  text-combine-upright: all;
-}`;
 
 const PREVIEW_SAMPLE = "第1章 2026年4月、Webの縦書きは進化した。";
 
 export default async function TateChuYokoPackagePage({
   lang,
 }: PageProps<"/[lang]/packages/tate-chu-yoko">) {
-  const locale = (lang as keyof typeof langData) || "en";
+  const locale = (lang as Locale) || "en";
   const content = langData[locale];
   const url = `/${locale}/packages/tate-chu-yoko`;
   const demoUrl = `/${locale}/packages/tate-chu-yoko/demo`;
+
+  const items = content.family.items;
+  const coreItem = items.core;
+  const adapterItems = [items.react, items.vue, items.rehype, items.astro];
+  const adapterMap = ADAPTERS.reduce<Record<string, (typeof ADAPTERS)[number]>>(
+    (acc, a) => ({ ...acc, [a.key]: a }),
+    {},
+  );
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
@@ -142,7 +100,7 @@ export default async function TateChuYokoPackagePage({
           </div>
         </section>
 
-        {/* Static preview (actually uses <Tcy> to render SSR output) */}
+        {/* Static preview (uses <Tcy> to render SSR output) */}
         <section className="mb-16">
           <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-8">
             <style>{`
@@ -171,87 +129,83 @@ export default async function TateChuYokoPackagePage({
           <Prose>{content.problem.body}</Prose>
         </Section>
 
-        {/* Three packages */}
-        <Section heading={content.packages.heading}>
-          <Prose>{content.packages.description}</Prose>
-          <div className="grid md:grid-cols-3 gap-4 mt-6">
-            {content.packages.items.map((pkg) => (
-              <div
-                key={pkg.name}
-                className="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5"
-              >
-                <p className="font-mono text-sm text-primary-700 dark:text-primary-300 mb-1 break-all">
-                  {pkg.name}
-                </p>
-                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
-                  {pkg.role}
-                </p>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                  <InlineMd text={pkg.description} />
-                </p>
-              </div>
-            ))}
-          </div>
-        </Section>
+        {/* Family */}
+        <Section heading={content.family.heading}>
+          <Prose>{content.family.description}</Prose>
 
-        {/* Install */}
-        <Section heading={content.install.heading}>
-          <Prose>{content.install.description}</Prose>
-          <div className="grid sm:grid-cols-2 gap-3 mt-4">
-            {installCommands.map(({ manager, command }) => (
-              <div
-                key={manager}
-                className="rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 p-4"
-              >
-                <p className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
-                  {manager}
-                </p>
-                <code className="font-mono text-sm text-slate-900 dark:text-slate-100 break-all">
-                  {command}
-                </code>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        {/* Usage */}
-        <Section heading={content.usage.heading}>
-          <Prose>{content.usage.description}</Prose>
-
-          <SnippetBlock label={content.usage.reactLabel} code={reactSnippet} language="tsx" />
-          <SnippetBlock label={content.usage.vueLabel} code={vueSnippet} language="vue" />
-          <SnippetBlock label={content.usage.rehypeLabel} code={rehypeSnippet} language="ts" />
-          <SnippetBlock label={content.usage.coreLabel} code={coreSnippet} language="ts" />
-
+          {/* Core: highlighted, full-width */}
           <div className="mt-8">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-              {content.usage.css.heading}
-            </h3>
-            <p className="text-slate-600 dark:text-slate-300 mb-3">
-              <InlineMd text={content.usage.css.description} />
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+              {content.family.coreLabel}
             </p>
-            <SnippetBlock label="CSS" code={cssSnippet} language="css" />
+            <Link
+              to={adapterMap.core.href(locale) as `/${string}`}
+              className="block rounded-xl border-2 border-primary-200 dark:border-primary-800 bg-gradient-to-br from-primary-50 to-white dark:from-primary-950 dark:to-slate-900 p-6 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+            >
+              <div className="flex items-baseline gap-3 mb-2 flex-wrap">
+                <p className="font-mono text-base text-primary-700 dark:text-primary-300 break-all">
+                  {coreItem.name}
+                </p>
+                <Badge>{coreItem.version}</Badge>
+              </div>
+              <p className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-2">
+                {coreItem.role}
+              </p>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <InlineMd text={coreItem.description} />
+              </p>
+            </Link>
+          </div>
+
+          {/* Adapters: 2x2 grid */}
+          <div className="mt-8">
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+              {content.family.adaptersLabel}
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {adapterItems.map((pkg) => {
+                const meta = adapterMap[asAdapterKey(pkg.name)];
+                return (
+                  <Link
+                    key={pkg.name}
+                    to={meta.href(locale) as `/${string}`}
+                    className="group block rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 hover:border-primary-400 dark:hover:border-primary-500 hover:shadow-sm transition-all"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-2 flex-wrap">
+                      <p className="font-mono text-sm text-primary-700 dark:text-primary-300 break-all">
+                        {pkg.name}
+                      </p>
+                      {pkg.isNew ? <NewBadge /> : null}
+                    </div>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
+                      {pkg.role}
+                    </p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
+                      <InlineMd text={pkg.description} />
+                    </p>
+                    <div className="flex items-center justify-between text-xs">
+                      {pkg.tagline ? (
+                        <span className="text-slate-500 dark:text-slate-400 italic">
+                          {pkg.tagline}
+                        </span>
+                      ) : (
+                        <span />
+                      )}
+                      <span className="text-primary-600 dark:text-primary-400 font-semibold group-hover:translate-x-0.5 transition-transform">
+                        {content.family.viewLabel} →
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </Section>
 
-        {/* Options */}
-        <Section heading={content.options.heading}>
-          <Prose>{content.options.description}</Prose>
-
-          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-6 mb-3">
-            {content.options.sharedLabel}
-          </h3>
-          <OptionsTable columns={content.options.columns} rows={content.options.shared} />
-
-          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">
-            {content.options.componentLabel}
-          </h3>
-          <OptionsTable columns={content.options.columns} rows={content.options.component} />
-
-          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-8 mb-3">
-            {content.options.rehypeLabel}
-          </h3>
-          <OptionsTable columns={content.options.columns} rows={content.options.rehype} />
+        {/* Shared CSS */}
+        <Section heading={content.shared.heading}>
+          <Prose>{content.shared.description}</Prose>
+          <SnippetBlock label="CSS" code={RECOMMENDED_CSS} language="css" />
         </Section>
 
         {/* Behavior */}
@@ -265,9 +219,14 @@ export default async function TateChuYokoPackagePage({
           </ul>
         </Section>
 
-        {/* Browser support */}
+        {/* Browser */}
         <Section heading={content.browser.heading}>
           <Prose>{content.browser.body}</Prose>
+        </Section>
+
+        {/* Versioning */}
+        <Section heading={content.versioning.heading}>
+          <Prose>{content.versioning.body}</Prose>
         </Section>
 
         {/* License */}
@@ -295,122 +254,11 @@ export default async function TateChuYokoPackagePage({
   );
 }
 
-function Section({ heading, children }: { heading: string; children: React.ReactNode }) {
-  return (
-    <section className="mb-12">
-      <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">{heading}</h2>
-      {children}
-    </section>
-  );
-}
-
-function Prose({ children }: { children: string }) {
-  return (
-    <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
-      <InlineMd text={children} />
-    </p>
-  );
-}
-
-function InlineMd({ text }: { text: string }) {
-  const parts = text.split(/(`[^`]+`)/g);
-  return (
-    <>
-      {parts.map((part, i) =>
-        part.startsWith("`") && part.endsWith("`") && part.length >= 2 ? (
-          <code
-            key={i}
-            className="font-mono text-[0.9em] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-primary-700 dark:text-primary-300"
-          >
-            {part.slice(1, -1)}
-          </code>
-        ) : (
-          <span key={i}>{part}</span>
-        ),
-      )}
-    </>
-  );
-}
-
-function Badge({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-mono bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
-      {children}
-    </span>
-  );
-}
-
-function SnippetBlock({
-  label,
-  code,
-  language,
-}: {
-  label: string;
-  code: string;
-  language: string;
-}) {
-  return (
-    <div className="mt-4 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-        <span className="text-xs font-semibold text-slate-700 dark:text-slate-200">{label}</span>
-        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{language}</span>
-      </div>
-      <pre className="bg-slate-950 text-slate-100 text-sm leading-relaxed p-4 overflow-x-auto m-0">
-        <code>{code}</code>
-      </pre>
-    </div>
-  );
-}
-
-interface OptionRow {
-  name: string;
-  type: string;
-  default: string;
-  description: string;
-}
-
-function OptionsTable({
-  columns,
-  rows,
-}: {
-  columns: { name: string; type: string; default: string; description: string };
-  rows: OptionRow[];
-}) {
-  return (
-    <div className="overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-700">
-      <table className="w-full text-sm">
-        <thead className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
-          <tr>
-            <th className="text-left font-semibold px-4 py-3">{columns.name}</th>
-            <th className="text-left font-semibold px-4 py-3">{columns.type}</th>
-            <th className="text-left font-semibold px-4 py-3">{columns.default}</th>
-            <th className="text-left font-semibold px-4 py-3">{columns.description}</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white dark:bg-slate-900">
-          {rows.map((row) => (
-            <tr
-              key={row.name}
-              className="border-t border-slate-200 dark:border-slate-700 align-top"
-            >
-              <td className="px-4 py-3 font-mono text-slate-900 dark:text-slate-100 whitespace-nowrap">
-                {row.name}
-              </td>
-              <td className="px-4 py-3 font-mono text-xs text-slate-700 dark:text-slate-300">
-                {row.type}
-              </td>
-              <td className="px-4 py-3 font-mono text-xs text-slate-700 dark:text-slate-300 whitespace-nowrap">
-                {row.default}
-              </td>
-              <td className="px-4 py-3 text-slate-700 dark:text-slate-300 leading-relaxed">
-                <InlineMd text={row.description} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+function asAdapterKey(name: string): "react" | "vue" | "rehype" | "astro" {
+  if (name.endsWith("-react")) return "react";
+  if (name.endsWith("-vue")) return "vue";
+  if (name.endsWith("-rehype")) return "rehype";
+  return "astro";
 }
 
 export const getConfig = async () => {
