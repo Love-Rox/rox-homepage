@@ -17,7 +17,7 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
   return (
     <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Branding */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
@@ -164,14 +164,6 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Project Info */}
-          <div>
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">
-              {content.sections.project}
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{content.madeWith}</p>
           </div>
         </div>
 
