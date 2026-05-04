@@ -11,3 +11,9 @@ public/sitemap.xml
 .wrangler
 worker-configuration.d.ts
 .dev.vars
+
+# Claude Code working state — local-only worktrees and per-project notes,
+# not part of the project's source. Keep them out of commits so they don't
+# get accidentally staged via `git add -A` / `git add .`.
+.claude/
+CLAUDE.md
