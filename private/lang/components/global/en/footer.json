@@ -6,8 +6,7 @@
   "sections": {
     "quickLinks": "Quick Links",
     "packages": "Packages",
-    "community": "Community",
-    "project": "Project"
+    "community": "Community"
   },
   "links": {
     "docs": "Documentation",
@@ -19,7 +18,5 @@
     "tateChuYoko": "tate-chu-yoko",
     "tateChuYokoDemo": "tate-chu-yoko demo"
   },
-  "copyright": "© 2025 Rox Developers. All rights reserved.",
-  "madeWith": "Built with ❤️ for 🇯🇵 by the Rox Developers",
-  "builtWith": "Built with Waku"
+  "copyright": "© 2025 Rox Developers. All rights reserved."
 }
