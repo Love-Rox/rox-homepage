@@ -175,28 +175,27 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar — copyright on the left, single mono colophon on the
+            right. The colophon names both the framework and the runtime so
+            we don't repeat "built with ..." twice in the footer. Waku stays
+            as a link; Cloudflare Workers is plain text since the audience
+            knows what it is. */}
         <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-slate-600 dark:text-slate-400">{content.copyright}</p>
-            <p className="text-sm text-slate-600 dark:text-slate-400">
-              {content.builtWith}{" "}
+            <p className="text-[11px] font-mono text-slate-400 dark:text-slate-500 tracking-wide">
+              <span aria-hidden="true">{"// built with ❤️ on "}</span>
               <a
                 href="https://waku.gg"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-600 dark:text-primary-400 hover:underline"
               >
-                Waku
+                waku
               </a>
+              <span aria-hidden="true">{" · cloudflare workers"}</span>
             </p>
           </div>
-          {/* Engineer-facing colophon: a small ASCII signature that the
-              technical reader will smile at. Kept in mono and dimmed so it
-              reads as a comment, not as content. */}
-          <p className="mt-4 text-right text-[11px] font-mono text-slate-400 dark:text-slate-500 tracking-wide select-none">
-            <span aria-hidden="true">{`// built with ❤️ on cloudflare workers`}</span>
-          </p>
         </div>
       </div>
     </footer>
