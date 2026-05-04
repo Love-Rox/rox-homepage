@@ -6,7 +6,8 @@
   "sections": {
     "quickLinks": "クイックリンク",
     "packages": "パッケージ",
-    "community": "コミュニティ"
+    "community": "コミュニティ",
+    "project": "プロジェクト"
   },
   "links": {
     "docs": "ドキュメント",
@@ -18,5 +19,6 @@
     "tateChuYoko": "tate-chu-yoko",
     "tateChuYokoDemo": "tate-chu-yoko デモ"
   },
-  "copyright": "© 2025 Rox Developers. All rights reserved."
+  "copyright": "© 2025 Rox Developers. All rights reserved.",
+  "madeWith": "Built with ❤️ for 🇯🇵 by the Rox Developers"
 }

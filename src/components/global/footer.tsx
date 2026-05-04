@@ -17,7 +17,7 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
   return (
     <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Branding */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
@@ -165,6 +165,14 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
               </li>
             </ul>
           </div>
+
+          {/* Project Info */}
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-wider mb-4">
+              {content.sections.project}
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">{content.madeWith}</p>
+          </div>
         </div>
 
         {/* Bottom Bar — copyright on the left, single mono colophon on the
@@ -188,12 +196,6 @@ export const Footer = ({ lang = "en" }: FooterProps) => {
               <span aria-hidden="true">{" · cloudflare workers"}</span>
             </p>
           </div>
-          {/* Engineer-facing colophon: a small ASCII signature that the
-              technical reader will smile at. Kept in mono and dimmed so it
-              reads as a comment, not as content. */}
-          <p className="mt-4 text-right text-[11px] font-mono text-slate-400 dark:text-slate-500 tracking-wide select-none">
-            <span aria-hidden="true">{`// built with ❤️ on cloudflare workers`}</span>
-          </p>
         </div>
       </div>
     </footer>
