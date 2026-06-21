@@ -85,8 +85,8 @@ TypeDoc は TypeScript の**コンパイラ API をライブラリとして**読
   "private": true,
   "devDependencies": {
     "typedoc": "^0.28.19",
-    "typescript": "6.0.3"
-  }
+    "typescript": "6.0.3",
+  },
 }
 ```
 
@@ -97,8 +97,8 @@ TypeDoc は TypeScript の**コンパイラ API をライブラリとして**読
 {
   "scripts": {
     "typedoc:install": "cd tools/apidocs && bun install",
-    "typedoc": "tools/apidocs/node_modules/.bin/typedoc"
-  }
+    "typedoc": "tools/apidocs/node_modules/.bin/typedoc",
+  },
 }
 ```
 
@@ -111,13 +111,13 @@ TypeDoc は TypeScript の**コンパイラ API をライブラリとして**読
 
 すべて TypeScript 7 (ネイティブ tsc) で確認しています。
 
-| 項目                         | 結果              |
-| ---------------------------- | ----------------- |
-| typecheck (backend/frontend) | ✅ エラーなし     |
+| 項目                         | 結果                 |
+| ---------------------------- | -------------------- |
+| typecheck (backend/frontend) | ✅ エラーなし        |
 | ユニットテスト               | ✅ 1012 件すべて通過 |
-| Lint                         | ✅ エラーなし     |
-| ビルド                       | ✅ 成功           |
-| TypeDoc (TS6 隔離)           | ✅ エラーなし     |
+| Lint                         | ✅ エラーなし        |
+| ビルド                       | ✅ 成功              |
+| TypeDoc (TS6 隔離)           | ✅ エラーなし        |
 
 ## 移行する場合の注意
 

@@ -85,8 +85,8 @@ So we isolated TypeDoc into a **standalone install pinned to TypeScript 6**, wit
   "private": true,
   "devDependencies": {
     "typedoc": "^0.28.19",
-    "typescript": "6.0.3"
-  }
+    "typescript": "6.0.3",
+  },
 }
 ```
 
@@ -97,8 +97,8 @@ It carries its own `node_modules` separate from the workspace, and the root `typ
 {
   "scripts": {
     "typedoc:install": "cd tools/apidocs && bun install",
-    "typedoc": "tools/apidocs/node_modules/.bin/typedoc"
-  }
+    "typedoc": "tools/apidocs/node_modules/.bin/typedoc",
+  },
 }
 ```
 
@@ -111,13 +111,13 @@ The trick is to keep the working directory at the repo root (so the relative pat
 
 Everything below was checked on TypeScript 7 (the native tsc):
 
-| Check                        | Result               |
-| ---------------------------- | -------------------- |
-| typecheck (backend/frontend) | ✅ no errors          |
-| unit tests                   | ✅ all 1012 passing   |
-| lint                         | ✅ no errors          |
-| build                        | ✅ success            |
-| TypeDoc (isolated on TS6)    | ✅ no errors          |
+| Check                        | Result              |
+| ---------------------------- | ------------------- |
+| typecheck (backend/frontend) | ✅ no errors        |
+| unit tests                   | ✅ all 1012 passing |
+| lint                         | ✅ no errors        |
+| build                        | ✅ success          |
+| TypeDoc (isolated on TS6)    | ✅ no errors        |
 
 ## If you're migrating too
 
