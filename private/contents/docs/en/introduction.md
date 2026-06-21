@@ -105,20 +105,20 @@ rox/
 
 ### Backend
 
-- **Runtime**: Bun 1.1.45+
-- **Language**: TypeScript 5.x
-- **Framework**: Hono 4.10.6
-- **ORM**: Drizzle ORM 0.36.4
+- **Runtime**: Bun 1.x
+- **Language**: TypeScript 7.x (native compiler)
+- **Framework**: Hono 4.x
+- **ORM**: Drizzle ORM 0.45.x
 - **Queue**: Dragonfly / BullMQ
-- **Code Quality**: oxc
+- **Code Quality**: oxc (vite-plus / `vp`)
 
 ### Frontend
 
-- **Framework**: Waku 0.27.1
-- **State Management**: Jotai 2.15.1
-- **UI Components**: React Aria Components 1.6.3
-- **Styling**: Tailwind CSS v4 4.1.17
-- **Internationalization**: Lingui 5.6.0
+- **Framework**: Waku 1.0.0-beta
+- **State Management**: Jotai 2.x
+- **UI Components**: React Aria Components 1.x
+- **Styling**: Tailwind CSS v4
+- **Internationalization**: Lingui 6.x
 - **Authentication**: Passkey + Password
 
 ## Use Cases
