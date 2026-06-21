@@ -106,20 +106,20 @@ rox/
 
 ### バックエンド
 
-- **ランタイム**: Bun 1.1.45+
-- **言語**: TypeScript 5.x
-- **フレームワーク**: Hono 4.10.6
-- **ORM**: Drizzle ORM 0.36.4
+- **ランタイム**: Bun 1.x
+- **言語**: TypeScript 7.x（ネイティブコンパイラ）
+- **フレームワーク**: Hono 4.x
+- **ORM**: Drizzle ORM 0.45.x
 - **キュー**: Dragonfly / BullMQ
-- **コード品質**: oxc
+- **コード品質**: oxc（vite-plus / `vp`）
 
 ### フロントエンド
 
-- **フレームワーク**: Waku 0.27.1
-- **状態管理**: Jotai 2.15.1
-- **UIコンポーネント**: React Aria Components 1.6.3
-- **スタイリング**: Tailwind CSS v4 4.1.17
-- **国際化**: Lingui 5.6.0
+- **フレームワーク**: Waku 1.0.0-beta
+- **状態管理**: Jotai 2.x
+- **UIコンポーネント**: React Aria Components 1.x
+- **スタイリング**: Tailwind CSS v4
+- **国際化**: Lingui 6.x
 - **認証**: パスキー + パスワード
 
 ## ユースケース

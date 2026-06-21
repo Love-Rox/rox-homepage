@@ -1,10 +1,10 @@
 {
   "title": "Rox - The Lightweight ActivityPub Server/Client",
-  "aboveLink": "Rox v2026.4.1 has been released!",
+  "aboveLink": "Migrated to TypeScript 7 (RC)!",
   "link": "Read more",
-  "linkUrl": "/en/blog/rox-v2026-4-1",
+  "linkUrl": "/en/blog/typescript-7-migration",
   "heading": "The Love Rocks. Rox.",
-  "description": "Rox is a lightweight, high-performance ActivityPub server and client built in Rust. It is fully compatible with Misskey clients and services, ensuring an optimized decentralized experience.",
+  "description": "Rox is a lightweight, high-performance ActivityPub server and client built with Bun and TypeScript. It is fully compatible with Misskey clients and services, ensuring an optimized decentralized experience.",
   "getStarted": "Get started",
   "getStartedUrl": "/en/docs",
   "learnMore": "Learn more",
