@@ -6,7 +6,12 @@ import { rewriteToTcy } from "@/lib/tcy-redirects";
 // the Cloudflare runtime invokes) plus build internals (INTERNAL_runBuild for SSG).
 // Wrap `defaultExport.fetch` in place so the redirect layer fires before the Waku
 // handler, while leaving the rest of the structure intact.
-const inner = adapter(fsRouter(import.meta.glob("./**/*.{tsx,ts}", { base: "./pages" })), {
+// waku 1.0.0-beta.0 removed fsRouter's `base` option (wakujs/waku#2068). The
+// pages directory now has to live inside the glob pattern itself; `pagesDir`
+// defaults to "pages" and must match the pattern's first segment. Passing the
+// old `{ base: "./pages" }` form silently registers no routes at all, so every
+// path except "/" 404s.
+const inner = adapter(fsRouter(import.meta.glob("./pages/**/*.{tsx,ts}")), {
   handlers: {} satisfies ExportedHandler<Env>,
 }) as { defaultExport: ExportedHandler<Env>; [k: string]: unknown };
 

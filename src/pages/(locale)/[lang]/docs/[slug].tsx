@@ -25,17 +25,19 @@ export default async function DocsPage({ lang, slug }: PageProps<"/[lang]/docs/[
 
   if (!content) {
     return (
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      // pt-32 clears the fixed header — this fallback was missing the top
+      // padding the success branch had, so it rendered under the nav.
+      <div className="mx-auto max-w-7xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <Meta
           title="Not Found - Rox"
           description="The requested documentation page could not be found."
           url={`/${locale}/docs/${slug}`}
           lang={locale}
         />
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+        <h1 className="hallmark-display text-ink text-[length:var(--text-display-s)]">
           Page Not Found
         </h1>
-        <p className="text-slate-600 dark:text-slate-300">
+        <p className="text-ink-2 mt-4 max-w-[52ch] text-lg leading-relaxed">
           The requested documentation page could not be found.
         </p>
       </div>
@@ -48,7 +50,7 @@ export default async function DocsPage({ lang, slug }: PageProps<"/[lang]/docs/[
   const ogUrl = `/api/og?${ogParams.toString()}`;
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+    <div className="mx-auto max-w-7xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
       <Meta
         title={`${content.metadata.title} - ${structure.title} - Rox`}
         description={content.metadata.description || ""}
@@ -83,11 +85,14 @@ export default async function DocsPage({ lang, slug }: PageProps<"/[lang]/docs/[
         lang={locale}
       />
 
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="mt-6 flex flex-col gap-10 lg:flex-row">
         <DocsSidebar categories={structure.categories} currentSlug={slug} lang={locale} />
 
-        <article className="flex-1 prose prose-slate dark:prose-invert max-w-none min-w-0">
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500 dark:text-slate-400 mb-4">
+        {/* Long Document family (design.md). `prose-slate` dropped — the
+            prose palette is bound to the design tokens in styles.css, so the
+            article body no longer renders in cool greys on warm paper. */}
+        <article className="prose dark:prose-invert min-w-0 max-w-none flex-1">
+          <div className="text-ink-2 border-rule mb-8 flex flex-wrap gap-x-4 gap-y-1 border-b pb-4 text-sm">
             {content.metadata.date && (
               <time dateTime={content.metadata.date}>
                 {new Date(content.metadata.date).toLocaleDateString(locale, {

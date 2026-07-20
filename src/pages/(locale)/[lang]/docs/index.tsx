@@ -17,7 +17,10 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
   const content = docsLangData[locale];
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+    // Hallmark 13 Index-First (design.md § Macrostructure family). Was a
+    // 2-column grid of shadowed cards per category; now hairline-ruled rows,
+    // which is also the shape a docs hub actually wants — scannable titles.
+    <div className="mx-auto max-w-5xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
       <Meta
         title={`${content.title} - Rox`}
         description={content.subtitle}
@@ -29,39 +32,46 @@ export default async function DocsIndexPage({ lang }: PageProps<"/[lang]/docs">)
         items={generateBreadcrumbItems([{ label: content.title, href: `/${locale}/docs` }], locale)}
       />
 
-      <div className="max-w-4xl mx-auto">
-        <Breadcrumbs items={[{ label: content.title }]} lang={locale} />
+      <Breadcrumbs items={[{ label: content.title }]} lang={locale} />
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-slate-100 mb-4 break-words">
+      <header className="border-rule mt-6 border-b pb-10">
+        <h1 className="hallmark-display text-ink text-[length:var(--text-display-s)]">
           {content.title}
         </h1>
-        <p className="text-xl text-slate-600 dark:text-slate-300 mb-12">{content.subtitle}</p>
+        <p className="text-ink-2 mt-4 max-w-[52ch] text-lg leading-relaxed">{content.subtitle}</p>
+      </header>
 
-        <div className="space-y-12">
-          {content.categories.map((category) => (
-            <div key={category.category}>
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-                {category.category}
-              </h2>
-              <p className="text-slate-600 dark:text-slate-300 mb-6">{category.description}</p>
+      <div className="flex flex-col gap-16 pt-12">
+        {content.categories.map((category) => (
+          <section key={category.category}>
+            <h2 className="hallmark-display text-ink text-xl">{category.category}</h2>
+            <p className="text-ink-2 mt-2 max-w-[62ch] leading-relaxed">{category.description}</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {category.items.map((item) => (
+            <ul className="divide-rule border-rule mt-6 divide-y border-t">
+              {category.items.map((item) => (
+                <li key={item.slug}>
                   <Link
-                    key={item.slug}
                     to={`/${lang}/docs/${item.slug}` as `/${string}`}
-                    className="block bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-all border border-slate-200 dark:border-slate-700 group hover:border-primary-500 dark:hover:border-primary-400"
+                    className="group hover:bg-paper-3 -mx-4 block rounded-[var(--radius-card)] px-4 py-5 transition-colors"
                   >
-                    <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                    <h3 className="text-ink group-hover:text-accent font-display font-bold transition-colors">
                       {item.title}
+                      <span
+                        aria-hidden="true"
+                        className="ml-2 inline-block transition-transform group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-300">{item.description}</p>
+                    <p className="text-ink-2 mt-1 max-w-[68ch] text-sm leading-relaxed">
+                      {item.description}
+                    </p>
                   </Link>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
       </div>
     </div>
   );

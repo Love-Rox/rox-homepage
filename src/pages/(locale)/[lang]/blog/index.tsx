@@ -63,7 +63,10 @@ export default async function BlogIndexPage({ lang }: PageProps<"/[lang]/blog">)
   );
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+    // Hallmark 13 Index-First (design.md § Macrostructure family): the page is
+    // the list. Was a 3-column grid of shadowed cards; entries are now
+    // hairline-ruled rows so the reader scans titles rather than boxes.
+    <div className="mx-auto max-w-5xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
       <Meta
         title={`${indexData.title} - Rox`}
         description={indexData.description}
@@ -80,35 +83,47 @@ export default async function BlogIndexPage({ lang }: PageProps<"/[lang]/blog">)
 
       <Breadcrumbs items={[{ label: indexData.title }]} lang={locale} />
 
-      <header className="mb-12">
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+      <header className="border-rule mt-6 border-b pb-10">
+        <h1 className="hallmark-display text-ink text-[length:var(--text-display-s)]">
           {indexData.title}
         </h1>
-        <p className="text-xl text-slate-600 dark:text-slate-300">{indexData.description}</p>
+        <p className="text-ink-2 mt-4 max-w-[52ch] text-lg leading-relaxed">
+          {indexData.description}
+        </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <ul className="divide-rule divide-y">
         {sortedPosts.map((post) => (
-          <Link
-            key={post.slug}
-            to={`/${locale}/blog/${post.slug}` as `/${string}`}
-            className="block bg-white dark:bg-slate-800 p-6 rounded-xl shadow-md hover:shadow-xl transition-all border border-slate-200 dark:border-slate-700 group hover:border-primary-500 dark:hover:border-primary-400"
-          >
-            <time className="text-sm text-slate-500 dark:text-slate-400">
-              {new Date(post.date).toLocaleDateString(locale, {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </time>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-2 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-              {post.title}
-            </h2>
-            <p className="text-slate-600 dark:text-slate-300 mb-4">{post.excerpt}</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">By {post.author}</p>
-          </Link>
+          <li key={post.slug}>
+            <Link
+              to={`/${locale}/blog/${post.slug}` as `/${string}`}
+              className="group hover:bg-paper-3 -mx-4 block rounded-[var(--radius-card)] px-4 py-8 transition-colors"
+            >
+              <div className="text-ink-2 flex flex-wrap items-baseline gap-x-3 text-sm">
+                <time dateTime={post.date}>
+                  {new Date(post.date).toLocaleDateString(locale, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+                <span aria-hidden="true" className="bg-rule h-3 w-px" />
+                <span>{post.author}</span>
+              </div>
+              <h2 className="hallmark-display text-ink group-hover:text-accent mt-2 text-2xl transition-colors">
+                {post.title}
+                <span
+                  aria-hidden="true"
+                  className="ml-2 inline-block transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </h2>
+              <p className="text-ink-2 mt-2 max-w-[68ch] leading-relaxed">{post.excerpt}</p>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import "@/styles.css";
 import type { ReactNode } from "react";
 import { Footer } from "@/components/global/footer";
 import { Header } from "@/components/global/header";
-import { unstable_getContext } from "waku/server";
+import { unstable_getRequest } from "waku/router/server";
 import {
   WebSiteSchema,
   OrganizationSchema,
@@ -27,14 +27,24 @@ export default async function RootLayout(props: LayoutProps) {
   const { children } = props;
   const data = await getData();
 
-  // Extract language from URL using context
-  const context = unstable_getContext();
-  const req = context?.req as { url?: string } | undefined;
-  const url = req?.url || "";
-  const urlParts = url.split("/");
-  const langFromUrl = urlParts.find((part: string) => part === "en" || part === "ja");
-  const currentLang = (langFromUrl || props.params?.lang || "en") as keyof typeof navData;
+  // Resolve the active locale.
+  //
+  // The route param is the primary source: fsRouter derives it from the
+  // [lang] segment, so it is always present and needs no request scope.
+  //
+  // The URL sniff is a fallback only. waku 1.0.0-beta.2 replaced the
+  // context-storage API with handler interceptors (wakujs/waku#2118) —
+  // `unstable_getContext()` from "waku/server" became
+  // `unstable_getRequest()` from "waku/router/server" — but *both* throw
+  // rather than returning undefined when called outside a request-scoped
+  // render, which is the case for this layout under `waku dev`. Hence the
+  // guard: an unguarded call 500s every locale route locally.
+  const currentLang = (props.params?.lang ||
+    sniffLangFromRequest() ||
+    "en") as keyof typeof navData;
   const navItems = navData[currentLang]?.items || navData.en.items;
+  // The site's single primary action — see design.md § CTA voice.
+  const navCta = navData[currentLang]?.cta || navData.en.cta;
 
   return (
     <html lang={currentLang}>
@@ -48,8 +58,11 @@ export default async function RootLayout(props: LayoutProps) {
         <SoftwareApplicationSchema />
       </head>
       <body>
-        <div className="font-m-plus-rounded-1c bg-primary-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 min-h-screen flex flex-col">
-          <Header lang={currentLang} navItems={navItems} />
+        {/* font-body (Noto Sans JP) is the inherited default; display type
+            opts up to font-display (M PLUS Rounded 1c) per element. The paper
+            and ink tokens already flip under .dark, so no dark: variants. */}
+        <div className="font-body bg-paper text-ink min-h-screen flex flex-col">
+          <Header lang={currentLang} navItems={navItems} cta={navCta} />
           <main className="*:min-h-64 lg:min-h-svh flex-1">{children}</main>
           <Footer lang={currentLang} />
         </div>
@@ -58,10 +71,21 @@ export default async function RootLayout(props: LayoutProps) {
   );
 }
 
+/** Locale from the request URL, or undefined when no request scope exists. */
+const sniffLangFromRequest = (): "en" | "ja" | undefined => {
+  try {
+    return unstable_getRequest()
+      .url.split("/")
+      .find((part) => part === "en" || part === "ja") as "en" | "ja" | undefined;
+  } catch {
+    return undefined;
+  }
+};
+
 const getData = async () => {
   const data = {
     description:
-      "Rox Homepage. A lightweight, high-performance ActivityPub server and client built in Rust.",
+      "Rox Homepage. A lightweight, high-performance ActivityPub server and client built with Bun and TypeScript.",
     icon: "/images/favicon.png",
   };
 

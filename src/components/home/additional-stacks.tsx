@@ -14,65 +14,53 @@ interface AdditionalStacksProps {
   tech: StackItem[];
 }
 
+/**
+ * Full-bleed marquee band — the one section that deliberately breaks the
+ * Split Studio diptych rhythm, sitting between rows 2 and 3 as a palate
+ * cleanser. Preserved from the pre-redesign site; this is genuine craft.
+ *
+ * Retheme only: the tiles lost their filled backgrounds and shadows in favour
+ * of a T2 logo-wall register, so the band reads as a quiet strip rather than
+ * a fourth grid of cards. The edge mask and the duplicated set (which is what
+ * makes the loop seamless) are unchanged.
+ *
+ * `prefers-reduced-motion` stops the animation — handled in styles.css.
+ */
 export const AdditionalStacks = ({ title, tech }: AdditionalStacksProps) => {
+  const tile = (stack: StackItem, key: string, hidden?: boolean) => (
+    <a
+      key={key}
+      href={stack.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={stack.description}
+      {...(hidden && { "aria-hidden": "true", tabIndex: -1 })}
+      className="group mx-6 flex min-w-[120px] shrink-0 flex-col items-center justify-center gap-3 opacity-70 transition-opacity hover:opacity-100"
+    >
+      <img src={stack.src} alt="" aria-hidden="true" className="h-12 w-12 object-contain" />
+      <span className="text-ink-2 group-hover:text-ink text-xs font-medium whitespace-nowrap transition-colors">
+        {stack.name}
+      </span>
+    </a>
+  );
+
   const sliderItems = useMemo(
     () => (
       <>
-        {/* First set of items */}
-        {tech.map((stack, index) => (
-          <a
-            key={`${stack.name}-${index}`}
-            href={stack.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center bg-slate-950/15 dark:bg-slate-200/15 p-8 rounded-lg shadow-sm hover:shadow-md hover:bg-slate-950/20 dark:hover:bg-slate-200/20 transition-all group shrink-0 mx-4 min-w-[140px]"
-            title={stack.description}
-          >
-            <img
-              src={stack.src}
-              alt={stack.name}
-              className="h-16 w-16 object-contain mb-3 group-hover:scale-110 transition-transform"
-            />
-            <div className="text-sm font-semibold text-slate-800 dark:text-slate-100 text-center whitespace-nowrap">
-              {stack.name}
-            </div>
-          </a>
-        ))}
-        {/* Duplicate set for seamless loop */}
-        {tech.map((stack, index) => (
-          <a
-            key={`${stack.name}-duplicate-${index}`}
-            href={stack.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center bg-slate-950/15 dark:bg-slate-200/15 p-8 rounded-lg shadow-sm hover:shadow-md hover:bg-slate-950/20 dark:hover:bg-slate-200/20 transition-all group shrink-0 mx-4 min-w-[140px]"
-            title={stack.description}
-            aria-hidden="true"
-          >
-            <img
-              src={stack.src}
-              alt={stack.name}
-              className="h-16 w-16 object-contain mb-3 group-hover:scale-110 transition-transform"
-            />
-            <div className="text-sm font-semibold text-slate-800 dark:text-slate-100 text-center whitespace-nowrap">
-              {stack.name}
-            </div>
-          </a>
-        ))}
+        {tech.map((stack, i) => tile(stack, `${stack.name}-${i}`))}
+        {/* Duplicate set — this is what makes the -50% translate loop seamless. */}
+        {tech.map((stack, i) => tile(stack, `${stack.name}-dup-${i}`, true))}
       </>
     ),
     [tech],
   );
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 bg-surface-muted py-12 rounded-lg mt-8 overflow-hidden">
-      <h2 className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 mb-8 text-center">
+    <section className="border-rule border-y py-14">
+      <h2 className="text-ink-2 mb-8 px-4 text-center text-sm font-medium sm:px-6 lg:px-8">
         {title}
       </h2>
 
-      {/* Infinite Slider Container with edge fade.
-          The mask-image clips the marquee on both edges so items fade in/out
-          instead of popping at the container border. */}
       <div
         className="relative overflow-x-hidden"
         style={{
@@ -82,8 +70,8 @@ export const AdditionalStacks = ({ title, tech }: AdditionalStacksProps) => {
             "linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%)",
         }}
       >
-        <div className="flex w-max animate-marquee hover:pause-animation">{sliderItems}</div>
+        <div className="animate-marquee hover:pause-animation flex w-max">{sliderItems}</div>
       </div>
-    </div>
+    </section>
   );
 };

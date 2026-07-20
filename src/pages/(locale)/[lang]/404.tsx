@@ -1,5 +1,5 @@
 import { Meta } from "@/components/global/meta";
-import { Link } from "waku";
+import { Button } from "@/components/common/button";
 import type { PageProps } from "waku/router";
 
 const notFoundData = {
@@ -26,7 +26,10 @@ export default async function NotFoundPage({ lang }: PageProps<"/[lang]/404">) {
   const data = notFoundData[locale];
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24 min-h-[60vh] flex flex-col items-center justify-center text-center">
+    // Utility page — inherits the system, no macrostructure family
+    // (design.md § Macrostructure family). Centring is right here: there is
+    // no content to establish a reading axis against.
+    <div className="hallmark-dotgrid flex min-h-[60vh] flex-col items-center justify-center px-4 pt-32 pb-24 text-center sm:px-6 lg:px-8">
       <Meta
         title={`${data.title} - Rox`}
         description={data.description}
@@ -34,27 +37,23 @@ export default async function NotFoundPage({ lang }: PageProps<"/[lang]/404">) {
         lang={locale}
       />
 
-      <h1 className="text-9xl font-bold text-primary-500 mb-4">{data.heading}</h1>
+      <p aria-hidden="true" className="hallmark-display text-accent text-[clamp(4rem,18vw,9rem)]">
+        {data.heading}
+      </p>
 
-      <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
-        {data.message}
-      </h2>
+      <h1 className="hallmark-display text-ink mt-2 text-2xl md:text-3xl">{data.message}</h1>
 
-      <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-md">{data.description}</p>
+      <p className="text-ink-2 mt-4 max-w-[46ch] text-lg leading-relaxed">{data.description}</p>
 
-      <div className="flex flex-col sm:flex-row gap-4">
-        <Link
-          to={`/${locale}` as `/${string}`}
-          className="inline-flex items-center justify-center px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors"
-        >
+      {/* Was two hand-rolled Tailwind chains; now the shared Button, so the
+          CTA voice matches every other action on the site. */}
+      <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+        <Button href={`/${locale}`} variant="primary" size="lg">
           {data.homeLink}
-        </Link>
-        <Link
-          to={`/${locale}/blog` as `/${string}`}
-          className="inline-flex items-center justify-center px-6 py-3 border border-primary-500 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-medium rounded-lg transition-colors"
-        >
+        </Button>
+        <Button href={`/${locale}/blog`} variant="secondary" size="lg">
           {data.blogLink}
-        </Link>
+        </Button>
       </div>
     </div>
   );

@@ -1,26 +1,12 @@
 // deno-fmt-ignore-file
 // biome-ignore format: generated types do not need formatting
 // prettier-ignore
-import type { PathsForPages, GetConfigResponse } from 'waku/router';
+import type { PathsForPages, GetConfigResponse, SearchCodecsForPages } from 'waku/router';
 
-// prettier-ignore
-import type { getConfig as File_BaseAbout_getConfig } from './pages/(base)/about';
 // prettier-ignore
 import type { getConfig as File_BaseBlogSlug_getConfig } from './pages/(base)/blog/[slug]';
 // prettier-ignore
 import type { getConfig as File_BaseDocsSlug_getConfig } from './pages/(base)/docs/[slug]';
-// prettier-ignore
-import type { getConfig as File_BasePackagesTateChuYokoAstro_getConfig } from './pages/(base)/packages/tate-chu-yoko/astro';
-// prettier-ignore
-import type { getConfig as File_BasePackagesTateChuYokoDemo_getConfig } from './pages/(base)/packages/tate-chu-yoko/demo';
-// prettier-ignore
-import type { getConfig as File_BasePackagesTateChuYokoIndex_getConfig } from './pages/(base)/packages/tate-chu-yoko/index';
-// prettier-ignore
-import type { getConfig as File_BasePackagesTateChuYokoReact_getConfig } from './pages/(base)/packages/tate-chu-yoko/react';
-// prettier-ignore
-import type { getConfig as File_BasePackagesTateChuYokoRehype_getConfig } from './pages/(base)/packages/tate-chu-yoko/rehype';
-// prettier-ignore
-import type { getConfig as File_BasePackagesTateChuYokoVue_getConfig } from './pages/(base)/packages/tate-chu-yoko/vue';
 // prettier-ignore
 import type { getConfig as File_LocaleLang404_getConfig } from './pages/(locale)/[lang]/404';
 // prettier-ignore
@@ -38,18 +24,6 @@ import type { getConfig as File_LocaleLangDocsIndex_getConfig } from './pages/(l
 // prettier-ignore
 import type { getConfig as File_LocaleLangIndex_getConfig } from './pages/(locale)/[lang]/index';
 // prettier-ignore
-import type { getConfig as File_LocaleLangPackagesTateChuYokoAstro_getConfig } from './pages/(locale)/[lang]/packages/tate-chu-yoko/astro';
-// prettier-ignore
-import type { getConfig as File_LocaleLangPackagesTateChuYokoDemo_getConfig } from './pages/(locale)/[lang]/packages/tate-chu-yoko/demo';
-// prettier-ignore
-import type { getConfig as File_LocaleLangPackagesTateChuYokoIndex_getConfig } from './pages/(locale)/[lang]/packages/tate-chu-yoko/index';
-// prettier-ignore
-import type { getConfig as File_LocaleLangPackagesTateChuYokoReact_getConfig } from './pages/(locale)/[lang]/packages/tate-chu-yoko/react';
-// prettier-ignore
-import type { getConfig as File_LocaleLangPackagesTateChuYokoRehype_getConfig } from './pages/(locale)/[lang]/packages/tate-chu-yoko/rehype';
-// prettier-ignore
-import type { getConfig as File_LocaleLangPackagesTateChuYokoVue_getConfig } from './pages/(locale)/[lang]/packages/tate-chu-yoko/vue';
-// prettier-ignore
 import type { getConfig as File_ApiApiOg_getConfig } from './pages/_api/api/og';
 // prettier-ignore
 import type { getConfig as File_ApiApiReleases_getConfig } from './pages/_api/api/releases';
@@ -58,7 +32,6 @@ import type { getConfig as File_ApiApiSubmit_getConfig } from './pages/_api/api/
 
 // prettier-ignore
 type Page =
-| ({ path: '/about' } & GetConfigResponse<typeof File_BaseAbout_getConfig>)
 | { path: '/assets'; render: 'static' }
 | ({ path: '/blog/[slug]' } & GetConfigResponse<typeof File_BaseBlogSlug_getConfig>)
 | { path: '/blog'; render: 'static' }
@@ -66,12 +39,6 @@ type Page =
 | ({ path: '/docs/[slug]' } & GetConfigResponse<typeof File_BaseDocsSlug_getConfig>)
 | { path: '/docs'; render: 'static' }
 | { path: '/'; render: 'static' }
-| ({ path: '/packages/tate-chu-yoko/astro' } & GetConfigResponse<typeof File_BasePackagesTateChuYokoAstro_getConfig>)
-| ({ path: '/packages/tate-chu-yoko/demo' } & GetConfigResponse<typeof File_BasePackagesTateChuYokoDemo_getConfig>)
-| ({ path: '/packages/tate-chu-yoko' } & GetConfigResponse<typeof File_BasePackagesTateChuYokoIndex_getConfig>)
-| ({ path: '/packages/tate-chu-yoko/react' } & GetConfigResponse<typeof File_BasePackagesTateChuYokoReact_getConfig>)
-| ({ path: '/packages/tate-chu-yoko/rehype' } & GetConfigResponse<typeof File_BasePackagesTateChuYokoRehype_getConfig>)
-| ({ path: '/packages/tate-chu-yoko/vue' } & GetConfigResponse<typeof File_BasePackagesTateChuYokoVue_getConfig>)
 | ({ path: '/[lang]/404' } & GetConfigResponse<typeof File_LocaleLang404_getConfig>)
 | ({ path: '/[lang]/assets' } & GetConfigResponse<typeof File_LocaleLangAssets_getConfig>)
 | ({ path: '/[lang]/blog/[slug]' } & GetConfigResponse<typeof File_LocaleLangBlogSlug_getConfig>)
@@ -80,15 +47,14 @@ type Page =
 | ({ path: '/[lang]/docs/[slug]' } & GetConfigResponse<typeof File_LocaleLangDocsSlug_getConfig>)
 | ({ path: '/[lang]/docs' } & GetConfigResponse<typeof File_LocaleLangDocsIndex_getConfig>)
 | ({ path: '/[lang]' } & GetConfigResponse<typeof File_LocaleLangIndex_getConfig>)
-| ({ path: '/[lang]/packages/tate-chu-yoko/astro' } & GetConfigResponse<typeof File_LocaleLangPackagesTateChuYokoAstro_getConfig>)
-| ({ path: '/[lang]/packages/tate-chu-yoko/demo' } & GetConfigResponse<typeof File_LocaleLangPackagesTateChuYokoDemo_getConfig>)
-| ({ path: '/[lang]/packages/tate-chu-yoko' } & GetConfigResponse<typeof File_LocaleLangPackagesTateChuYokoIndex_getConfig>)
-| ({ path: '/[lang]/packages/tate-chu-yoko/react' } & GetConfigResponse<typeof File_LocaleLangPackagesTateChuYokoReact_getConfig>)
-| ({ path: '/[lang]/packages/tate-chu-yoko/rehype' } & GetConfigResponse<typeof File_LocaleLangPackagesTateChuYokoRehype_getConfig>)
-| ({ path: '/[lang]/packages/tate-chu-yoko/vue' } & GetConfigResponse<typeof File_LocaleLangPackagesTateChuYokoVue_getConfig>)
 | ({ path: '/_api/api/og' } & GetConfigResponse<typeof File_ApiApiOg_getConfig>)
 | ({ path: '/_api/api/releases' } & GetConfigResponse<typeof File_ApiApiReleases_getConfig>)
 | ({ path: '/_api/api/submit' } & GetConfigResponse<typeof File_ApiApiSubmit_getConfig>);
+
+// prettier-ignore
+type Layout =
+| { path: '/' }
+| { path: '/[lang]' };
 
 // prettier-ignore
 declare module 'waku/router' {
@@ -97,5 +63,7 @@ declare module 'waku/router' {
   }
   interface CreatePagesConfig {
     pages: Page;
+    layouts: Layout;
   }
+  interface SearchCodecsConfig extends SearchCodecsForPages<Page> {}
 }
