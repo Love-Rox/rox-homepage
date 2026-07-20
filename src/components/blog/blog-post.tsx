@@ -19,26 +19,32 @@ export const BlogPost = ({
   backLabel,
 }: BlogPostProps) => {
   return (
-    <article className="max-w-3xl mx-auto">
+    // Long Document family (design.md). Measure stays at max-w-3xl — this is
+    // reading matter, and the 45–75 character rule governs it.
+    <article className="mx-auto max-w-3xl">
       <Link
         to={`/${lang}/blog` as `/${string}`}
-        className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:underline mb-8"
+        className="text-ink-2 hover:text-accent mb-8 inline-flex min-h-11 items-center gap-2 text-sm whitespace-nowrap transition-colors"
       >
+        <span aria-hidden="true">←</span>
         {backLabel}
       </Link>
 
-      <header className="mb-8">
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-slate-500 dark:text-slate-400">
+      <header className="border-rule mb-10 border-b pb-6">
+        <div className="text-ink-2 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm">
           <time dateTime={date}>{date}</time>
+          <span aria-hidden="true" className="bg-rule h-3 w-px" />
+          <span>{author}</span>
           {updatedDate && (
-            <span className="flex items-center gap-1">
-              <span>•</span>
-              <span>Updated:</span>
-              <time dateTime={updatedDate}>{updatedDate}</time>
-            </span>
+            <>
+              <span aria-hidden="true" className="bg-rule h-3 w-px" />
+              <span className="flex items-baseline gap-1">
+                <span>Updated:</span>
+                <time dateTime={updatedDate}>{updatedDate}</time>
+              </span>
+            </>
           )}
         </div>
-        <p className="text-slate-600 dark:text-slate-300 mt-2">By {author}</p>
       </header>
 
       <MermaidRenderer content={content} />

@@ -29,7 +29,7 @@ export default async function BlogPostPage({ lang, slug }: PageProps<"/[lang]/bl
 
   if (!content) {
     return (
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+      <div className="mx-auto max-w-7xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
         <Meta
           title="Not Found - Rox"
           description="The requested blog post could not be found."
@@ -52,7 +52,7 @@ export default async function BlogPostPage({ lang, slug }: PageProps<"/[lang]/bl
   const ogUrl = `/api/og?${ogParams.toString()}`;
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 pt-24">
+    <div className="mx-auto max-w-7xl px-4 pt-32 pb-24 sm:px-6 lg:px-8">
       <Meta
         title={`${content.metadata.title} - ${indexData.title} - Rox`}
         description={content.metadata.excerpt || content.metadata.description}

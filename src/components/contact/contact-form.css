@@ -11,25 +11,10 @@
 }
 
 .contact-form {
-  background: var(--color-white);
-  border-radius: 1rem;
+  background: var(--color-paper-2);
+  border-radius: var(--radius-card);
   padding: 2rem;
-  box-shadow:
-    0 4px 6px -1px oklch(from var(--color-black) l c h / 0.1),
-    0 2px 4px -1px oklch(from var(--color-black) l c h / 0.06);
-  border: 1px solid var(--color-slate-200);
-  transition: all 0.3s ease;
-}
-
-.contact-form:hover {
-  box-shadow:
-    0 10px 15px -3px oklch(from var(--color-black) l c h / 0.1),
-    0 4px 6px -2px oklch(from var(--color-black) l c h / 0.05);
-}
-
-.dark .contact-form {
-  background: var(--color-slate-800);
-  border-color: var(--color-slate-700);
+  border: 1px solid var(--color-rule);
 }
 
 .form-group {
@@ -40,46 +25,34 @@
   display: block;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--color-slate-700);
+  color: var(--color-ink);
   font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
-}
-
-.dark .form-label {
-  color: var(--color-slate-200);
 }
 
 .form-input,
 .form-textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 2px solid var(--color-slate-200);
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-input);
   font-size: 1rem;
-  transition: all 0.2s ease;
-  background: var(--color-white);
-  color: var(--color-slate-900);
+  transition:
+    border-color 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
 }
 
+/* Focus ring uses the design-system focus token, matching every other
+   focusable element on the site. Shows instantly; the transition above
+   covers colour only, never the ring's appearance timing on keyboard focus
+   (the box-shadow grows but is present from frame one). */
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--color-indigo-500);
-  box-shadow: 0 0 0 3px oklch(from var(--color-indigo-500) l c h / 0.1);
-}
-
-.dark .form-input,
-.dark .form-textarea {
-  background: var(--color-slate-900);
-  border-color: var(--color-slate-700);
-  color: var(--color-slate-200);
-}
-
-.dark .form-input:focus,
-.dark .form-textarea:focus {
-  border-color: var(--color-indigo-400);
-  box-shadow: 0 0 0 3px oklch(from var(--color-indigo-400) l c h / 0.1);
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px oklch(from var(--color-focus) l c h / 0.25);
 }
 
 .form-textarea {
@@ -88,7 +61,7 @@
 }
 
 .form-error {
-  color: var(--color-red-500);
+  color: var(--color-red-600);
   font-size: 0.875rem;
   margin-top: 0.25rem;
   display: block;
@@ -100,7 +73,7 @@
 
 .form-input.error,
 .form-textarea.error {
-  border-color: var(--color-red-500);
+  border-color: var(--color-red-600);
 }
 
 .dark .form-input.error,
@@ -114,41 +87,49 @@
   justify-content: center;
 }
 
+/* The primary CTA voice (design.md § CTA voice): one accent fill, pill
+   radius. Was an indigo→violet gradient — off-brand and a banned gradient
+   in the playful genre. */
 .submit-button {
   width: 100%;
   padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, var(--color-indigo-500) 0%, var(--color-violet-500) 100%);
-  color: var(--color-white);
-  font-weight: 600;
+  min-height: 2.75rem;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-weight: 700;
   font-size: 1rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: 0 4px 6px -1px oklch(from var(--color-indigo-500) l c h / 0.3);
+  transition:
+    background-color 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
+  font-family: var(--font-display);
 }
 
 .submit-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px oklch(from var(--color-indigo-500) l c h / 0.4);
+  background: oklch(from var(--color-accent) l c h / 0.9);
 }
 
 .submit-button:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translateY(1px);
+}
+
+.submit-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .submit-button:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .alert {
   padding: 1rem 1.25rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-input);
   margin-bottom: 1.5rem;
-  animation: slideIn 0.3s ease;
+  animation: slideIn 0.3s var(--ease-out);
 }
 
 @keyframes slideIn {
@@ -159,6 +140,13 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alert {
+    animation-duration: 0.15s;
+    animation-name: none;
   }
 }
 
