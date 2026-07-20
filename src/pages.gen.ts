@@ -4,8 +4,6 @@
 import type { PathsForPages, GetConfigResponse, SearchCodecsForPages } from 'waku/router';
 
 // prettier-ignore
-import type { getConfig as File_BaseAbout_getConfig } from './pages/(base)/about';
-// prettier-ignore
 import type { getConfig as File_BaseBlogSlug_getConfig } from './pages/(base)/blog/[slug]';
 // prettier-ignore
 import type { getConfig as File_BaseDocsSlug_getConfig } from './pages/(base)/docs/[slug]';
@@ -34,7 +32,6 @@ import type { getConfig as File_ApiApiSubmit_getConfig } from './pages/_api/api/
 
 // prettier-ignore
 type Page =
-| ({ path: '/about' } & GetConfigResponse<typeof File_BaseAbout_getConfig>)
 | { path: '/assets'; render: 'static' }
 | ({ path: '/blog/[slug]' } & GetConfigResponse<typeof File_BaseBlogSlug_getConfig>)
 | { path: '/blog'; render: 'static' }

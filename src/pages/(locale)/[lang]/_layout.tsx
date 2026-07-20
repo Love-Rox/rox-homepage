@@ -85,7 +85,7 @@ const sniffLangFromRequest = (): "en" | "ja" | undefined => {
 const getData = async () => {
   const data = {
     description:
-      "Rox Homepage. A lightweight, high-performance ActivityPub server and client built in Rust.",
+      "Rox Homepage. A lightweight, high-performance ActivityPub server and client built with Bun and TypeScript.",
     icon: "/images/favicon.png",
   };
 

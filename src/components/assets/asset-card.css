@@ -1,29 +1,25 @@
 /* Asset card styles
  *
- * Colors come from Tailwind v4 theme tokens (var(--color-*)).
- * The active/download buttons use the project primary palette.
+ * Colours reference the design-system semantic tokens (design.md) so the card
+ * shares the site's palette and CTA voice. The one deliberate exception is the
+ * preview surface (.asset-card-preview-light / -dark): those show how the logo
+ * reads on a true white and a true near-black ground, so they must stay
+ * neutral slate rather than the warm paper tokens — that's the feature.
  */
 
 .asset-card {
-  background: var(--color-white);
-  border-radius: 12px;
-  border: 1px solid var(--color-slate-200);
+  background: var(--color-paper-2);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-rule);
   padding: 1.5rem;
-  transition: all 0.3s ease;
+  transition:
+    border-color 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out);
 }
 
 .asset-card:hover {
-  border-color: var(--color-slate-300);
-  box-shadow: 0 4px 12px oklch(from var(--color-black) l c h / 0.1);
-}
-
-.dark .asset-card {
-  background: var(--color-slate-800);
-  border-color: var(--color-slate-700);
-}
-
-.dark .asset-card:hover {
-  border-color: var(--color-slate-600);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 24px -10px oklch(from var(--color-accent) l c h / 0.35);
 }
 
 .asset-card-header {
@@ -31,14 +27,11 @@
 }
 
 .asset-card-title {
+  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-slate-900);
+  font-weight: 700;
+  color: var(--color-ink);
   margin: 0;
-}
-
-.dark .asset-card-title {
-  color: var(--color-slate-100);
 }
 
 .asset-card-preview-container {
@@ -46,16 +39,17 @@
 }
 
 .asset-card-preview {
-  border-radius: 8px;
+  border-radius: var(--radius-input);
   padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 150px;
   margin-bottom: 0.75rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s var(--ease-out);
 }
 
+/* Neutral by design — this is the white-vs-black legibility check. */
 .asset-card-preview-light {
   background: var(--color-slate-50);
   border: 1px solid var(--color-slate-200);
@@ -80,51 +74,39 @@
 }
 
 .asset-card-bg-label {
-  color: var(--color-slate-500);
+  color: var(--color-ink-2);
   font-weight: 500;
 }
 
-.dark .asset-card-bg-label {
-  color: var(--color-slate-400);
-}
-
 .asset-card-bg-btn {
+  min-height: 2rem;
   padding: 0.25rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid var(--color-slate-300);
-  background: var(--color-white);
-  color: var(--color-slate-600);
+  border-radius: var(--radius-input);
+  border: 1px solid var(--color-rule);
+  background: var(--color-paper);
+  color: var(--color-ink-2);
   font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    border-color 0.2s var(--ease-out),
+    background-color 0.2s var(--ease-out),
+    color 0.2s var(--ease-out);
 }
 
 .asset-card-bg-btn:hover {
-  border-color: var(--color-slate-400);
-  background: var(--color-slate-50);
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.asset-card-bg-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .asset-card-bg-btn.active {
-  background: var(--color-primary-700);
-  color: var(--color-white);
-  border-color: var(--color-primary-700);
-}
-
-.dark .asset-card-bg-btn {
-  background: var(--color-slate-700);
-  border-color: var(--color-slate-600);
-  color: var(--color-slate-300);
-}
-
-.dark .asset-card-bg-btn:hover {
-  background: var(--color-slate-600);
-  border-color: var(--color-slate-500);
-}
-
-.dark .asset-card-bg-btn.active {
-  background: var(--color-primary-700);
-  color: var(--color-white);
-  border-color: var(--color-primary-700);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-color: var(--color-accent);
 }
 
 .asset-card-downloads {
@@ -134,24 +116,40 @@
 }
 
 .asset-card-download-btn {
+  min-height: 2.5rem;
+  display: inline-flex;
+  align-items: center;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
-  background: var(--color-primary-700);
-  color: var(--color-white);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
   text-decoration: none;
   font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: 700;
+  transition:
+    background-color 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
   border: none;
   cursor: pointer;
 }
 
 .asset-card-download-btn:hover {
-  background: var(--color-primary-800);
+  background: oklch(from var(--color-accent) l c h / 0.9);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px oklch(from var(--color-primary-700) l c h / 0.3);
+}
+
+.asset-card-download-btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .asset-card-download-btn:active {
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asset-card-download-btn:hover,
+  .asset-card:hover {
+    transform: none;
+  }
 }

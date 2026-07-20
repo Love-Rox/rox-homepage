@@ -201,14 +201,14 @@ export const SoftwareApplicationSchema = () => {
     name: "Rox",
     applicationCategory: "SocialNetworkingApplication",
     operatingSystem: "Linux, Docker",
-    description: "A lightweight ActivityPub server written in Rust",
+    description: "A lightweight ActivityPub server built with Bun and TypeScript",
     url: SITE_URL,
     author: {
       "@type": "Organization",
       name: SITE_NAME,
     },
     license: "https://opensource.org/licenses/AGPL-3.0",
-    programmingLanguage: "Rust",
+    programmingLanguage: "TypeScript",
   };
 
   return (
