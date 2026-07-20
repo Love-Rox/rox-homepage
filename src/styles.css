@@ -81,6 +81,10 @@
   --radius-card: 12px;
   --radius-input: 8px;
   --radius-pill: 999px;
+
+  /* Elevation used by the frosted nav. Tokenised so no component inlines a
+     raw oklch shadow (keeps every colour value referring to a named token). */
+  --shadow-nav: 0 8px 28px -18px oklch(20% 0.02 60 / 0.45);
 }
 
 /* Dark-mode overrides for surface tokens. */
@@ -221,7 +225,10 @@ body {
   -webkit-backface-visibility: hidden;
 }
 
-.pause-animation:hover {
+/* Pause on hover AND focus-within: the marquee tiles are links, so a keyboard
+   user tabbing into one must be able to stop the scroll too (WCAG 2.2.2). */
+.pause-animation:hover,
+.pause-animation:focus-within {
   animation-play-state: paused;
 }
 

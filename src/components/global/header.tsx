@@ -68,7 +68,7 @@ export const Header = ({ lang, navItems = [], cta }: HeaderProps) => {
       className={[
         "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300",
         scrolled
-          ? "border-rule bg-paper/70 shadow-[0_8px_28px_-18px_oklch(0%_0_0/0.4)] backdrop-blur-xl backdrop-saturate-150"
+          ? "border-rule bg-paper/70 shadow-[var(--shadow-nav)] backdrop-blur-xl backdrop-saturate-150"
           : "border-transparent bg-transparent",
       ].join(" ")}
       style={{ transitionTimingFunction: "var(--ease-out)" }}

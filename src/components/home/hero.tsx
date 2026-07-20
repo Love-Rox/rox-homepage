@@ -89,7 +89,7 @@ export const Hero = ({
               {quickStart.map((step, i) => (
                 <li key={step.title} className="min-w-0">
                   <div className="text-ink-2 flex items-baseline gap-2 text-xs">
-                    <span className="text-accent font-mono font-bold">{i + 1}</span>
+                    <span className="text-accent font-display font-bold">{i + 1}</span>
                     <span>{step.title}</span>
                   </div>
                   <pre className="bg-code-bg text-code-fg mt-2 overflow-x-auto rounded-[var(--radius-input)] p-4 font-mono text-[13px] leading-relaxed">
