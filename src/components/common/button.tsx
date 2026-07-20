@@ -3,25 +3,32 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "reac
 type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
 
+/* CTA voice per design.md: pill radius, one accent fill, outlined secondary.
+   Colours reference semantic tokens, never the raw --color-primary-* ramp. */
 const variantClasses: Record<Variant, string> = {
-  // Solid orange — the dominant action shape used by hero, stack cards, CTAs.
-  primary:
-    "bg-primary-600 dark:bg-primary-400 text-white dark:text-slate-800 hover:bg-primary-500 dark:hover:bg-primary-300 shadow-xs",
-  // Outline — same colour register, lower visual weight. For secondary CTAs.
-  secondary:
-    "border border-primary-600 dark:border-primary-400 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/30",
-  // Text-only with arrow affordance — for tertiary "learn more" links.
-  ghost: "text-slate-800 dark:text-slate-100 hover:text-primary-600 dark:hover:text-primary-400",
+  // The single primary action. One per viewport — the accent is a highlighter.
+  primary: "bg-accent text-accent-ink hover:bg-accent/90 active:translate-y-px",
+  // Outline — same shape, lower weight.
+  secondary: "border border-rule text-ink hover:bg-paper-3 active:translate-y-px",
+  // Text-only with arrow affordance, for tertiary "learn more" links.
+  ghost: "text-ink hover:text-accent",
 };
 
+// min-h-11 = 44px, the WCAG AA hit-target floor. Applies at every size.
 const sizeClasses: Record<Size, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-sm",
-  lg: "px-5 py-2.5 text-base",
+  sm: "min-h-11 px-4 text-sm",
+  md: "min-h-11 px-5 text-sm",
+  lg: "min-h-12 px-6 text-base",
 };
 
-const baseClasses =
-  "inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-400";
+const baseClasses = [
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap",
+  "rounded-[var(--radius-pill)] font-bold",
+  "transition-[background-color,color,border-color,transform] duration-200 ease-[var(--ease-out)]",
+  // The ring must appear instantly — never transition outline.
+  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]",
+  "disabled:pointer-events-none disabled:opacity-50",
+].join(" ");
 
 interface CommonProps {
   variant?: Variant;

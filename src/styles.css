@@ -1,4 +1,18 @@
+/* Hallmark · genre: playful · design-system: design.md · designed-as-app
+ * macrostructure families: Split Studio (marketing) · Long Document (content) ·
+ *   Index-First (hub)
+ * theme: OG-derived — paper oklch(96% 0.015 80) · accent oklch(68% 0.2 40) #ff5b11
+ * type: M PLUS Rounded 1c (display) + Noto Sans JP (body) + system mono (outlier)
+ * nav: N1b · footer: Ft5 · enrichment: Tier-A CSS (dot grid + edge bar)
+ * pre-emit critique: P5 H4 E4 S5 R5 V4
+ *
+ * NOTE: @import must stay the first rules in this file — CSS requires all
+ * @import to precede every other rule. Moving them breaks font loading.
+ */
 @import "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap";
+@import "@fontsource/noto-sans-jp/400.css";
+@import "@fontsource/noto-sans-jp/500.css";
+@import "@fontsource/noto-sans-jp/700.css";
 @import "tailwindcss";
 @plugin 'tailwindcss-react-aria-components';
 @plugin '@tailwindcss/typography';
@@ -39,6 +53,34 @@
      code surface. Was hardcoded as bg-slate-900 before. */
   --color-code-bg: #0f172a;
   --color-code-fg: #e2e8f0;
+
+  /* —— Hallmark design system (design.md) ————————————————————————
+     Semantic tokens promoted from the OG image generator's language.
+     New work uses these; --color-primary-* stays for backward compat. */
+  --color-paper: oklch(96% 0.015 80); /* #fbf3e8 — the OG cream */
+  --color-paper-2: oklch(99% 0.006 80); /* card / raised surface */
+  --color-paper-3: oklch(93% 0.018 80); /* tinted alternating band */
+  --color-ink: oklch(25% 0.02 60); /* primary text — warm, not slate */
+  --color-ink-2: oklch(48% 0.018 60); /* secondary text */
+  --color-rule: oklch(88% 0.015 70); /* hairlines */
+  --color-accent: oklch(68% 0.2 40); /* #ff5b11 — unchanged brand */
+  --color-accent-ink: oklch(99% 0.005 40); /* text on accent fill */
+  --color-focus: oklch(52% 0.18 250); /* blue, so it never reads as accent */
+
+  --font-display: "M PLUS Rounded 1c", sans-serif;
+  --font-body: "Noto Sans JP", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, monospace;
+
+  --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(2.25rem, 3.5vw + 1rem, 3.8147rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --radius-card: 12px;
+  --radius-input: 8px;
+  --radius-pill: 999px;
 }
 
 /* Dark-mode overrides for surface tokens. */
@@ -49,6 +91,114 @@
 
   --color-code-bg: #050a14;
   --color-code-fg: var(--color-slate-100);
+
+  /* Hallmark tokens — dark. Hue never changes between modes; only lightness
+     and chroma move. Higher surfaces are lighter, not darker. */
+  --color-paper: oklch(16% 0.012 60);
+  --color-paper-2: oklch(20% 0.012 60);
+  --color-paper-3: oklch(24% 0.012 60);
+  --color-ink: oklch(94% 0.008 80);
+  --color-ink-2: oklch(72% 0.008 70);
+  --color-rule: oklch(32% 0.01 60);
+  --color-accent: oklch(74% 0.17 40);
+  --color-accent-ink: oklch(18% 0.015 40);
+  --color-focus: oklch(70% 0.15 250);
+}
+
+/* —— Mobile floor ———————————————————————————————————————————
+   `clip` not `hidden`: `hidden` on a root element silently kills
+   position:sticky for every descendant, which would break the N1b nav. */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* —— Focus ring ——————————————————————————————————————————————
+   Shows instantly. Never transition or animate its appearance. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-input);
+}
+
+/* —— Display type ————————————————————————————————————————————
+   Roman only. Long Japanese compounds and URLs must break rather than
+   force a horizontal scrollbar at 320px. */
+.hallmark-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  min-width: 0;
+
+  /* `overflow-wrap: anywhere` alone is required so long Latin words and URLs
+     can't force a horizontal scrollbar at 320px — but on Japanese it breaks
+     mid-phrase and strands single characters on their own line
+     (「コミュニティに参」/「加」). `auto-phrase` makes the browser break at
+     phrase boundaries instead (「コミュニティに」/「参加」); it degrades to
+     normal behaviour where unsupported, with `anywhere` still catching the
+     overflow case. */
+  overflow-wrap: anywhere;
+  word-break: auto-phrase;
+}
+
+/* —— Tier-A enrichment: the OG image's dot grid ——————————————————
+   Promoted from src/pages/_api/api/og.tsx, which used a 36px tile. Pure
+   CSS, no raster asset. Sits behind content at very low contrast. */
+.hallmark-dotgrid {
+  position: relative;
+  isolation: isolate;
+}
+
+.hallmark-dotgrid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    oklch(from var(--color-ink) l c h / 0.07) 1px,
+    transparent 0
+  );
+  background-size: 36px 36px;
+}
+
+/* —— Tier-A enrichment: the OG image's right-edge accent bar ——————
+   The OG card carries a 16px solid #ff5b11 right edge. On the page it
+   reads better as a left-edge rule on a section, at hairline weight. */
+.hallmark-edgebar {
+  border-left: 3px solid var(--color-accent);
+}
+
+/* —— Card hover-lift ————————————————————————————————————————
+   The single motion primitive this system adds. transform + opacity only. */
+.hallmark-lift {
+  transition:
+    transform var(--dur-short, 220ms) var(--ease-out),
+    box-shadow var(--dur-short, 220ms) var(--ease-out);
+}
+
+.hallmark-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -10px oklch(from var(--color-accent) l c h / 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hallmark-lift {
+    transition: opacity 150ms var(--ease-out);
+  }
+
+  .hallmark-lift:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .animate-infinite-scroll,
+  .animate-marquee {
+    animation: none;
+  }
 }
 
 /* Infinite Scroll Animation. Used by AdditionalStacks marquee. The mask-image

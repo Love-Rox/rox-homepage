@@ -74,7 +74,13 @@ export default async function LangHomePage({ lang }: PageProps<"/[lang]">) {
       />
       <OrganizationSchema />
       <SoftwareApplicationSchema />
-      <Hero {...heroLangData[locale]} />
+      {/* The hero's proof half shows the first two real setup commands —
+          same source of truth as the GettingStarted section below, so the
+          two can never drift apart. */}
+      <Hero
+        {...heroLangData[locale]}
+        quickStart={gettingStartedLangData[locale].steps.slice(0, 2)}
+      />
       <Stacks {...stacksLangData[locale]} />
       <AdditionalStacks {...additionalStacksLangData[locale]} />
       <Features {...featuresLangData[locale]} />

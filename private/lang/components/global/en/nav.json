@@ -20,5 +20,9 @@
       "name": "Contact",
       "href": "/en/contact"
     }
-  ]
+  ],
+  "cta": {
+    "name": "Get Started",
+    "href": "/en/docs/getting-started"
+  }
 }

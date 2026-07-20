@@ -20,5 +20,9 @@
       "name": "お問い合わせ",
       "href": "/ja/contact"
     }
-  ]
+  ],
+  "cta": {
+    "name": "さぁ始めよう",
+    "href": "/ja/docs/getting-started"
+  }
 }

@@ -43,6 +43,8 @@ export default async function RootLayout(props: LayoutProps) {
     sniffLangFromRequest() ||
     "en") as keyof typeof navData;
   const navItems = navData[currentLang]?.items || navData.en.items;
+  // The site's single primary action — see design.md § CTA voice.
+  const navCta = navData[currentLang]?.cta || navData.en.cta;
 
   return (
     <html lang={currentLang}>
@@ -56,8 +58,11 @@ export default async function RootLayout(props: LayoutProps) {
         <SoftwareApplicationSchema />
       </head>
       <body>
-        <div className="font-m-plus-rounded-1c bg-primary-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 min-h-screen flex flex-col">
-          <Header lang={currentLang} navItems={navItems} />
+        {/* font-body (Noto Sans JP) is the inherited default; display type
+            opts up to font-display (M PLUS Rounded 1c) per element. The paper
+            and ink tokens already flip under .dark, so no dark: variants. */}
+        <div className="font-body bg-paper text-ink min-h-screen flex flex-col">
+          <Header lang={currentLang} navItems={navItems} cta={navCta} />
           <main className="*:min-h-64 lg:min-h-svh flex-1">{children}</main>
           <Footer lang={currentLang} />
         </div>
