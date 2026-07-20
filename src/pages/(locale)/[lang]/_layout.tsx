@@ -3,7 +3,7 @@ import "@/styles.css";
 import type { ReactNode } from "react";
 import { Footer } from "@/components/global/footer";
 import { Header } from "@/components/global/header";
-import { unstable_getContext } from "waku/server";
+import { unstable_getRequest } from "waku/router/server";
 import {
   WebSiteSchema,
   OrganizationSchema,
@@ -27,13 +27,21 @@ export default async function RootLayout(props: LayoutProps) {
   const { children } = props;
   const data = await getData();
 
-  // Extract language from URL using context
-  const context = unstable_getContext();
-  const req = context?.req as { url?: string } | undefined;
-  const url = req?.url || "";
-  const urlParts = url.split("/");
-  const langFromUrl = urlParts.find((part: string) => part === "en" || part === "ja");
-  const currentLang = (langFromUrl || props.params?.lang || "en") as keyof typeof navData;
+  // Resolve the active locale.
+  //
+  // The route param is the primary source: fsRouter derives it from the
+  // [lang] segment, so it is always present and needs no request scope.
+  //
+  // The URL sniff is a fallback only. waku 1.0.0-beta.2 replaced the
+  // context-storage API with handler interceptors (wakujs/waku#2118) —
+  // `unstable_getContext()` from "waku/server" became
+  // `unstable_getRequest()` from "waku/router/server" — but *both* throw
+  // rather than returning undefined when called outside a request-scoped
+  // render, which is the case for this layout under `waku dev`. Hence the
+  // guard: an unguarded call 500s every locale route locally.
+  const currentLang = (props.params?.lang ||
+    sniffLangFromRequest() ||
+    "en") as keyof typeof navData;
   const navItems = navData[currentLang]?.items || navData.en.items;
 
   return (
@@ -57,6 +65,17 @@ export default async function RootLayout(props: LayoutProps) {
     </html>
   );
 }
+
+/** Locale from the request URL, or undefined when no request scope exists. */
+const sniffLangFromRequest = (): "en" | "ja" | undefined => {
+  try {
+    return unstable_getRequest()
+      .url.split("/")
+      .find((part) => part === "en" || part === "ja") as "en" | "ja" | undefined;
+  } catch {
+    return undefined;
+  }
+};
 
 const getData = async () => {
   const data = {
