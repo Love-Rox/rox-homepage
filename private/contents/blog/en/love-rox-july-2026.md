@@ -117,6 +117,8 @@ The packages are split by use:
 - `@love-rox/kumihimo-react` / `-vue` / `-astro` — framework components and integrations
 - `@love-rox/kumihimo-editor` — an embeddable live editor
 
+The CLI can also export to draw.io format and produce cable schedules for use on site.
+
 Published on July 30th, currently at **v0.1.0** on npm.
 
 ## 📦 On distribution

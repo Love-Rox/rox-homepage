@@ -117,6 +117,8 @@ sw.PGM  -> rec.SDI  : sdi 2m  "V-10"
 - `@love-rox/kumihimo-react` / `-vue` / `-astro` — 各フレームワーク向けコンポーネント
 - `@love-rox/kumihimo-editor` — 組み込み可能なライブエディタ
 
+CLI からは draw.io 形式への書き出しや、現場で使うケーブル表の出力もできます。
+
 7月30日に公開したばかりで、npm 上は **v0.1.0** です。
 
 ## 📦 配布について
