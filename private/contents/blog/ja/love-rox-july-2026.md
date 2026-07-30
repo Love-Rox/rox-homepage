@@ -85,7 +85,7 @@ Notion Calendar 相当の使い勝手を、ローカルファーストで実現�
 
 ## 🎛️ kumihimo — AV系統図をテキストで書く
 
-[GitHub](https://github.com/Love-Rox/kumihimo) ・ [npm](https://www.npmjs.com/package/@love-rox/kumihimo-core)
+**サイト: <https://kumihimo.love-rox.cc/ja>** ・ [GitHub](https://github.com/Love-Rox/kumihimo) ・ [npm](https://www.npmjs.com/package/@love-rox/kumihimo-core)
 
 Mermaid がフローチャートに対してやっていることを、**AV系統図**に対してやるライブラリです。ただし、決定的な違いが2つあります。**接続の単位がノードではなくポートであること**、そして**ケーブルに乗る信号の種別を、装飾ではなくツールが理解する情報として扱うこと**です。
 
@@ -118,6 +118,21 @@ sw.PGM  -> rec.SDI  : sdi 2m  "V-10"
 - `@love-rox/kumihimo-editor` — 組み込み可能なライブエディタ
 
 CLI からは draw.io 形式への書き出しや、現場で使うケーブル表の出力もできます。
+
+卓の16chを図ごとに書き直す必要はありません。`model` で一度定義しておけば、`device … from` から何台でも実体化できます。
+
+```khm
+model dm3 "Yamaha DM3" as mixer {
+  in  CH[1..16] : xlr
+  out L, R      : xlr
+  @vendor "Yamaha"
+}
+
+device foh from dm3
+device mon from dm3 "モニター卓"
+```
+
+サイトにはライブエディタが載っているので、インストールせずに書き味を試せます。
 
 7月30日に公開したばかりで、npm 上は **v0.1.0** です。
 

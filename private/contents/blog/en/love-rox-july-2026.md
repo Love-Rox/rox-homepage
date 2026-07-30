@@ -85,7 +85,7 @@ The architecture is three layers: a web app (PWA), a desktop app (Tauri), and a 
 
 ## 🎛️ kumihimo — AV signal flow diagrams as text
 
-[GitHub](https://github.com/Love-Rox/kumihimo) · [npm](https://www.npmjs.com/package/@love-rox/kumihimo-core)
+**Site: <https://kumihimo.love-rox.cc/en>** · [GitHub](https://github.com/Love-Rox/kumihimo) · [npm](https://www.npmjs.com/package/@love-rox/kumihimo-core)
 
 What Mermaid does for flowcharts, kumihimo does for **AV signal flow diagrams** — with two decisive differences. **The unit of connection is a port, not a node**, and **the signal type on a cable is information the tool understands, not decoration**.
 
@@ -118,6 +118,21 @@ The packages are split by use:
 - `@love-rox/kumihimo-editor` — an embeddable live editor
 
 The CLI can also export to draw.io format and produce cable schedules for use on site.
+
+So that the same console doesn't have to be rewritten for every diagram, `model` defines a piece of equipment once and `device … from` instantiates it as many times as needed.
+
+```khm
+model dm3 "Yamaha DM3" as mixer {
+  in  CH[1..16] : xlr
+  out L, R      : xlr
+  @vendor "Yamaha"
+}
+
+device foh from dm3
+device mon from dm3 "Monitor console"
+```
+
+The site carries a live editor, so you can try the syntax without installing anything.
 
 Published on July 30th, currently at **v0.1.0** on npm.
 
