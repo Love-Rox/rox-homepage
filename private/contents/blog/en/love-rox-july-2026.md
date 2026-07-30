@@ -148,6 +148,8 @@ As a third-party tap, casks require `brew trust love-rox/tap` before installing.
 
 ## Closing
 
-All four are still early in their version numbers. If something gets in your way, or you find yourself wishing it worked differently, open an issue on the relevant repository.
+All four are still early in their version numbers. We'll keep growing each of them through August.
 
-We'll keep growing each of them through August.
+If something gets in your way, or you find yourself wishing it worked differently, open an issue on the relevant repository.
+
+**The Love Rocks. Rox.** 🛠️
