@@ -29,12 +29,12 @@ Because each session has its own worktree, running them in parallel doesn't tang
 
 The defining technical choice is embedding **libghostty** as an XCFramework. Rather than writing a terminal emulator or shelling out to an existing app, LaboLabo hosts a real, GPU-rendered terminal inside itself.
 
-| | |
-| --- | --- |
-| Platform | Native macOS (Swift + SwiftUI) |
-| Terminal | libghostty, embedded as an XCFramework |
+|              |                                                          |
+| ------------ | -------------------------------------------------------- |
+| Platform     | Native macOS (Swift + SwiftUI)                           |
+| Terminal     | libghostty, embedded as an XCFramework                   |
 | Engine layer | Process, Git, and state as UI-independent Swift `actor`s |
-| Persistence | GRDB.swift (SQLite) |
+| Persistence  | GRDB.swift (SQLite)                                      |
 
 The current version is **v1.2.5**.
 
@@ -100,12 +100,12 @@ sw.PGM  -> rec.SDI  : sdi 2m  "V-10"
 
 Why ports? A mixer's `IN 12` is a different thing from its `IN 13`. An SDI output cannot feed an HDMI input. The length and jacket colour of a cable are facts somebody needs on site. A flowchart tool can draw a picture of all this; **it cannot tell you when the picture is wrong**.
 
-| | Mermaid flowchart | kumihimo |
-| --- | --- | --- |
-| Unit of connection | node → node | **port → port** |
-| Meaning of a line | arbitrary | **signal type** (SDI / XLR / Dante …) |
-| Validation | none | type mismatches, direction, over-booked inputs |
-| Position within a node | meaningless | **meaningful** — `IN 1` is not `IN 2` |
+|                        | Mermaid flowchart | kumihimo                                       |
+| ---------------------- | ----------------- | ---------------------------------------------- |
+| Unit of connection     | node → node       | **port → port**                                |
+| Meaning of a line      | arbitrary         | **signal type** (SDI / XLR / Dante …)          |
+| Validation             | none              | type mismatches, direction, over-booked inputs |
+| Position within a node | meaningless       | **meaningful** — `IN 1` is not `IN 2`          |
 
 The faults worth catching are the ones where **the cable plugs in perfectly and nothing works**. HDBaseT, for instance, uses Cat cable and RJ45 but is not Ethernet, so patching it into a network switch does nothing — while fitting perfectly.
 
