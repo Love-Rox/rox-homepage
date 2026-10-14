@@ -229,7 +229,7 @@ ENABLE_FEDERATION=true
 ### Redis / キュー設定
 
 ```bash
-# キャッシュとジョブキュー用のRedis URL
+# キャッシュとジョブキュー用のRedis URL（未設定の場合は DRAGONFLY_URL も参照）
 REDIS_URL=redis://localhost:6379
 
 # キューを無効にして同期配信を使用（デフォルト: false）
@@ -244,6 +244,8 @@ STATS_LOG_INTERVAL_MS=3600000
 
 > [!NOTE]
 > 本番環境ではActivityPub配信キューにRedisが必要です。高性能なRedis代替として[Dragonfly](https://www.dragonflydb.io/)を使用できます。
+>
+> Dragonflyを使う場合は、BullMQが動作するよう起動オプションに `--default_lua_flags=allow-undeclared-keys` を指定してください。指定しないとジョブが `script tried accessing undeclared key` で失敗します。 また `--cache_mode=true` は付けないでください。メモリが上限に達したときに配信待ちのジョブが追い出されることがあります。
 
 ### Webプッシュ通知（VAPID）
 
@@ -296,6 +298,10 @@ services:
 
   dragonfly:
     image: docker.dragonflydb.io/dragonflydb/dragonfly
+    # BullMQ の Lua スクリプトは宣言外のキーにアクセスするため必須
+    command: >
+      dragonfly
+      --default_lua_flags=allow-undeclared-keys
     ports:
       - "6379:6379"
     volumes:
