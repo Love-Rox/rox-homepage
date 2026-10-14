@@ -252,7 +252,7 @@ ENABLE_FEDERATION=true
 ### Redis / Queue Configuration
 
 ```bash
-# Redis URL for caching and job queues
+# Redis URL for caching and job queues (falls back to DRAGONFLY_URL when unset)
 REDIS_URL=redis://localhost:6379
 
 # Disable queue and use synchronous delivery (default: false)
@@ -267,6 +267,8 @@ STATS_LOG_INTERVAL_MS=3600000
 
 > [!NOTE]
 > Redis is required for the ActivityPub delivery queue in production. You can use [Dragonfly](https://www.dragonflydb.io/) as a high-performance Redis alternative.
+>
+> When using Dragonfly, start it with `--default_lua_flags=allow-undeclared-keys` so BullMQ works. Without it, jobs fail with `script tried accessing undeclared key`. Also avoid `--cache_mode=true`: it can evict pending delivery jobs when memory fills up.
 
 ### Web Push Notifications (VAPID)
 
@@ -319,6 +321,10 @@ services:
 
   dragonfly:
     image: docker.dragonflydb.io/dragonflydb/dragonfly
+    # Required: BullMQ's Lua scripts access undeclared keys
+    command: >
+      dragonfly
+      --default_lua_flags=allow-undeclared-keys
     ports:
       - "6379:6379"
     volumes:
